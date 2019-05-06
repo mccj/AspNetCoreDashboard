@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Content\css\site1.css" />
+    <None Remove="Content\css\site2.css" />
+    <None Remove="Content\css\site3.css" />
+    <None Remove="Content\favicon.ico" />
+    <None Remove="Content\index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Content\css\site1.css" />
+    <EmbeddedResource Include="Content\css\site2.css" />
+    <EmbeddedResource Include="Content\css\site3.css" />
+    <EmbeddedResource Include="Content\favicon.ico" />
+    <EmbeddedResource Include="Content\index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\AspNetCoreDashboard\AspNetCoreDashboard.csproj" />
+  </ItemGroup>
+
+</Project>
