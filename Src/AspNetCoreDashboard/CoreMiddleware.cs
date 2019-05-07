@@ -1,4 +1,4 @@
-﻿#if !NETFULL
+﻿#if NETSTANDARD
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 

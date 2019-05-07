@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AspNetCoreDashboard.Annotations;
-#if !NETFULL
+#if NETSTANDARD
 using HttpContext = Microsoft.AspNetCore.Http.HttpContext;
 #else
 using HttpContext = Microsoft.Owin.IOwinContext;
@@ -40,13 +40,13 @@ namespace AspNetCoreDashboard.Dashboard
         public override string PathBase => _context.Request.PathBase.Value;
         public override string GetQuery(string key) => _context.Request.Query[key];
         public override string LocalIpAddress =>
-#if !NETFULL
+#if NETSTANDARD
     _context.Connection.LocalIpAddress.ToString();
 #else
         _context.Request.LocalIpAddress;
 #endif
         public override string RemoteIpAddress =>
-#if !NETFULL
+#if NETSTANDARD
     _context.Connection.RemoteIpAddress.ToString();
 #else
         _context.Request.RemoteIpAddress;
@@ -54,7 +54,7 @@ namespace AspNetCoreDashboard.Dashboard
         public override async Task<IList<string>> GetFormValuesAsync(string key)
         {
             var form = await _context.Request.ReadFormAsync();
-#if !NETFULL
+#if NETSTANDARD
             return form[key];
 #else
             return form.GetValues(key);
@@ -62,7 +62,7 @@ namespace AspNetCoreDashboard.Dashboard
         }
         public override System.IO.Stream Body => _context.Request.Body;
 
-#if !NETFULL
+#if NETSTANDARD
         public override async Task<Microsoft.AspNetCore.Http.IFormFile> GetFileAsync(string key)
         {
             var form = await _context.Request.ReadFormAsync();

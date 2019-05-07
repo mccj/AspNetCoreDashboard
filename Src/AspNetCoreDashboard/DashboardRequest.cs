@@ -30,7 +30,7 @@ namespace AspNetCoreDashboard.Dashboard
 
         public abstract Task<IList<string>> GetFormValuesAsync(string key);
         public abstract System.IO.Stream Body { get; }
-#if !NETFULL
+#if NETSTANDARD
         public abstract Task<Microsoft.AspNetCore.Http.IFormFile> GetFileAsync(string key);
         public abstract Task<IEnumerable<Microsoft.AspNetCore.Http.IFormFile>> GetFilesAsync(string key);
 #else

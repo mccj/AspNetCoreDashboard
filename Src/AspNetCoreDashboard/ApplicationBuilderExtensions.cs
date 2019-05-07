@@ -1,7 +1,7 @@
 ﻿using AspNetCoreDashboard.Dashboard;
 using System;
 using System.Collections.Generic;
-#if !NETFULL
+#if NETSTANDARD
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +24,7 @@ namespace AspNetCoreDashboard
         {
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (pathMatch == null) throw new ArgumentNullException(nameof(pathMatch));
-#if !NETFULL
+#if NETSTANDARD
             var services = app.ApplicationServices;
 
             routes = routes ?? services.GetRequiredService<RouteCollection>();
@@ -49,7 +49,7 @@ namespace AspNetCoreDashboard
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (pathMatch == null) throw new ArgumentNullException(nameof(pathMatch));
 
-#if !NETFULL
+#if NETSTANDARD
             var services = app.ApplicationServices;
 
             options = options ?? services.GetService<T>() ?? new T();

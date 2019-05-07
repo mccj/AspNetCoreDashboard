@@ -19,7 +19,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using AspNetCoreDashboard.Annotations;
-#if !NETFULL
+#if NETSTANDARD
 using Microsoft.AspNetCore.Http;
 using HttpContext = Microsoft.AspNetCore.Http.HttpContext;
 #else
@@ -70,7 +70,7 @@ namespace AspNetCoreDashboard.Dashboard
         }
         public override void SetHeader(string key, string[] value)
         {
-#if !NETFULL
+#if NETSTANDARD
             _context.Response.Headers[key] = value;
 #else
             _context.Response.Headers.SetValues(key, value);

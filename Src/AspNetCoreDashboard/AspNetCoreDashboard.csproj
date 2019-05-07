@@ -24,9 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="BatchCommandDispatcher.cs" />
-    <Compile Remove="Class1.cs" />
     <Compile Remove="DashboardOptions.cs" />
+    <Compile Remove="Dispatcher\BatchCommandDispatcher.cs" />
     <Compile Remove="RazorPage.cs" />
     <Compile Remove="RazorPageDispatcher.cs" />
   </ItemGroup>

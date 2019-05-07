@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using AspNetCoreDashboard.Dashboard;
 using AspNetCoreDashboard.Annotations;
-#if !NETFULL
+#if NETSTANDARD
 using Microsoft.AspNetCore.Http;
 using Middleware = AspNetCoreDashboard.CoreMiddleware;
 using RequestDelegate = Microsoft.AspNetCore.Http.RequestDelegate;
@@ -59,7 +59,7 @@ namespace AspNetCoreDashboard
             {
                 if (!filter.Authorize(context))
                 {
-#if !NETFULL
+#if NETSTANDARD
                     var isAuthenticated = httpContext.User?.Identity?.IsAuthenticated;
 #else
                     var isAuthenticated = httpContext.Request?.User?.Identity?.IsAuthenticated;

@@ -18,7 +18,7 @@ using AspNetCoreDashboard.Annotations;
 //using Microsoft.AspNetCore.Http;
 using System;
 //using Microsoft.Extensions.DependencyInjection;
-#if !NETFULL
+#if NETSTANDARD
 using HttpContext = Microsoft.AspNetCore.Http.HttpContext;
 #else
 using HttpContext = Microsoft.Owin.IOwinContext;
