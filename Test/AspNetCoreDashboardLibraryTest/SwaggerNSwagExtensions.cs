@@ -29,7 +29,6 @@ namespace Microsoft.Extensions.DependencyInjection
             //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.woff2)", "font/woff2", GetContentFolderNamespace());
             //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.woff)", "application/font-woff", GetContentFolderNamespace());
             //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.png)", "image/png", GetContentFolderNamespace());
-            routes.AddEmbeddedResource(assembly, "/(?<path>.*)", string.Empty, GetContentFolderNamespace());
             //routes.AddEmbeddedDefaultResource(assembly, GetContentFolderNamespace(),"");
 
             routes.AddCommand("/FlowStatistics", context =>
@@ -61,6 +60,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 return true;
             });
+            routes.AddEmbeddedResource(assembly, "/(?<path>.*)", string.Empty, GetContentFolderNamespace());
             //routes.AddEmbeddedResource("/libs/(?<path>.+\\.json)", "application/json", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));
             //routes.AddEmbeddedResource("/libs/(?<path>.+\\.js)", "application/javascript", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));
             //routes.AddEmbeddedResource("/libs/(?<path>.+\\.css)", "text/css", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));

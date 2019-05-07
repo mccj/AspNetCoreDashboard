@@ -8,8 +8,19 @@
 <body>
     <a href="FlowStatistics">FlowStatistics</a>
     <a href="FlowStatistics?filter=eee">FlowStatistics?filter=eee</a>
-    <form action="FlowStatistics" method="post" enctype="application/x-www-form-urlencoded" >
+    <form action="FlowStatistics" method="post" enctype="application/x-www-form-urlencoded">
         <input type="text" name="filter" value="aaa" />
+        <input type="text" name="orderBy" value="ssss" />
+        <input type="submit" />
+    </form>
+    <form action="FlowStatistics" method="post" enctype="multipart/form-data">
+        <input type="text" name="filter" value="aaa" />
+        <input type="text" name="orderBy" value="ssss" />
+        <input type="submit" />
+    </form>
+    <form action="FlowStatistics" method="get">
+        <input type="text" name="filter" value="aaa" />
+        <input type="text" name="orderBy" value="ssss" />
         <input type="submit" />
     </form>
 </body>

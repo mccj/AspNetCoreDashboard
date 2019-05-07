@@ -53,10 +53,11 @@ namespace AspNetCoreDashboard.Dashboard
 #endif
         public override async Task<IList<string>> GetFormValuesAsync(string key)
         {
-            var form = await _context.Request.ReadFormAsync();
 #if NETSTANDARD
-            return form[key];
+            return await Task.FromResult(_context.Request.Form[key]);
+            //return form[key];
 #else
+            var form = await _context.Request.ReadFormAsync();
             return form.GetValues(key);
 #endif
         }
