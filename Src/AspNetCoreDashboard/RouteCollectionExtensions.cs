@@ -32,34 +32,59 @@ namespace AspNetCoreDashboard.Dashboard
 
         //    routes.Add(pathTemplate, new RazorPageDispatcher(pageFunc));
         //}
+        private readonly static Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider fileExtensionContentTypeProvider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+
         public static void AddEmbeddedResource(
-    [NotNull] this RouteCollection routes,
-    [NotNull] string pathTemplate,
-    [NotNull] string contentType,
-    [NotNull] System.Reflection.Assembly assembly,
-     string baseNamespace=null)
+        [NotNull] this RouteCollection routes,
+        [NotNull] System.Reflection.Assembly assembly,
+        [NotNull] string pathTemplate,
+        string contentType = null,
+        string baseNamespace = null)
         {
             if (routes == null) throw new ArgumentNullException(nameof(routes));
             if (pathTemplate == null) throw new ArgumentNullException(nameof(pathTemplate));
-            if (contentType == null) throw new ArgumentNullException(nameof(contentType));
+            //if (contentType == null) throw new ArgumentNullException(nameof(contentType));
             if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
-            routes.Add(pathTemplate, new EmbeddedResourceDispatcher2("path", contentType, assembly, baseNamespace));
-        }
-//#if NETFULL
-//        [Obsolete("Use the AddCommand(RouteCollection, string, Func<DashboardContext, bool>) overload instead. Will be removed in 2.0.0.")]
-//        public static void AddCommand(
-//            [NotNull] this RouteCollection routes, 
-//            [NotNull] string pathTemplate, 
-//            [NotNull] Func<RequestDispatcherContext, bool> command)
-//        {
-//            if (routes == null) throw new ArgumentNullException(nameof(routes));
-//            if (pathTemplate == null) throw new ArgumentNullException(nameof(pathTemplate));
-//            if (command == null) throw new ArgumentNullException(nameof(command));
+            routes.Add(pathTemplate, new EmbeddedResourceDispatcher2("path", path =>
+            {
+                if (!string.IsNullOrWhiteSpace(contentType))
+                    return contentType;
 
-//            routes.Add(pathTemplate, new CommandDispatcher(command));
-//        }
-//#endif
+                fileExtensionContentTypeProvider.TryGetContentType(path, out var _contentType);
+                return _contentType;
+            }, assembly, baseNamespace));
+        }
+
+        //public static void AddEmbeddedDefaultResource(
+        //[NotNull] this RouteCollection routes,
+        //[NotNull] System.Reflection.Assembly assembly,
+        //[NotNull] string defaultTemplate,
+        //string baseNamespace = null)
+        //{
+        //    if (routes == null) throw new ArgumentNullException(nameof(routes));
+        //    if (defaultTemplate == null) throw new ArgumentNullException(nameof(defaultTemplate));
+        //    //if (contentType == null) throw new ArgumentNullException(nameof(contentType));
+        //    if (assembly == null) throw new ArgumentNullException(nameof(assembly));
+
+        //    AddEmbeddedResource(routes, assembly, "/(?<path>.*)", "", baseNamespace);
+        //}
+
+
+        //#if NETFULL
+        //        [Obsolete("Use the AddCommand(RouteCollection, string, Func<DashboardContext, bool>) overload instead. Will be removed in 2.0.0.")]
+        //        public static void AddCommand(
+        //            [NotNull] this RouteCollection routes, 
+        //            [NotNull] string pathTemplate, 
+        //            [NotNull] Func<RequestDispatcherContext, bool> command)
+        //        {
+        //            if (routes == null) throw new ArgumentNullException(nameof(routes));
+        //            if (pathTemplate == null) throw new ArgumentNullException(nameof(pathTemplate));
+        //            if (command == null) throw new ArgumentNullException(nameof(command));
+
+        //            routes.Add(pathTemplate, new CommandDispatcher(command));
+        //        }
+        //#endif
 
         public static void AddCommand(
             [NotNull] this RouteCollection routes,

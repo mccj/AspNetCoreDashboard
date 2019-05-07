@@ -25,12 +25,12 @@ namespace AspNetCoreDashboard.Dashboard
     {
         private readonly Assembly _assembly;
         private readonly string _baseNamespace;
-        private readonly string _contentType;
+        private readonly Func<string,string> _contentType;
         private readonly string _path;
 
         public EmbeddedResourceDispatcher2(
             [NotNull] string path,
-            [NotNull] string contentType,
+            [NotNull] Func<string, string> contentType,
             [NotNull] Assembly assembly,
             string baseNamespace)
         {
@@ -41,10 +41,11 @@ namespace AspNetCoreDashboard.Dashboard
         }
         public Task Dispatch(IDashboardContext context)
         {
-            context.Response.ContentType = _contentType;
-            context.Response.SetExpire(DateTimeOffset.Now.AddYears(1));
 
             var path = context.UriMatch.Groups[_path].Value;
+
+            context.Response.ContentType = _contentType(path);
+            context.Response.SetExpire(DateTimeOffset.Now.AddYears(1));
 
             WriteResponse(context.Response, _baseNamespace + "." + getPath(path));
 

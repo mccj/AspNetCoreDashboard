@@ -76,5 +76,9 @@ namespace AspNetCoreDashboard.Dashboard
             _context.Response.Headers.SetValues(key, value);
 #endif
         }
+        public override void Redirect(string location)
+        {
+            _context.Response.Redirect(location);
+        }
     }
 }

@@ -32,5 +32,6 @@ namespace AspNetCoreDashboard.Dashboard
         public abstract Task WriteAsync(byte[] buffer);
         public abstract void SetHeader(string key, string value);
         public abstract void SetHeader(string key, string[] value);
+        public abstract void Redirect(string location);
     }
 }
