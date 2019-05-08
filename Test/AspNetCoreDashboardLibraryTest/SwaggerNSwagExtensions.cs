@@ -16,10 +16,11 @@ namespace Microsoft.Extensions.DependencyInjection
             var contentFolderNamespace = GetContentFolderNamespace();
             var routes = new AspNetCoreDashboard.Dashboard.RouteCollection();
             routes.Add("", new RedirectDispatcher((uriMatch) => uriMatch.Value + "/"));
-            routes.Add("/aaaa", new RedirectDispatcher((uriMatch) => uriMatch.Value + "/"));
+            //routes.Add("/aaaa", new RedirectDispatcher((uriMatch) => uriMatch.Value + "/"));
 
-            routes.Add("/", new EmbeddedResourceDispatcher(System.Net.Mime.MediaTypeNames.Text.Html, assembly, GetContentResourceName("index.html")));
-            routes.Add("/aaaa/", new EmbeddedResourceDispatcher(System.Net.Mime.MediaTypeNames.Text.Html, assembly, GetContentResourceName("index.html")));
+            //routes.Add("/", new EmbeddedResourceDispatcher(System.Net.Mime.MediaTypeNames.Text.Html, assembly, GetContentResourceName("index.html")));
+            routes.Add("/", new PhysicalFileDispatcher(System.Net.Mime.MediaTypeNames.Text.Html, "Content/index.html"));
+            //routes.Add("/aaaa/", new EmbeddedResourceDispatcher(System.Net.Mime.MediaTypeNames.Text.Html, assembly, GetContentResourceName("index.html")));
             ////app.UseStaticFiles(new StaticFileOptions { RequestPath = "/aa/bb", ServeUnknownFileTypes = true, DefaultContentType = "application/x-msdownload", FileProvider = new EmbeddedFileProvider(assembly, "AspNetCoreDashboardLibraryTest") });
             //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.css)", "text/css", GetContentFolderNamespace());
             //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.js)", "application/javascript", GetContentFolderNamespace());

@@ -21,72 +21,70 @@ using AspNetCoreDashboard.Annotations;
 
 namespace AspNetCoreDashboard.Dashboard
 {
-    public class EmbeddedResourceDispatcher : IDashboardDispatcher
+    public class PhysicalFileDispatcher : IDashboardDispatcher
     {
-        private readonly Assembly _assembly;
-        private readonly string _baseNamespace;
+        private readonly string _basePath;
         private readonly Func<string, string> _contentTypeFun;
+        private readonly string _staticPath;
         private readonly string _path;
-        private readonly string _resourceName;
 
-        internal EmbeddedResourceDispatcher(
+        internal PhysicalFileDispatcher(
             [NotNull] string path,
             [NotNull] Func<string, string> contentTypeFun,
-            [NotNull] Assembly assembly,
-            string baseNamespace)
+            string basePath)
         {
             _path = path;
-            _assembly = assembly;
-            _baseNamespace = baseNamespace;
+            _basePath = basePath;
             _contentTypeFun = contentTypeFun;
         }
-        public EmbeddedResourceDispatcher(
+        public PhysicalFileDispatcher(
             [NotNull] string contentType,
-            [NotNull] Assembly assembly,
-            string resourceName)
+            string staticPath)
         {
             if (contentType == null) throw new ArgumentNullException(nameof(contentType));
-            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
-            _assembly = assembly;
-            _resourceName = resourceName;
-            _contentTypeFun = (path) => contentType;
+            _staticPath = staticPath;
+            _contentTypeFun = (p) => contentType;
         }
         public Task Dispatch(IDashboardContext context)
         {
-            if (string.IsNullOrWhiteSpace(_resourceName))
+            if (string.IsNullOrWhiteSpace(_staticPath))
             {
                 var path = context.UriMatch.Groups[_path].Value;
 
                 context.Response.ContentType = _contentTypeFun(path);
                 context.Response.SetExpire(DateTimeOffset.Now.AddYears(1));
 
-                var resourceName = _baseNamespace + "." + getPath(path);
+                var resourceName = _basePath + "." + getPath(path);
                 WriteResponse(context.Response, resourceName);
             }
             else
             {
-                context.Response.ContentType = _contentTypeFun(_resourceName);
-                WriteResponse(context.Response, _resourceName);
+                context.Response.ContentType = _contentTypeFun(_staticPath);
+                WriteResponse(context.Response, _staticPath);
             }
 
             return Task.FromResult(true);
         }
         protected virtual void WriteResponse(DashboardResponse response)
         {
-            WriteResource(response, _assembly, _resourceName);
+            WriteResource(response, _path);
         }
-        protected virtual void WriteResponse(DashboardResponse response, string resourceName)
+        protected virtual void WriteResponse(DashboardResponse response, string path)
         {
-            WriteResource(response, _assembly, resourceName);
+            WriteResource(response, path);
         }
-        protected void WriteResource(DashboardResponse response, Assembly assembly, string resourceName)
+        protected void WriteResource(DashboardResponse response, string path)
         {
-            using (var inputStream = assembly.GetManifestResourceStream(resourceName))
+            var dllPath = System.IO.Path.Combine(AppContext.BaseDirectory, path);
+            if (!System.IO.File.Exists(path) && System.IO.File.Exists(dllPath))
+                path = dllPath;
+
+            using (var inputStream = System.IO.File.OpenRead(path))
             {
                 if (inputStream == null)
                 {
-                    throw new ArgumentException($@"Resource with name {resourceName} not found in assembly {assembly}.");
+                    throw new ArgumentException($@"Path with name {path} not found in file.");
                 }
 
                 inputStream.CopyTo(response.Body);

@@ -51,6 +51,7 @@ namespace AspNetCoreDashboardWebTest
 
             app.UseDashboardTest();
 
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -46,7 +46,7 @@ namespace AspNetCoreDashboard.Dashboard
             //if (contentType == null) throw new ArgumentNullException(nameof(contentType));
             if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
-            routes.Add(pathTemplate, new EmbeddedResourceDispatcher2("path", path =>
+            routes.Add(pathTemplate, new EmbeddedResourceDispatcher("path", path =>
             {
                 if (!string.IsNullOrWhiteSpace(contentType))
                     return contentType;
