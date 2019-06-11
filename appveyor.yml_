@@ -1,0 +1,34 @@
+version: 1.0.0-beta-{build}
+image: Visual Studio 2019
+init:
+- ps: dotnet --version
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+build_script:
+- ps: >-
+    dotnet build -c Release
+
+    dotnet pack -c Release --no-build --output $env:APPVEYOR_BUILD_FOLDER\nupkgs
+
+    dotnet publish -c Release --no-build --output $env:APPVEYOR_BUILD_FOLDER\publishDir
+
+    dotnet test -c Release --no-build
+
+
+    7z a publish\$env:APPVEYOR_PROJECT_NAME.zip $env:APPVEYOR_BUILD_FOLDER\publishDir\* -r
+artifacts:
+- path: '**\*.nupkg'
+  name: nupkg
+- path: publish\**\*.*
+  name: publish
+deploy:
+- provider: Environment
+  name: MyGet
+- provider: Environment
+  name: NuGet

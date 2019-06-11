@@ -11,7 +11,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{AA8E05AC-9F9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreDashboardLibraryTest", "Test\AspNetCoreDashboardLibraryTest\AspNetCoreDashboardLibraryTest.csproj", "{99FD7117-5309-424A-A734-27B3E52B5AC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreDashboardWebTest", "Test\AspNetCoreDashboardWebTest\AspNetCoreDashboardWebTest.csproj", "{F395A2E4-59B0-49D6-8CB7-A77DA41F3E42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreDashboardWebTest", "Test\AspNetCoreDashboardWebTest\AspNetCoreDashboardWebTest.csproj", "{F395A2E4-59B0-49D6-8CB7-A77DA41F3E42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6F93B76-FD31-49CF-BBAF-4AC86441E710}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

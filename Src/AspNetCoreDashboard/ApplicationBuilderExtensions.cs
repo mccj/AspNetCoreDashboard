@@ -18,9 +18,20 @@ namespace AspNetCoreDashboard
         public static IAppBuilder UseMapDashboard(
             this IAppBuilder app,
             string pathMatch = "/dashboard",
-            IEnumerable<IDashboardAuthorizationFilter> authorization = null,
-            RouteCollection routes = null
-            )
+            System.Action<RouteCollection> routes = null,
+            IEnumerable<IDashboardAuthorizationFilter> authorization = null
+        )
+        {
+            var _routes = new AspNetCoreDashboard.Dashboard.RouteCollection();
+            routes(_routes);
+            return UseMapDashboard(app, pathMatch, _routes, authorization);
+        }
+        public static IAppBuilder UseMapDashboard(
+            this IAppBuilder app,
+            string pathMatch = "/dashboard",
+            RouteCollection routes = null,
+            IEnumerable<IDashboardAuthorizationFilter> authorization = null
+        )
         {
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (pathMatch == null) throw new ArgumentNullException(nameof(pathMatch));
@@ -39,11 +50,23 @@ namespace AspNetCoreDashboard
             return app;
         }
         public static IAppBuilder UseMapDashboard<T>(
+           this IAppBuilder app,
+           string pathMatch = "/dashboard",
+           T options = default(T),
+           System.Action<RouteCollection> routes = null,
+           IEnumerable<IDashboardAuthorizationFilter> authorization = null
+       ) where T : class, new()
+        {
+            var _routes = new AspNetCoreDashboard.Dashboard.RouteCollection();
+            routes(_routes);
+            return UseMapDashboard<T>(app, pathMatch, options, _routes, authorization);
+        }
+        public static IAppBuilder UseMapDashboard<T>(
             this IAppBuilder app,
             string pathMatch = "/dashboard",
             T options = default(T),
-            IEnumerable<IDashboardAuthorizationFilter> authorization = null,
-            RouteCollection routes = null
+            RouteCollection routes = null,
+            IEnumerable<IDashboardAuthorizationFilter> authorization = null
             ) where T : class, new()
         {
             if (app == null) throw new ArgumentNullException(nameof(app));
