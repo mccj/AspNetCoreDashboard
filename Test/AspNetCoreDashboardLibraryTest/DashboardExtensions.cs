@@ -1,3 +1,5 @@
+using AspNetCoreDashboard;
+using AspNetCoreDashboard.Dashboard;
 using Microsoft.AspNetCore.Builder;
 using System.Linq;
 using System.Reflection;

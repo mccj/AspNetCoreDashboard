@@ -2,25 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFrameworks>netstandard2.0;NET461</TargetFrameworks>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Content\css\site1.css" />
-    <None Remove="Content\css\site2.css" />
-    <None Remove="Content\css\site3.css" />
-    <None Remove="Content\favicon.ico" />
-    <None Remove="Content\index.html" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Content\css\site1.css" />
-    <EmbeddedResource Include="Content\css\site2.css" />
-    <EmbeddedResource Include="Content\css\site3.css" />
-    <EmbeddedResource Include="Content\favicon.ico" />
-    <EmbeddedResource Include="Content\index.html" />
+    <None Remove="Content\**" />
+    <EmbeddedResource Include="Content\**" />
   </ItemGroup>
 
   <ItemGroup>
