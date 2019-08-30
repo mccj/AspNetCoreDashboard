@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DashboardExtensions
     {
-        public static IApplicationBuilder UseDashboardTest(this IApplicationBuilder app)
+        public static IApplicationBuilder UseDashboardSamples(this IApplicationBuilder app)
         {
             var assembly = typeof(DashboardExtensions).GetTypeInfo().Assembly;
             var contentFolderNamespace = GetContentFolderNamespace();

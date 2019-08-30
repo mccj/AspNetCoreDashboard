@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreDashboard", "Src\AspNetCoreDashboard\AspNetCoreDashboard.csproj", "{2A8DC475-FEAC-4AE5-9453-991EB811781D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{BF9F0A8C-B0AC-4922-B429-7F2439D6AA88}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{BF9F0A8C-B0AC-4922-B429-7F2439D6AA88}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{AA8E05AC-9F9A-41BC-8E27-3FE5EC2CB121}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreDashboardLibraryTest", "Test\AspNetCoreDashboardLibraryTest\AspNetCoreDashboardLibraryTest.csproj", "{99FD7117-5309-424A-A734-27B3E52B5AC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreDashboardLibrarySamples", "Samples\AspNetCoreDashboardLibrarySamples\AspNetCoreDashboardLibrarySamples.csproj", "{99FD7117-5309-424A-A734-27B3E52B5AC5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreDashboardWebTest", "Test\AspNetCoreDashboardWebTest\AspNetCoreDashboardWebTest.csproj", "{F395A2E4-59B0-49D6-8CB7-A77DA41F3E42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreDashboardWebSamples", "Samples\AspNetCoreDashboardWebSamples\AspNetCoreDashboardWebSamples.csproj", "{F395A2E4-59B0-49D6-8CB7-A77DA41F3E42}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6F93B76-FD31-49CF-BBAF-4AC86441E710}"
 	ProjectSection(SolutionItems) = preProject

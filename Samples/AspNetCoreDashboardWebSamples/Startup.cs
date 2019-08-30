@@ -46,7 +46,7 @@ namespace AspNetCoreDashboardWebTest
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseDashboardTest();
+            app.UseDashboardSamples();
 
 
             app.UseMvc(routes =>
