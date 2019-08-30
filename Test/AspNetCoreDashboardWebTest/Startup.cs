@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AspNetCoreDashboardWebTest
 {
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
