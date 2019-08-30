@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU Lesser General Public 
 // License along with Hangfire. If not, see <http://www.gnu.org/licenses/>.
 
+using AspNetCoreDashboard.Annotations;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using AspNetCoreDashboard.Annotations;
 
 namespace AspNetCoreDashboard.Dashboard
 {

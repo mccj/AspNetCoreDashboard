@@ -38,7 +38,7 @@ namespace AspNetCoreDashboard
 
             _next = next;
             //_storage = storage;
-            _authorization = authorization??new IDashboardAuthorizationFilter[] { };
+            _authorization = authorization ?? new IDashboardAuthorizationFilter[] { };
             //_options = options;
             _routes = routes;
         }
@@ -74,8 +74,8 @@ namespace AspNetCoreDashboard
 
             context.UriMatch = findResult.Item2;
 
-            var r= findResult.Item1.Dispatch(context);
-            return context.NextInvoke ? _next.Invoke(httpContext):r ;
+            var r = findResult.Item1.Dispatch(context);
+            return context.NextInvoke ? _next.Invoke(httpContext) : r;
         }
     }
     public sealed class AspNetCoreFileManagerMiddleware : AbstractAspNetCoreFileManagerMiddleware

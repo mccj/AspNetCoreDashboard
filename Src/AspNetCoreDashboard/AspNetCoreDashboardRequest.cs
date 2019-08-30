@@ -34,7 +34,7 @@ namespace AspNetCoreDashboard.Dashboard
             if (context == null) throw new ArgumentNullException(nameof(context));
             _context = context;
         }
-       
+
         public override string Method => _context.Request.Method;
         public override string Path => _context.Request.Path.Value;
         public override string PathBase => _context.Request.PathBase.Value;

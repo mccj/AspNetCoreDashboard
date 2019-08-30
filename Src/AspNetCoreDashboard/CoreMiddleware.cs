@@ -1,6 +1,6 @@
 ﻿#if NETSTANDARD
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace AspNetCoreDashboard
 {
@@ -17,7 +17,7 @@ namespace AspNetCoreDashboard
         //    this.Next = next;
         //    return Invoke(context);
         //}
-        public abstract Task Invoke(HttpContext context); 
+        public abstract Task Invoke(HttpContext context);
     }
 }
 #endif

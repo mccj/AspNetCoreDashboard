@@ -1,16 +1,10 @@
 ﻿using AspNetCoreDashboard.Dashboard;
 using System;
 using System.Collections.Generic;
-#if NETSTANDARD
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using IAppBuilder = Microsoft.AspNetCore.Builder.IApplicationBuilder;
-//#else
-//using Microsoft.Owin;
-//using Owin;
-//using IAppBuilder= Owin.IAppBuilder;
-//#endif
+#if NETFULL
+using Microsoft.Owin;
+using Owin;
+using IAppBuilder = Owin.IAppBuilder;
 namespace AspNetCoreDashboard
 {
     public static partial class ApplicationBuilderExtensions
@@ -35,7 +29,7 @@ namespace AspNetCoreDashboard
         {
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (pathMatch == null) throw new ArgumentNullException(nameof(pathMatch));
-#if NETSTANDARD
+#if !NETFULL
             var services = app.ApplicationServices;
 
             routes = routes ?? services.GetRequiredService<RouteCollection>();
@@ -72,7 +66,7 @@ namespace AspNetCoreDashboard
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (pathMatch == null) throw new ArgumentNullException(nameof(pathMatch));
 
-#if NETSTANDARD
+#if !NETFULL
             var services = app.ApplicationServices;
 
             options = options ?? services.GetService<T>() ?? new T();

@@ -34,7 +34,7 @@
 //        {
 //            if (contentType == null) throw new ArgumentNullException(nameof(contentType));
 //            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
-            
+
 //            _assembly = assembly;
 //            _resourceName = resourceName;
 //            _contentType = contentType;

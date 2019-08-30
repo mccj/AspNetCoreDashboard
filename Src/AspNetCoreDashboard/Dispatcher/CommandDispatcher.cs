@@ -15,7 +15,6 @@
 // License along with Hangfire. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace AspNetCoreDashboard.Dashboard
@@ -29,13 +28,13 @@ namespace AspNetCoreDashboard.Dashboard
             _command = command;
         }
 
-//#if NETFULL
-//        [Obsolete("Use the `CommandDispatcher(Func<DashboardContext, bool>)` ctor instead. Will be removed in 2.0.0.")]
-//        public CommandDispatcher(Func<RequestDispatcherContext, bool> command)
-//        {
-//            _command = context => command(RequestDispatcherContext.FromDashboardContext(context));
-//        }
-//#endif
+        //#if NETFULL
+        //        [Obsolete("Use the `CommandDispatcher(Func<DashboardContext, bool>)` ctor instead. Will be removed in 2.0.0.")]
+        //        public CommandDispatcher(Func<RequestDispatcherContext, bool> command)
+        //        {
+        //            _command = context => command(RequestDispatcherContext.FromDashboardContext(context));
+        //        }
+        //#endif
 
         public Task Dispatch(IDashboardContext context)
         {

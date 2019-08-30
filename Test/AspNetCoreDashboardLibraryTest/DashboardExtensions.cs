@@ -1,10 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
-using AspNetCoreDashboard;
 using Microsoft.AspNetCore.Builder;
-using AspNetCoreDashboard.Dashboard;
-using System.Reflection;
-using Microsoft.Extensions.FileProviders;
 using System.Linq;
+using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -16,7 +12,8 @@ namespace Microsoft.Extensions.DependencyInjection
             var contentFolderNamespace = GetContentFolderNamespace();
 
             //AspNetCore.StaticFiles.FileExtensionContentTypeProvider f; f.TryGetContentType()
-            app.UseMapDashboard("/Dashboard", routes=> {
+            app.UseMapDashboard("/Dashboard", routes =>
+            {
                 routes.Add("", new RedirectDispatcher((uriMatch) => uriMatch.Value + "/"));
                 //routes.Add("/aaaa", new RedirectDispatcher((uriMatch) => uriMatch.Value + "/"));
 

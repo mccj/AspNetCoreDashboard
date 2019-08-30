@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU Lesser General Public 
 // License along with Hangfire. If not, see <http://www.gnu.org/licenses/>.
 
+using AspNetCoreDashboard.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using AspNetCoreDashboard.Annotations;
 
 namespace AspNetCoreDashboard.Dashboard
 {
@@ -49,7 +49,7 @@ namespace AspNetCoreDashboard.Dashboard
 
         public Tuple<IDashboardDispatcher, Match> FindDispatcher(string path)
         {
-            if (path.Length == 0&& !_dispatchers.ContainsKey(path)) path = "/";
+            if (path.Length == 0 && !_dispatchers.ContainsKey(path)) path = "/";
 
             foreach (var dispatcher in _dispatchers)
             {
@@ -70,7 +70,7 @@ namespace AspNetCoreDashboard.Dashboard
                     return new Tuple<IDashboardDispatcher, Match>(dispatcher.Value, match);
                 }
             }
-            
+
             return null;
         }
     }

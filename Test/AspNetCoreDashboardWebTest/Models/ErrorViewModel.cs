@@ -1,5 +1,3 @@
-using System;
-
 namespace AspNetCoreDashboardWebTest.Models
 {
     public class ErrorViewModel
