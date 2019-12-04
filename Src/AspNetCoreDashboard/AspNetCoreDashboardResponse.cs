@@ -59,6 +59,10 @@ namespace AspNetCoreDashboard.Dashboard
         public override Task WriteAsync(byte[] buffer)
         {
             return _context.Response.Body.WriteAsync(buffer, 0, buffer.Length);
+        }  
+        public override Task CopyToAsync(Stream destination)
+        {
+            return destination.CopyToAsync(_context.Response.Body);
         }
         public override void SetExpire(DateTimeOffset? value)
         {

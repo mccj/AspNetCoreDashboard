@@ -27,12 +27,15 @@ namespace AspNetCoreDashboard.Dashboard
         public abstract string GetQuery(string key);
         public abstract string LocalIpAddress { get; }
         public abstract string RemoteIpAddress { get; }
-
-        public abstract Task<IList<string>> GetFormValuesAsync(string key);
+        public abstract Task<IEnumerable<string>> GetFormValuesAsync(string key);
+        public abstract Task<string> GetFormValueAsync(string key);
         public abstract System.IO.Stream Body { get; }
+        public abstract IEnumerable<string> GetHeaders(string key);
+        public abstract string GetHeader(string key);
 #if NETSTANDARD
         public abstract Task<Microsoft.AspNetCore.Http.IFormFile> GetFileAsync(string key);
         public abstract Task<IEnumerable<Microsoft.AspNetCore.Http.IFormFile>> GetFilesAsync(string key);
+        public abstract Task<T> GetBodyModelBinderAsync<T>(string modelName = null);
 #else
         //public abstract Task<System.Web.HttpPostedFileBase> GetFileAsync(string key);
         //public abstract Task<IEnumerable<System.Web.HttpPostedFileBase>> GetFilesAsync(string key);

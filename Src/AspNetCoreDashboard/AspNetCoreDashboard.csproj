@@ -23,13 +23,12 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'NET461'">
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-  </ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+ </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'NET46' Or '$(TargetFramework)' == 'NET461'">
-    <PackageReference Include="Microsoft.Owin" Version="4.0.1" />
+    <PackageReference Include="Microsoft.Owin" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +37,5 @@
     <Compile Remove="RazorPage.cs" />
     <Compile Remove="RazorPageDispatcher.cs" />
   </ItemGroup>
-
 
 </Project>

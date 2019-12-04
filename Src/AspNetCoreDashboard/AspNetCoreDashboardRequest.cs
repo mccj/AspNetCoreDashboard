@@ -15,10 +15,14 @@
 // License along with Hangfire. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AspNetCoreDashboard.Annotations;
 #if NETSTANDARD
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.DependencyInjection;
 using HttpContext = Microsoft.AspNetCore.Http.HttpContext;
 #else
 using HttpContext = Microsoft.Owin.IOwinContext;
@@ -28,11 +32,14 @@ namespace AspNetCoreDashboard.Dashboard
     internal sealed class AspNetCoreDashboardRequest : DashboardRequest
     {
         private readonly HttpContext _context;
-
-        public AspNetCoreDashboardRequest([NotNull] HttpContext context)
+        //private readonly Microsoft.AspNetCore.Mvc.MvcOptions _mvcOptions;
+        public AspNetCoreDashboardRequest([NotNull] HttpContext context//,
+                                                                       //Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Mvc.MvcOptions> optionsAccessor
+            )
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
             _context = context;
+            //_mvcOptions = optionsAccessor.Value;
         }
 
         public override string Method => _context.Request.Method;
@@ -41,17 +48,23 @@ namespace AspNetCoreDashboard.Dashboard
         public override string GetQuery(string key) => _context.Request.Query[key];
         public override string LocalIpAddress =>
 #if NETSTANDARD
-    _context.Connection.LocalIpAddress.ToString();
+            _context.Connection.LocalIpAddress.ToString();
 #else
-        _context.Request.LocalIpAddress;
+            _context.Request.LocalIpAddress;
 #endif
         public override string RemoteIpAddress =>
 #if NETSTANDARD
-    _context.Connection.RemoteIpAddress.ToString();
+            _context.Connection.RemoteIpAddress.ToString();
 #else
-        _context.Request.RemoteIpAddress;
+            _context.Request.RemoteIpAddress;
 #endif
-        public override async Task<IList<string>> GetFormValuesAsync(string key)
+        public override IEnumerable<string> GetHeaders(string key) =>
+#if NETSTANDARD
+            _context.Request.Headers[key];
+#else
+            _context.Request.Headers.GetValues(key);
+#endif
+         public override async Task<IEnumerable<string>> GetFormValuesAsync(string key)
         {
 #if NETSTANDARD
             return await Task.FromResult(_context.Request.Form[key]);
@@ -60,6 +73,12 @@ namespace AspNetCoreDashboard.Dashboard
             var form = await _context.Request.ReadFormAsync();
             return form.GetValues(key);
 #endif
+        }
+        public override string GetHeader(string key) => GetHeaders(key)?.FirstOrDefault();
+        public override async Task<string> GetFormValueAsync(string key)
+        {
+            var r = await GetFormValuesAsync(key);
+            return r?.FirstOrDefault();
         }
         public override System.IO.Stream Body => _context.Request.Body;
 
@@ -73,6 +92,44 @@ namespace AspNetCoreDashboard.Dashboard
         {
             var form = await _context.Request.ReadFormAsync();
             return form.Files.GetFiles(key);
+        }
+        public override async Task<T> GetBodyModelBinderAsync<T>(string modelName = null)
+        {
+            var optionsAccessor = _context.RequestServices.GetService<Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Mvc.MvcOptions>>();
+
+            var modelType = typeof(T);
+            var contentTypes = new MediaTypeCollection();
+
+            var provider = new EmptyModelMetadataProvider();
+            var metadata = provider.GetMetadataForType(modelType);
+            var formatterContext = new InputFormatterContext(_context.Request.HttpContext,
+                     modelName: modelName ?? string.Empty,
+                     modelState: new ModelStateDictionary(),
+                     metadata: metadata,
+                     readerFactory: (stream, encoding) => new System.IO.StreamReader(stream, encoding));
+
+            foreach (var formatter in optionsAccessor.Value.InputFormatters)
+            {
+                var canRead = formatter.CanRead(formatterContext);
+                if (canRead)
+                {
+                    var result = await formatter.ReadAsync(formatterContext);
+                    if (result.HasError)
+                    {
+                        // Formatter encountered an error. Do not use the model it returned.
+                        //_logger?.DoneAttemptingToBindModel(bindingContext);
+                        return default(T);
+                    }
+
+                    if (result.IsModelSet)
+                    {
+                        var model = result.Model;
+                        return (T)model;
+                        //bindingContext.Result = ModelBindingResult.Success(model);
+                    }
+                }
+            }
+            return default(T);
         }
 #else
         //public override Task<System.Web.HttpPostedFileBase> GetFileAsync(string key)

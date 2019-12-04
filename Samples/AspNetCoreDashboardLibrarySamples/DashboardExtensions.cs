@@ -33,15 +33,15 @@ namespace Microsoft.Extensions.DependencyInjection
                 //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.png)", "image/png", GetContentFolderNamespace());
                 //routes.AddEmbeddedDefaultResource(assembly, GetContentFolderNamespace(),"");
 
-                routes.AddCommand("/FlowStatistics", context =>
+                routes.AddCommand("/FlowStatistics",async context =>
                 {
                     try
                     {
-                        var filter = context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("filter")?.Result?.FirstOrDefault() : context.Request.GetQuery("filter");
-                        var orderBy = context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("orderBy")?.Result?.FirstOrDefault() : context.Request.GetQuery("orderBy");
-                        //var start = (context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("start")?.Result?.FirstOrDefault() : context.Request.GetQuery("start")).AsInt32();
-                        //var length = (context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("length")?.Result?.FirstOrDefault() : context.Request.GetQuery("length")).AsInt32();
-                        //var draw = (context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("draw")?.Result?.FirstOrDefault() : context.Request.GetQuery("draw"))?.AsInt32();
+                        var filter = context.Request.Method == "POST" ? await context.Request.GetFormValueAsync("filter") : context.Request.GetQuery("filter");
+                        var orderBy = context.Request.Method == "POST" ? await context.Request.GetFormValueAsync("orderBy") : context.Request.GetQuery("orderBy");
+                        //var start = (context.Request.Method == "POST" ? await context.Request.GetFormValueAsync("start") : context.Request.GetQuery("start")).AsInt32();
+                        //var length = (context.Request.Method == "POST" ? await context.Request.GetFormValueAsync("length") : context.Request.GetQuery("length")).AsInt32();
+                        //var draw = (context.Request.Method == "POST" ? await context.Request.GetFormValueAsync("draw") : context.Request.GetQuery("draw"))?.AsInt32();
 
                         //var _accessInfoServices = app.ApplicationServices.GetService<AccessInfoServices>();
 

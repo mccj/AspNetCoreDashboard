@@ -21,9 +21,9 @@ namespace AspNetCoreDashboard.Dashboard
 {
     internal class CommandDispatcher : IDashboardDispatcher
     {
-        private readonly Func<IDashboardContext, bool> _command;
+        private readonly Func<IDashboardContext, Task<bool>> _command;
 
-        public CommandDispatcher(Func<IDashboardContext, bool> command)
+        public CommandDispatcher(Func<IDashboardContext, Task<bool>> command)
         {
             _command = command;
         }
@@ -36,7 +36,7 @@ namespace AspNetCoreDashboard.Dashboard
         //        }
         //#endif
 
-        public Task Dispatch(IDashboardContext context)
+        public async Task Dispatch(IDashboardContext context)
         {
             var request = context.Request;
             var response = context.Response;
@@ -47,7 +47,7 @@ namespace AspNetCoreDashboard.Dashboard
             //    return Task.FromResult(false);
             //}
 
-            if (_command(context))
+            if (await _command(context))
             {
                 //response.StatusCode = (int)HttpStatusCode.NoContent;
             }
@@ -55,8 +55,6 @@ namespace AspNetCoreDashboard.Dashboard
             {
                 response.StatusCode = 422;
             }
-
-            return Task.FromResult(true);
         }
     }
 }

@@ -82,7 +82,7 @@ namespace AspNetCoreDashboard.Dashboard
         }
         protected void WriteResource(DashboardResponse response, Assembly assembly, string resourceName)
         {
-            using (var inputStream = assembly.GetManifestResourceStream(resourceName))
+            using (var inputStream = assembly.GetManifestResourceStreamIgnoreCase(resourceName))
             {
                 if (inputStream == null)
                 {

@@ -16,6 +16,7 @@
 
 using AspNetCoreDashboard.Annotations;
 using System;
+using System.Threading.Tasks;
 
 namespace AspNetCoreDashboard.Dashboard
 {
@@ -89,13 +90,25 @@ namespace AspNetCoreDashboard.Dashboard
         public static void AddCommand(
             [NotNull] this RouteCollection routes,
             [NotNull] string pathTemplate,
-            [NotNull] Func<IDashboardContext, bool> command)
+            [NotNull] Func<IDashboardContext, Task<bool>> command)
+        {
+            AddCommand(routes, new[] { pathTemplate }, command);
+        }
+        public static void AddCommand(
+         [NotNull] this RouteCollection routes,
+         [NotNull] string[] pathTemplates,
+         [NotNull] Func<IDashboardContext, Task<bool>> command)
         {
             if (routes == null) throw new ArgumentNullException(nameof(routes));
-            if (pathTemplate == null) throw new ArgumentNullException(nameof(pathTemplate));
+            if (pathTemplates == null) throw new ArgumentNullException(nameof(pathTemplates));
+            if (pathTemplates.Length == 0) throw new ArgumentNullException(nameof(pathTemplates));
             if (command == null) throw new ArgumentNullException(nameof(command));
 
-            routes.Add(pathTemplate, new CommandDispatcher(command));
+            var commandDispatcher = new CommandDispatcher(command);
+            foreach (var pathTemplate in pathTemplates)
+            {
+                routes.Add(pathTemplate, commandDispatcher);
+            }
         }
 
         //#if NETFULL

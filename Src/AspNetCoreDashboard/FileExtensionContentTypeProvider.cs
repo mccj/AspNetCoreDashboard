@@ -1,7 +1,6 @@
 //using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 #if NETSTANDARD
-using Microsoft.AspNetCore.StaticFiles;
 #else
 namespace Microsoft.AspNetCore.StaticFiles
 {
