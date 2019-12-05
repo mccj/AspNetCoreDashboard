@@ -32,7 +32,7 @@ namespace AspNetCoreDashboard.Dashboard
         public abstract System.IO.Stream Body { get; }
         public abstract IEnumerable<string> GetHeaders(string key);
         public abstract string GetHeader(string key);
-#if !NETFULL
+#if NETSTANDARD
         public abstract Task<Microsoft.AspNetCore.Http.IFormFile> GetFileAsync(string key);
         public abstract Task<IEnumerable<Microsoft.AspNetCore.Http.IFormFile>> GetFilesAsync(string key);
         public abstract Task<T> GetBodyModelBinderAsync<T>(string modelName = null);

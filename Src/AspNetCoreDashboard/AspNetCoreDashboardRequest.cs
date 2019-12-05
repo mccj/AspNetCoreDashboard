@@ -83,7 +83,7 @@ namespace AspNetCoreDashboard.Dashboard
         }
         public override System.IO.Stream Body => _context.Request.Body;
 
-#if !NETFULL
+#if NETSTANDARD
         public override async Task<Microsoft.AspNetCore.Http.IFormFile> GetFileAsync(string key)
         {
             var form = await _context.Request.ReadFormAsync();

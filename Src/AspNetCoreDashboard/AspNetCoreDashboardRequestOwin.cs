@@ -83,54 +83,58 @@ namespace AspNetCoreDashboard.Dashboard
         }
         public override System.IO.Stream Body => _context.Request.Body;
 
-#if !NETFULL
-        public override async Task<Microsoft.AspNetCore.Http.IFormFile> GetFileAsync(string key)
+#if NETSTANDARD
+        public override Task<Microsoft.AspNetCore.Http.IFormFile> GetFileAsync(string key)
         {
-            var form = await _context.Request.ReadFormAsync();
-            return form.Files[key];
+            throw new NotImplementedException();
+            //var form = await _context.Request.ReadFormAsync();
+            //return form.Files[key];
         }
-        public override async Task<IEnumerable<Microsoft.AspNetCore.Http.IFormFile>> GetFilesAsync(string key)
+        public override Task<IEnumerable<Microsoft.AspNetCore.Http.IFormFile>> GetFilesAsync(string key)
         {
-            var form = await _context.Request.ReadFormAsync();
-            return form.Files.GetFiles(key);
+            throw new NotImplementedException();
+            //var form = await _context.Request.ReadFormAsync();
+            //return form.Files.GetFiles(key);
         }
-        public override async Task<T> GetBodyModelBinderAsync<T>(string modelName = null)
+        public override Task<T> GetBodyModelBinderAsync<T>(string modelName = null)
         {
-            var optionsAccessor = _context.RequestServices.GetService<Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Mvc.MvcOptions>>();
+            throw new NotImplementedException();
 
-            var modelType = typeof(T);
-            var contentTypes = new MediaTypeCollection();
+            //var optionsAccessor = _context.RequestServices.GetService<Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Mvc.MvcOptions>>();
 
-            var provider = new EmptyModelMetadataProvider();
-            var metadata = provider.GetMetadataForType(modelType);
-            var formatterContext = new InputFormatterContext(_context.Request.HttpContext,
-                     modelName: modelName ?? string.Empty,
-                     modelState: new ModelStateDictionary(),
-                     metadata: metadata,
-                     readerFactory: (stream, encoding) => new System.IO.StreamReader(stream, encoding));
+            //var modelType = typeof(T);
+            //var contentTypes = new MediaTypeCollection();
 
-            foreach (var formatter in optionsAccessor.Value.InputFormatters)
-            {
-                var canRead = formatter.CanRead(formatterContext);
-                if (canRead)
-                {
-                    var result = await formatter.ReadAsync(formatterContext);
-                    if (result.HasError)
-                    {
-                        // Formatter encountered an error. Do not use the model it returned.
-                        //_logger?.DoneAttemptingToBindModel(bindingContext);
-                        return default(T);
-                    }
+            //var provider = new EmptyModelMetadataProvider();
+            //var metadata = provider.GetMetadataForType(modelType);
+            //var formatterContext = new InputFormatterContext(_context.Request.HttpContext,
+            //         modelName: modelName ?? string.Empty,
+            //         modelState: new ModelStateDictionary(),
+            //         metadata: metadata,
+            //         readerFactory: (stream, encoding) => new System.IO.StreamReader(stream, encoding));
 
-                    if (result.IsModelSet)
-                    {
-                        var model = result.Model;
-                        return (T)model;
-                        //bindingContext.Result = ModelBindingResult.Success(model);
-                    }
-                }
-            }
-            return default(T);
+            //foreach (var formatter in optionsAccessor.Value.InputFormatters)
+            //{
+            //    var canRead = formatter.CanRead(formatterContext);
+            //    if (canRead)
+            //    {
+            //        var result = await formatter.ReadAsync(formatterContext);
+            //        if (result.HasError)
+            //        {
+            //            // Formatter encountered an error. Do not use the model it returned.
+            //            //_logger?.DoneAttemptingToBindModel(bindingContext);
+            //            return default(T);
+            //        }
+
+            //        if (result.IsModelSet)
+            //        {
+            //            var model = result.Model;
+            //            return (T)model;
+            //            //bindingContext.Result = ModelBindingResult.Success(model);
+            //        }
+            //    }
+            //}
+            //return default(T);
         }
 #else
         //public override Task<System.Web.HttpPostedFileBase> GetFileAsync(string key)
