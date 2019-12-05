@@ -1,4 +1,5 @@
-﻿// This file is part of Hangfire.
+﻿#if NETFULL
+// This file is part of Hangfire.
 // Copyright © 2016 Sergey Odinokov.
 // 
 // Hangfire is free software: you can redistribute it and/or modify
@@ -13,21 +14,21 @@
 // 
 // You should have received a copy of the GNU Lesser General Public 
 // License along with Hangfire. If not, see <http://www.gnu.org/licenses/>.
-#if NETSTANDARD
+
 using AspNetCoreDashboard.Annotations;
 //using Microsoft.AspNetCore.Http;
 using System;
 //using Microsoft.Extensions.DependencyInjection;
-#if NETSTANDARD
+#if !NETFULL
 using HttpContext = Microsoft.AspNetCore.Http.HttpContext;
 #else
 using HttpContext = Microsoft.Owin.IOwinContext;
 #endif
 namespace AspNetCoreDashboard.Dashboard
 {
-    public class AspNetCoreDashboardContext : DashboardContext
+    public class AspNetCoreDashboardContextOwin : DashboardContext
     {
-        public AspNetCoreDashboardContext(
+        public AspNetCoreDashboardContextOwin(
             //[NotNull] JobStorage storage,
             //[NotNull] DashboardOptions options,
             [NotNull] HttpContext httpContext)
@@ -36,8 +37,8 @@ namespace AspNetCoreDashboard.Dashboard
             if (httpContext == null) throw new ArgumentNullException(nameof(httpContext));
 
             HttpContext = httpContext;
-            Request = new AspNetCoreDashboardRequest(httpContext);
-            Response = new AspNetCoreDashboardResponse(httpContext);
+            Request = new AspNetCoreDashboardRequestOwin(httpContext);
+            Response = new AspNetCoreDashboardResponseOwin(httpContext);
         }
 
         public HttpContext HttpContext { get; }
@@ -52,9 +53,9 @@ namespace AspNetCoreDashboard.Dashboard
         //    return HttpContext.RequestServices.GetService<IRecurringJobManager>() ?? base.GetRecurringJobManager();
         //}
     }
-    public class AspNetCoreDashboardContext<T> : AspNetCoreDashboardContext, IDashboardContext<T>
+    public class AspNetCoreDashboardContextOwin<T> : AspNetCoreDashboardContextOwin, IDashboardContext<T>
     {
-        public AspNetCoreDashboardContext(
+        public AspNetCoreDashboardContextOwin(
             //[NotNull] JobStorage storage,
             [NotNull] T options,
             [NotNull] HttpContext httpContext)

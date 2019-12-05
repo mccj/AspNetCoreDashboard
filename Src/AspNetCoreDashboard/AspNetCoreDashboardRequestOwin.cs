@@ -14,13 +14,13 @@
 // You should have received a copy of the GNU Lesser General Public 
 // License along with Hangfire. If not, see <http://www.gnu.org/licenses/>.
 
-#if NETSTANDARD
+#if NETFULL
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AspNetCoreDashboard.Annotations;
-#if NETSTANDARD
+#if !NETFULL
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,12 +30,12 @@ using HttpContext = Microsoft.Owin.IOwinContext;
 #endif
 namespace AspNetCoreDashboard.Dashboard
 {
-    internal sealed class AspNetCoreDashboardRequest : DashboardRequest
+    internal sealed class AspNetCoreDashboardRequestOwin : DashboardRequest
     {
         private readonly HttpContext _context;
         //private readonly Microsoft.AspNetCore.Mvc.MvcOptions _mvcOptions;
-        public AspNetCoreDashboardRequest([NotNull] HttpContext context//,
-                                                                       //Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Mvc.MvcOptions> optionsAccessor
+        public AspNetCoreDashboardRequestOwin([NotNull] HttpContext context//,
+                                                                           //Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Mvc.MvcOptions> optionsAccessor
             )
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
@@ -48,26 +48,26 @@ namespace AspNetCoreDashboard.Dashboard
         public override string PathBase => _context.Request.PathBase.Value;
         public override string GetQuery(string key) => _context.Request.Query[key];
         public override string LocalIpAddress =>
-#if NETSTANDARD
+#if !NETFULL
             _context.Connection.LocalIpAddress.ToString();
 #else
             _context.Request.LocalIpAddress;
 #endif
         public override string RemoteIpAddress =>
-#if NETSTANDARD
+#if !NETFULL
             _context.Connection.RemoteIpAddress.ToString();
 #else
             _context.Request.RemoteIpAddress;
 #endif
         public override IEnumerable<string> GetHeaders(string key) =>
-#if NETSTANDARD
+#if !NETFULL
             _context.Request.Headers[key];
 #else
             _context.Request.Headers.GetValues(key);
 #endif
-         public override async Task<IEnumerable<string>> GetFormValuesAsync(string key)
+        public override async Task<IEnumerable<string>> GetFormValuesAsync(string key)
         {
-#if NETSTANDARD
+#if !NETFULL
             return await Task.FromResult(_context.Request.Form[key]);
             //return form[key];
 #else

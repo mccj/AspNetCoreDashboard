@@ -1,10 +1,10 @@
-﻿#if NETSTANDARD
+﻿#if NETFULL
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using AspNetCoreDashboard.Dashboard;
 using AspNetCoreDashboard.Annotations;
-#if NETSTANDARD
+#if !NETFULL
 using Microsoft.AspNetCore.Http;
 using Middleware = AspNetCoreDashboard.CoreMiddleware;
 using RequestDelegate = Microsoft.AspNetCore.Http.RequestDelegate;
@@ -16,7 +16,7 @@ using HttpContext = Microsoft.Owin.IOwinContext;
 #endif
 namespace AspNetCoreDashboard
 {
-    public abstract class AbstractAspNetCoreFileManagerMiddleware : Middleware
+    public abstract class AbstractAspNetCoreFileManagerMiddlewareOwin : Middleware
     {
         private readonly RequestDelegate _next;
         //private readonly JobStorage _storage;
@@ -24,7 +24,7 @@ namespace AspNetCoreDashboard
         private readonly IEnumerable<IDashboardAuthorizationFilter> _authorization;
         private readonly RouteCollection _routes;
 
-        public AbstractAspNetCoreFileManagerMiddleware(
+        public AbstractAspNetCoreFileManagerMiddlewareOwin(
             [AspNetCoreDashboard.Annotations.NotNull]RequestDelegate next,
             //[NotNull] JobStorage storage,
             //[NotNull] DashboardOptions options,
@@ -60,8 +60,8 @@ namespace AspNetCoreDashboard
             {
                 if (!filter.Authorize(context))
                 {
-#if NETSTANDARD
-                    var isAuthenticated = httpContext.User?.Identity?.IsAuthenticated;
+#if !NETFULL
+                        var isAuthenticated = httpContext.User?.Identity?.IsAuthenticated;
 #else
                     var isAuthenticated = httpContext.Request?.User?.Identity?.IsAuthenticated;
 #endif
@@ -79,23 +79,23 @@ namespace AspNetCoreDashboard
             return context.NextInvoke ? _next.Invoke(httpContext) : r;
         }
     }
-    public sealed class AspNetCoreFileManagerMiddleware : AbstractAspNetCoreFileManagerMiddleware
+    public sealed class AspNetCoreFileManagerMiddlewareOwin : AbstractAspNetCoreFileManagerMiddlewareOwin
     {
-        public AspNetCoreFileManagerMiddleware(
+        public AspNetCoreFileManagerMiddlewareOwin(
              [NotNull]RequestDelegate next,
             [NotNull] IEnumerable<IDashboardAuthorizationFilter> authorization,
             [NotNull] RouteCollection routes
             ) : base(next, authorization, routes) { }
         public override IDashboardContext GetDashboardContext(HttpContext httpContext)
         {
-            return new AspNetCoreDashboardContext(/*_storage, _options,*/ httpContext);
+            return new AspNetCoreDashboardContextOwin(/*_storage, _options,*/ httpContext);
         }
     }
-    public sealed class AspNetCoreFileManagerMiddleware<T> : AbstractAspNetCoreFileManagerMiddleware
+    public sealed class AspNetCoreFileManagerMiddlewareOwin<T> : AbstractAspNetCoreFileManagerMiddlewareOwin
     {
         private readonly T _options;
 
-        public AspNetCoreFileManagerMiddleware(
+        public AspNetCoreFileManagerMiddlewareOwin(
                 [NotNull]RequestDelegate next,
                 [NotNull] T options,
                 [NotNull] IEnumerable<IDashboardAuthorizationFilter> authorization,
@@ -108,7 +108,7 @@ namespace AspNetCoreDashboard
         }
         public override IDashboardContext GetDashboardContext(HttpContext httpContext)
         {
-            return new AspNetCoreDashboardContext<T>(/*_storage,*/ _options, httpContext);
+            return new AspNetCoreDashboardContextOwin<T>(/*_storage,*/ _options, httpContext);
         }
     }
 }

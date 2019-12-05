@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <!--<TargetFrameworks>net461;net46</TargetFrameworks>-->
-    <TargetFrameworks>net46</TargetFrameworks>
+    <TargetFrameworks>net461;net46</TargetFrameworks>
+    <!--<TargetFrameworks>net46</TargetFrameworks>-->
     <!--<TargetFrameworks>net461</TargetFrameworks>-->
   </PropertyGroup>
 

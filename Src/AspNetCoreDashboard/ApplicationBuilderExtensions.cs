@@ -45,7 +45,7 @@ namespace AspNetCoreDashboard
 #else
             if (routes == null) throw new ArgumentNullException(nameof(routes));
             authorization = authorization ?? new IDashboardAuthorizationFilter[] { };
-            app.Map(new PathString(pathMatch), x => x.Use<AspNetCoreFileManagerMiddleware>(authorization, routes));
+            app.Map(new PathString(pathMatch), x => x.Use<AspNetCoreFileManagerMiddlewareOwin>(authorization, routes));
 #endif
             return app;
         }
@@ -83,7 +83,7 @@ namespace AspNetCoreDashboard
 #else
             if (routes == null) throw new ArgumentNullException(nameof(routes));
             authorization = authorization ?? new IDashboardAuthorizationFilter[] { };
-            app.Map(new PathString(pathMatch), x => x.Use<AspNetCoreFileManagerMiddleware<T>>(options, authorization, routes));
+            app.Map(new PathString(pathMatch), x => x.Use<AspNetCoreFileManagerMiddlewareOwin<T>>(options, authorization, routes));
 #endif
             return app;
         }
