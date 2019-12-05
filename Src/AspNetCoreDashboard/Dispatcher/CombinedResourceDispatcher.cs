@@ -16,6 +16,7 @@
 
 using AspNetCoreDashboard.Annotations;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace AspNetCoreDashboard.Dashboard
 {
@@ -36,14 +37,14 @@ namespace AspNetCoreDashboard.Dashboard
             _resourceNames = resourceNames;
         }
 
-        protected override void WriteResponse(DashboardResponse response)
+        protected override async Task WriteResponseAsync(DashboardResponse response)
         {
             foreach (var resourceName in _resourceNames)
             {
-                WriteResource(
-                    response,
-                    _assembly,
-                    $"{_baseNamespace}.{resourceName}");
+                await WriteResourceAsync(
+                       response,
+                       _assembly,
+                       $"{_baseNamespace}.{resourceName}");
             }
         }
     }

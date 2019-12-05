@@ -1,15 +1,16 @@
 using AspNetCoreDashboard;
 using AspNetCoreDashboard.Dashboard;
+using System.Linq;
 using System.Reflection;
-#if NETSTANDARD
-using IAppBuilder = Microsoft.AspNetCore.Builder.IApplicationBuilder;
+#if NETFULL
+using IAppBuilder = Owin.IAppBuilder;
 #endif
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class DashboardExtensions
     {
-#if NETSTANDARD
+#if NETFULL
         public static IAppBuilder UseDashboardSamples(this IAppBuilder app)
         {
             var assembly = typeof(DashboardExtensions).GetTypeInfo().Assembly;
@@ -83,23 +84,5 @@ namespace Microsoft.Extensions.DependencyInjection
             return app;
         }
 #endif
-
-        private static string GetContentResourceName(string resourceName)
-        {
-            return GetContentResourceName("", resourceName);
-        }
-        private static string GetContentResourceName(string contentFolder, string resourceName)
-        {
-            return $"{GetContentFolderNamespace(contentFolder)}.{resourceName}";
-        }
-        private static string GetContentFolderNamespace(string contentFolder = null)
-        {
-            var assemblyName = //"TrafficFlowStatistics";
-                typeof(DashboardExtensions).Assembly.GetCustomAttribute<AssemblyTitleAttribute>().Title;
-
-            return $"{assemblyName}.Content{(string.IsNullOrWhiteSpace(contentFolder) ? "" : ".")}{contentFolder}";
-        }
-
     }
 }
-

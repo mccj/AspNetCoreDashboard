@@ -68,13 +68,13 @@ namespace AspNetCoreDashboard
                         ? (int)System.Net.HttpStatusCode.Forbidden
                         : (int)System.Net.HttpStatusCode.Unauthorized;
 
-                    return Task.FromResult(0);
+                    return Task.CompletedTask;
                 }
             }
 
             context.UriMatch = findResult.Item2;
 
-            var r = findResult.Item1.Dispatch(context);
+            var r = findResult.Item1.DispatchAsync(context);
             return context.NextInvoke ? _next.Invoke(httpContext) : r;
         }
     }

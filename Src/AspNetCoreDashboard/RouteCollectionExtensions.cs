@@ -33,7 +33,7 @@ namespace AspNetCoreDashboard.Dashboard
 
         //    routes.Add(pathTemplate, new RazorPageDispatcher(pageFunc));
         //}
-        private readonly static Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider fileExtensionContentTypeProvider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+        private readonly static FileExtensionContentTypeProvider fileExtensionContentTypeProvider = new FileExtensionContentTypeProvider();
 
         public static void AddEmbeddedResource(
         [NotNull] this RouteCollection routes,

@@ -52,7 +52,7 @@ namespace AspNetCoreDashboard.Dashboard
             _resourceName = resourceName;
             _contentTypeFun = (path) => contentType;
         }
-        public Task Dispatch(IDashboardContext context)
+        public async Task DispatchAsync(IDashboardContext context)
         {
             if (string.IsNullOrWhiteSpace(_resourceName))
             {
@@ -62,25 +62,25 @@ namespace AspNetCoreDashboard.Dashboard
                 context.Response.SetExpire(DateTimeOffset.Now.AddYears(1));
 
                 var resourceName = _baseNamespace + "." + getPath(path);
-                WriteResponse(context.Response, resourceName);
+                await WriteResponseAsync(context.Response, resourceName);
             }
             else
             {
                 context.Response.ContentType = _contentTypeFun(_resourceName);
-                WriteResponse(context.Response, _resourceName);
+                await WriteResponseAsync(context.Response, _resourceName);
             }
 
-            return Task.FromResult(true);
+            //return Task.FromResult(true);
         }
-        protected virtual void WriteResponse(DashboardResponse response)
+        protected virtual async Task WriteResponseAsync(DashboardResponse response)
         {
-            WriteResource(response, _assembly, _resourceName);
+            await WriteResourceAsync(response, _assembly, _resourceName);
         }
-        protected virtual void WriteResponse(DashboardResponse response, string resourceName)
+        protected virtual async Task WriteResponseAsync(DashboardResponse response, string resourceName)
         {
-            WriteResource(response, _assembly, resourceName);
+            await WriteResourceAsync(response, _assembly, resourceName);
         }
-        protected void WriteResource(DashboardResponse response, Assembly assembly, string resourceName)
+        protected async Task WriteResourceAsync(DashboardResponse response, Assembly assembly, string resourceName)
         {
             using (var inputStream = assembly.GetManifestResourceStreamIgnoreCase(resourceName))
             {
@@ -89,7 +89,7 @@ namespace AspNetCoreDashboard.Dashboard
                     throw new ArgumentException($@"Resource with name {resourceName} not found in assembly {assembly}.");
                 }
 
-                inputStream.CopyTo(response.Body);
+                await inputStream.CopyToAsync(response.Body);
             }
         }
         public string getPath(string path)

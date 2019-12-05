@@ -36,7 +36,7 @@ namespace AspNetCoreDashboard.Dashboard
         //        }
         //#endif
 
-        public async Task Dispatch(IDashboardContext context)
+        public async Task DispatchAsync(IDashboardContext context)
         {
             var request = context.Request;
             var response = context.Response;

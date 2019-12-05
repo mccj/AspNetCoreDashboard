@@ -2,18 +2,27 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netstandard2.0;NET461</TargetFrameworks>
-        <Version>1.0.0</Version>
-
+    <TargetFrameworks>netstandard2.1;netstandard2.0;NET461;NET46</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0' Or '$(TargetFramework)'=='netstandard2.1'">
+    <DefineConstants>NETSTANDARD;</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='NET461'">
+    <DefineConstants>NETSTANDARD;NETFULL</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='NET46'">
+    <DefineConstants>NETFULL</DefineConstants>
+  </PropertyGroup>
+  
   <ItemGroup>
     <None Remove="Content\**" />
     <EmbeddedResource Include="Content\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.2.0" />
+    <!--<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.2.0"  Condition="'$(TargetFramework)'=='netstandard2.0'"/>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.2.0"  Condition="'$(TargetFramework)'=='netstandard2.1'"/>-->
   </ItemGroup>
 
   <ItemGroup>

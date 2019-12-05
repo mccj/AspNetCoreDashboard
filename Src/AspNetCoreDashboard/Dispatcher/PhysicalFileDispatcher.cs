@@ -45,7 +45,7 @@ namespace AspNetCoreDashboard.Dashboard
             _staticPath = staticPath;
             _contentTypeFun = (p) => contentType;
         }
-        public Task Dispatch(IDashboardContext context)
+        public async Task DispatchAsync(IDashboardContext context)
         {
             if (string.IsNullOrWhiteSpace(_staticPath))
             {
@@ -55,25 +55,25 @@ namespace AspNetCoreDashboard.Dashboard
                 context.Response.SetExpire(DateTimeOffset.Now.AddYears(1));
 
                 var resourceName = _basePath + "." + getPath(path);
-                WriteResponse(context.Response, resourceName);
+                await WriteResponseAsync(context.Response, resourceName);
             }
             else
             {
                 context.Response.ContentType = _contentTypeFun(_staticPath);
-                WriteResponse(context.Response, _staticPath);
+                await WriteResponseAsync(context.Response, _staticPath);
             }
 
-            return Task.FromResult(true);
+            //return Task.FromResult(true);
         }
-        protected virtual void WriteResponse(DashboardResponse response)
+        protected virtual async Task WriteResponseAsync(DashboardResponse response)
         {
-            WriteResource(response, _path);
+            await WriteResourceAsync(response, _path);
         }
-        protected virtual void WriteResponse(DashboardResponse response, string path)
+        protected virtual async Task WriteResponseAsync(DashboardResponse response, string path)
         {
-            WriteResource(response, path);
+            await WriteResourceAsync(response, path);
         }
-        protected void WriteResource(DashboardResponse response, string path)
+        protected async Task WriteResourceAsync(DashboardResponse response, string path)
         {
             var dllPath = System.IO.Path.Combine(AppContext.BaseDirectory, path);
             if (!System.IO.File.Exists(path) && System.IO.File.Exists(dllPath))
@@ -86,7 +86,7 @@ namespace AspNetCoreDashboard.Dashboard
                     throw new ArgumentException($@"Path with name {path} not found in file.");
                 }
 
-                inputStream.CopyTo(response.Body);
+              await  inputStream.CopyToAsync(response.Body);
             }
         }
         public string getPath(string path)

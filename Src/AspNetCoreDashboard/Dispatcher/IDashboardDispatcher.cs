@@ -21,6 +21,6 @@ namespace AspNetCoreDashboard.Dashboard
 {
     public interface IDashboardDispatcher
     {
-        Task Dispatch([NotNull] IDashboardContext context);
+        Task DispatchAsync([NotNull] IDashboardContext context);
     }
 }

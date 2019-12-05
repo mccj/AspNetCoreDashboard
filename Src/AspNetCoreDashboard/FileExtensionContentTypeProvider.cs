@@ -1,8 +1,6 @@
-//using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-#if NETSTANDARD
-#else
-namespace Microsoft.AspNetCore.StaticFiles
+
+namespace AspNetCoreDashboard
 {
     public class FileExtensionContentTypeProvider
     {
@@ -1568,4 +1566,3 @@ namespace Microsoft.AspNetCore.StaticFiles
         }
     }
 }
-#endif

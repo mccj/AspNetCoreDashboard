@@ -38,13 +38,14 @@ namespace AspNetCoreDashboard.Dashboard
 
             _redirectLocationFun = redirectLocationFun;
         }
-        public Task Dispatch(IDashboardContext context)
+        public async Task DispatchAsync(IDashboardContext context)
         {
             var uriMatch = context.UriMatch;
             var pathBase = context.Request.PathBase;
 
             context.Response.Redirect(pathBase + _redirectLocationFun(uriMatch));
-            return Task.FromResult(true);
+
+            await Task.CompletedTask;
         }
     }
 }
