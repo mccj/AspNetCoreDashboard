@@ -30,7 +30,7 @@ namespace AspNetCoreDashboard.Dashboard
         public abstract void SetExpire(DateTimeOffset? value);
         public abstract Task WriteAsync(string text);
         public abstract Task WriteAsync(byte[] buffer);
-        public abstract Task CopyToAsync(Stream destination);
+        public abstract Task WriteAsync(Stream destination);
         public abstract void SetHeader(string key, string value);
         public abstract void SetHeader(string key, string[] value);
         public abstract void Redirect(string location);
