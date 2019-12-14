@@ -60,7 +60,7 @@ namespace AspNetCoreDashboard.Dashboard
         {
             return _context.Response.Body.WriteAsync(buffer, 0, buffer.Length);
         }  
-        public override Task CopyToAsync(Stream destination)
+        public override Task WriteAsync(Stream destination)
         {
             return destination.CopyToAsync(_context.Response.Body);
         }
