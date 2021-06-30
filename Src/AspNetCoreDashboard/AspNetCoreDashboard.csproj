@@ -39,4 +39,8 @@
     <Compile Remove="RazorPageDispatcher.cs" />
 
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Owin" Version="4.2.0" />
+  </ItemGroup>
 </Project>
