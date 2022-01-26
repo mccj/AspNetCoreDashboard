@@ -2,7 +2,7 @@ using AspNetCoreDashboard;
 using AspNetCoreDashboard.Dashboard;
 using System.Linq;
 using System.Reflection;
-#if NETFULL
+#if NETFRAMEWORK
 using IAppBuilder = Owin.IAppBuilder;
 #endif
 
@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class DashboardExtensions
     {
-#if NETFULL
+#if NETFRAMEWORK
         public static IAppBuilder UseDashboardSamples(this IAppBuilder app)
         {
             var assembly = typeof(DashboardExtensions).GetTypeInfo().Assembly;

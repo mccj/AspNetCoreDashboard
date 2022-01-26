@@ -1,4 +1,4 @@
-﻿#if NETFULL
+﻿#if NETFRAMEWORK
 // This file is part of Hangfire.
 // Copyright © 2016 Sergey Odinokov.
 // 
@@ -19,7 +19,7 @@ using AspNetCoreDashboard.Annotations;
 //using Microsoft.AspNetCore.Http;
 using System;
 //using Microsoft.Extensions.DependencyInjection;
-#if !NETFULL
+#if !NETFRAMEWORK
 using HttpContext = Microsoft.AspNetCore.Http.HttpContext;
 #else
 using HttpContext = Microsoft.Owin.IOwinContext;

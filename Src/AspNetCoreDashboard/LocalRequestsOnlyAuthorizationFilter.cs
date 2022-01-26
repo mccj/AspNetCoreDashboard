@@ -19,7 +19,7 @@ using System;
 namespace AspNetCoreDashboard.Dashboard
 {
     public class LocalRequestsOnlyAuthorizationFilter : IDashboardAuthorizationFilter
-    //#if NETFULL
+    //#if NETFRAMEWORK
     //#pragma warning disable 618
     //        , IAuthorizationFilter
     //#pragma warning restore 618
@@ -42,7 +42,7 @@ namespace AspNetCoreDashboard.Dashboard
             return false;
         }
 
-        //#if NETFULL
+        //#if NETFRAMEWORK
         //        public bool Authorize(IDictionary<string, object> owinEnvironment)
         //        {
         //            var context = new Microsoft.Owin.OwinContext(owinEnvironment);

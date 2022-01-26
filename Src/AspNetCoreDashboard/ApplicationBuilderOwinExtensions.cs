@@ -1,7 +1,7 @@
 ﻿using AspNetCoreDashboard.Dashboard;
 using System;
 using System.Collections.Generic;
-#if NETFULL
+#if NETFRAMEWORK
 using Microsoft.Owin;
 using Owin;
 using IAppBuilder = Owin.IAppBuilder;
@@ -29,7 +29,7 @@ namespace AspNetCoreDashboard
         {
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (pathMatch == null) throw new ArgumentNullException(nameof(pathMatch));
-#if !NETFULL
+#if !NETFRAMEWORK
             var services = app.ApplicationServices;
 
             routes = routes ?? services.GetRequiredService<RouteCollection>();
@@ -66,7 +66,7 @@ namespace AspNetCoreDashboard
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (pathMatch == null) throw new ArgumentNullException(nameof(pathMatch));
 
-#if !NETFULL
+#if !NETFRAMEWORK
             var services = app.ApplicationServices;
 
             options = options ?? services.GetService<T>() ?? new T();

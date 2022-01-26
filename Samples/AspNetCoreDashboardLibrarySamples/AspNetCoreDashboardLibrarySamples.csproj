@@ -5,15 +5,15 @@
     <TargetFrameworks>netstandard2.1;netstandard2.0;NET461;NET46</TargetFrameworks>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0' Or '$(TargetFramework)'=='netstandard2.1'">
+  <!--<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0' Or '$(TargetFramework)'=='netstandard2.1'">
     <DefineConstants>NETSTANDARD;</DefineConstants>
-  </PropertyGroup>
+  </PropertyGroup>-->
   <PropertyGroup Condition="'$(TargetFramework)'=='NET461'">
-    <DefineConstants>NETSTANDARD;NETFULL</DefineConstants>
+    <DefineConstants>NETSTANDARD;NETFRAMEWORK</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='NET46'">
-    <DefineConstants>NETFULL</DefineConstants>
-  </PropertyGroup>
+  <!--<PropertyGroup Condition="'$(TargetFramework)'=='NET46'">
+    <DefineConstants>NETFRAMEWORK</DefineConstants>
+  </PropertyGroup>-->
   
   <ItemGroup>
     <None Remove="Content\**" />

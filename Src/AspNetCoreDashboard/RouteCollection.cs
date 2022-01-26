@@ -25,7 +25,7 @@ namespace AspNetCoreDashboard.Dashboard
     {
         private readonly Dictionary<string, IDashboardDispatcher> _dispatchers = new Dictionary<string, IDashboardDispatcher>();
 
-#if NETFULL
+#if NETFRAMEWORK
         //[Obsolete("Use the Add(string, IDashboardDispatcher) overload instead. Will be removed in 2.0.0.")]
         //public void Add([NotNull] string pathTemplate, [NotNull] IRequestDispatcher dispatcher)
         //{

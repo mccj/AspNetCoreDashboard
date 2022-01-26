@@ -28,7 +28,7 @@ namespace AspNetCoreDashboard.Dashboard
             _command = command;
         }
 
-        //#if NETFULL
+        //#if NETFRAMEWORK
         //        [Obsolete("Use the `CommandDispatcher(Func<DashboardContext, bool>)` ctor instead. Will be removed in 2.0.0.")]
         //        public CommandDispatcher(Func<RequestDispatcherContext, bool> command)
         //        {

@@ -14,13 +14,13 @@
 // You should have received a copy of the GNU Lesser General Public 
 // License along with Hangfire. If not, see <http://www.gnu.org/licenses/>.
 
-#if NETFULL
+#if NETFRAMEWORK
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AspNetCoreDashboard.Annotations;
-#if !NETFULL
+#if !NETFRAMEWORK
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,26 +48,26 @@ namespace AspNetCoreDashboard.Dashboard
         public override string PathBase => _context.Request.PathBase.Value;
         public override string GetQuery(string key) => _context.Request.Query[key];
         public override string LocalIpAddress =>
-#if !NETFULL
+#if !NETFRAMEWORK
             _context.Connection.LocalIpAddress.ToString();
 #else
             _context.Request.LocalIpAddress;
 #endif
         public override string RemoteIpAddress =>
-#if !NETFULL
+#if !NETFRAMEWORK
             _context.Connection.RemoteIpAddress.ToString();
 #else
             _context.Request.RemoteIpAddress;
 #endif
         public override IEnumerable<string> GetHeaders(string key) =>
-#if !NETFULL
+#if !NETFRAMEWORK
             _context.Request.Headers[key];
 #else
             _context.Request.Headers.GetValues(key);
 #endif
         public override async Task<IEnumerable<string>> GetFormValuesAsync(string key)
         {
-#if !NETFULL
+#if !NETFRAMEWORK
             return await Task.FromResult(_context.Request.Form[key]);
             //return form[key];
 #else

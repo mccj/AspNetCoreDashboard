@@ -13,13 +13,13 @@
 // 
 // You should have received a copy of the GNU Lesser General Public 
 // License along with Hangfire. If not, see <http://www.gnu.org/licenses/>.
-#if NETFULL
+#if NETFRAMEWORK
 using System;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using AspNetCoreDashboard.Annotations;
-#if !NETFULL
+#if !NETFRAMEWORK
 using Microsoft.AspNetCore.Http;
 using HttpContext = Microsoft.AspNetCore.Http.HttpContext;
 #else
@@ -74,7 +74,7 @@ namespace AspNetCoreDashboard.Dashboard
         }
         public override void SetHeader(string key, string[] value)
         {
-#if !NETFULL
+#if !NETFRAMEWORK
             _context.Response.Headers[key] = value;
 #else
             _context.Response.Headers.SetValues(key, value);
