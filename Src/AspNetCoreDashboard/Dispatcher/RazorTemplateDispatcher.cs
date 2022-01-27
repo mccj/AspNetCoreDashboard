@@ -35,8 +35,8 @@ namespace AspNetCoreDashboard.Dashboard
             context.Response.ContentType = "text/html";
 
             var page = _pageFunc(context.UriMatch);
-            //page.Assign(context);
-            var html = page.TransformText();
+            var html = page.Assign(context);
+            //var html = page.TransformText();
 
             await context.Response.WriteAsync(html);
         }

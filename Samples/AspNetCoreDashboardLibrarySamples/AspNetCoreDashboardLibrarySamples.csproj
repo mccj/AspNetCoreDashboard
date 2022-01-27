@@ -23,10 +23,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-    <PackageReference Include="RazorGenerator.MsBuild" Version="2.5.0">
+    <!--<PackageReference Include="RazorGenerator.MsBuild" Version="2.5.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    </PackageReference>-->
   </ItemGroup>
 
   <ItemGroup>
@@ -34,8 +34,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Dashboard\Home.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Home.cshtml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Views\Dashboard\Home.cshtml">
       <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Home.generated.cs</LastGenOutput>
     </None>
     <None Update="Views\_layout.cshtml">
       <Generator></Generator>
