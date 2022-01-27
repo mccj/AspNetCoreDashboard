@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" Condition="'$(TargetFramework)' == 'NET461'" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" Condition="'$(TargetFramework)' == 'NET461'" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" Condition="'$(TargetFramework)' == 'NET461'" />
+    <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
   </ItemGroup>
 
   <ItemGroup>

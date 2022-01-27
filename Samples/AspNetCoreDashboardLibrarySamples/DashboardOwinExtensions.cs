@@ -65,6 +65,7 @@ namespace Microsoft.Extensions.DependencyInjection
                      }
                      return true;
                  });
+                routes.AddRazorPage("/tttt", x => new AspNetCoreDashboardLibrarySamples.Views.Dashboard.Home());
                 routes.AddEmbeddedResource(assembly, "/(?<path>.*)", string.Empty, GetContentFolderNamespace());
                 //routes.AddEmbeddedResource("/libs/(?<path>.+\\.json)", "application/json", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));
                 //routes.AddEmbeddedResource("/libs/(?<path>.+\\.js)", "application/javascript", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));

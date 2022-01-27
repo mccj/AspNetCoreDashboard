@@ -16,6 +16,7 @@
 
 using AspNetCoreDashboard.Annotations;
 using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AspNetCoreDashboard.Dashboard
@@ -33,6 +34,17 @@ namespace AspNetCoreDashboard.Dashboard
 
         //    routes.Add(pathTemplate, new RazorPageDispatcher(pageFunc));
         //}
+        public static void AddRazorPage(
+            [NotNull] this RouteCollection routes,
+            [NotNull] string pathTemplate,
+            [NotNull] Func<Match, RazorGenerator.Templating.RazorTemplateBase> pageFunc)
+        {
+            if (routes == null) throw new ArgumentNullException(nameof(routes));
+            if (pathTemplate == null) throw new ArgumentNullException(nameof(pathTemplate));
+            if (pageFunc == null) throw new ArgumentNullException(nameof(pageFunc));
+
+            routes.Add(pathTemplate, new RazorTemplateDispatcher(pageFunc));
+        }
         private readonly static FileExtensionContentTypeProvider fileExtensionContentTypeProvider = new FileExtensionContentTypeProvider();
 
         public static void AddEmbeddedResource(

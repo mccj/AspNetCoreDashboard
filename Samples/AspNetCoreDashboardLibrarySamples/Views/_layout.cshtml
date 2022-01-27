@@ -1,0 +1,53 @@
+﻿@* Generator: Template TypeVisibility: Internal GeneratePrettyNames: true *@
+
+@inherits RazorGenerator.Templating.RazorTemplateBase
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>日志面板</title>
+</head>
+<body class="sidebar-fixed header-fixed">
+    <div class="page-wrapper">
+        <nav class="navbar page-header">
+            <a href="#" class="btn btn-link sidebar-mobile-toggle d-md-none mr-auto">
+                <i class="fa fa-bars"></i>
+            </a>
+            <a class="navbar-brand" href="https://github.com/liangshiw/LogDashboard" target="_blank">
+            </a>
+            <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-md-down-none">
+                    <a href="/">
+                        <i class="fa fa-reply-all"></i>
+
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="main-container">
+            <div class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul class="nav">
+                        <li class="nav-title">菜单</li>
+                        <li class="nav-item">
+                       
+                        </li>
+                        <li class="nav-item">
+                   
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="content" id="content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>
