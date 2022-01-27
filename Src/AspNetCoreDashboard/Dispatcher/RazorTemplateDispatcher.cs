@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreDashboard.Dashboard
 {
-    internal class RazorTemplateDispatcher : IDashboardDispatcher
+    public class RazorTemplateDispatcher : IDashboardDispatcher
     {
         private readonly Func<Match, RazorTemplateBase> _pageFunc;
 
