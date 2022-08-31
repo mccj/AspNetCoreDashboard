@@ -28,7 +28,7 @@
  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'NET46' Or '$(TargetFramework)' == 'NET461'">
-	  <PackageReference Include="Microsoft.Owin" Version="4.2.0" />
+	  <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
   </ItemGroup>
 
   <ItemGroup>
