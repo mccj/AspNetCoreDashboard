@@ -22,6 +22,7 @@ namespace AspNetCoreDashboard.Dashboard
     public abstract class DashboardRequest
     {
         public abstract string Method { get; }
+        public abstract string Host { get; }
         public abstract string Path { get; }
         public abstract string PathBase { get; }
         public abstract string GetQuery(string key);

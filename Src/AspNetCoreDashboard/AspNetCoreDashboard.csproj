@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;netstandard2.0;NET461;NET46</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;NET461;NET46</TargetFrameworks>
     <Version>1.0.0</Version>
   </PropertyGroup>
 
@@ -12,7 +12,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|NET46|AnyCPU'">
     <DefineConstants>TRACE;NETFRAMEWORK</DefineConstants>
   </PropertyGroup>-->
-  <!--<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0' Or '$(TargetFramework)'=='netstandard2.1'">
+  <!--<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <DefineConstants>NETSTANDARD;</DefineConstants>
   </PropertyGroup>-->
   <PropertyGroup Condition="'$(TargetFramework)'=='NET461'">
@@ -22,13 +22,14 @@
     <DefineConstants>NETFRAMEWORK</DefineConstants>
   </PropertyGroup>-->
   
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1' Or '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'NET461'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'NET461'">
     <!--<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />-->
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'NET46' Or '$(TargetFramework)' == 'NET461'">
 	  <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
+	  <Reference Include="System.Web" />
   </ItemGroup>
 
   <ItemGroup>

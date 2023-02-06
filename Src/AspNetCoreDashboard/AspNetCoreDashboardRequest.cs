@@ -44,6 +44,7 @@ namespace AspNetCoreDashboard.Dashboard
         }
 
         public override string Method => _context.Request.Method;
+        public override string Host => _context.Request.Host.Value;
         public override string Path => _context.Request.Path.Value;
         public override string PathBase => _context.Request.PathBase.Value;
         public override string GetQuery(string key) => _context.Request.Query[key];
@@ -65,7 +66,7 @@ namespace AspNetCoreDashboard.Dashboard
 #else
             _context.Request.Headers.GetValues(key);
 #endif
-         public override async Task<IEnumerable<string>> GetFormValuesAsync(string key)
+        public override async Task<IEnumerable<string>> GetFormValuesAsync(string key)
         {
 #if NETSTANDARD
             return await Task.FromResult(_context.Request.Form[key]);

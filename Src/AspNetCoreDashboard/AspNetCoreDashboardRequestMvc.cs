@@ -15,21 +15,25 @@
 // License along with Hangfire. If not, see <http://www.gnu.org/licenses/>.
 
 #if NETFRAMEWORK
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AspNetCoreDashboard.Annotations;
-using HttpContext = Microsoft.Owin.IOwinContext;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+# if NETSTANDARD
+using Microsoft.AspNetCore.Mvc;
+#endif
+using HttpContext = System.Web.HttpContextBase;
 
 namespace AspNetCoreDashboard.Dashboard
 {
-    internal sealed class AspNetCoreDashboardRequestOwin : DashboardRequest
+    internal sealed class AspNetCoreDashboardRequestMvc : DashboardRequest
     {
         private readonly HttpContext _context;
         //private readonly Microsoft.AspNetCore.Mvc.MvcOptions _mvcOptions;
-        public AspNetCoreDashboardRequestOwin([NotNull] HttpContext context//,
-                                                                           //Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Mvc.MvcOptions> optionsAccessor
+        public AspNetCoreDashboardRequestMvc([NotNull] HttpContext context//,
+                                                                          //Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Mvc.MvcOptions> optionsAccessor
             )
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
@@ -37,18 +41,31 @@ namespace AspNetCoreDashboard.Dashboard
             //_mvcOptions = optionsAccessor.Value;
         }
 
-        public override string Method => _context.Request.Method;
-        public override string Host => _context.Request.Host.Value;
-        public override string Path => _context.Request.Path.Value;
-        public override string PathBase => _context.Request.PathBase.Value;
-        public override string GetQuery(string key) => _context.Request.Query[key];
-        public override string LocalIpAddress =>            _context.Request.LocalIpAddress;
-        public override string RemoteIpAddress =>            _context.Request.RemoteIpAddress;
-        public override IEnumerable<string> GetHeaders(string key) =>            _context.Request.Headers.GetValues(key);
+        public override string Method => _context.Request.HttpMethod;
+        public override string Host => _context.Request.Url.Authority;
+        public override string Path => _context.Request.Path;
+        public override string PathBase => _context.Request.ApplicationPath;
+        public override string GetQuery(string key) => _context.Request.QueryString[key];
+        public override string LocalIpAddress => Dns.GetHostAddresses(Dns.GetHostName())?.FirstOrDefault()?.ToString();
+        public override string RemoteIpAddress
+        {
+            get
+            {
+                var ip = string.Empty;
+                if (!string.IsNullOrEmpty(_context.Request.ServerVariables["HTTP_VIA"]))//HTTP_VIA
+                    ip = _context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                else
+                    ip = _context.Request.ServerVariables["REMOTE_ADDR"];
+                if (string.IsNullOrEmpty(ip))
+                    ip = _context.Request.UserHostAddress;
+                return ip;
+            }
+        }
+        public override IEnumerable<string> GetHeaders(string key) => _context.Request.Headers.GetValues(key);
         public override async Task<IEnumerable<string>> GetFormValuesAsync(string key)
         {
-            var form = await _context.Request.ReadFormAsync();
-            return form.GetValues(key);
+            var form =  _context.Request.Form.GetValues(key);
+            return form;
         }
         public override string GetHeader(string key) => GetHeaders(key)?.FirstOrDefault();
         public override async Task<string> GetFormValueAsync(string key)
@@ -56,7 +73,7 @@ namespace AspNetCoreDashboard.Dashboard
             var r = await GetFormValuesAsync(key);
             return r?.FirstOrDefault();
         }
-        public override System.IO.Stream Body => _context.Request.Body;
+        public override System.IO.Stream Body => _context.Request.InputStream;
 
 #if NETSTANDARD
         public override Task<Microsoft.AspNetCore.Http.IFormFile> GetFileAsync(string key)

@@ -19,20 +19,16 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using AspNetCoreDashboard.Annotations;
-#if !NETFRAMEWORK
-using Microsoft.AspNetCore.Http;
-using HttpContext = Microsoft.AspNetCore.Http.HttpContext;
-#else
-using HttpContext = Microsoft.Owin.IOwinContext;
-#endif
+
+using HttpContext = System.Web.HttpContextBase;
 
 namespace AspNetCoreDashboard.Dashboard
 {
-    internal sealed class AspNetCoreDashboardResponseOwin : DashboardResponse
+    internal sealed class AspNetCoreDashboardResponseMvc : DashboardResponse
     {
         private readonly HttpContext _context;
 
-        public AspNetCoreDashboardResponseOwin([NotNull] HttpContext context)
+        public AspNetCoreDashboardResponseMvc([NotNull] HttpContext context)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
             _context = context;
@@ -50,19 +46,19 @@ namespace AspNetCoreDashboard.Dashboard
             set { _context.Response.StatusCode = value; }
         }
 
-        public override Stream Body => _context.Response.Body;
+        public override Stream Body => _context.Response.OutputStream;
 
-        public override Task WriteAsync(string text)
+        public override async Task WriteAsync(string text)
         {
-            return _context.Response.WriteAsync(text);
+            _context.Response.Write(text);
         }
-        public override Task WriteAsync(byte[] buffer)
+        public override async Task WriteAsync(byte[] buffer)
         {
-            return _context.Response.Body.WriteAsync(buffer, 0, buffer.Length);
-        }  
+            _context.Response.BinaryWrite(buffer);
+        }
         public override Task WriteAsync(Stream destination)
         {
-            return destination.CopyToAsync(_context.Response.Body);
+            return destination.CopyToAsync(_context.Response.OutputStream);
         }
         public override void SetExpire(DateTimeOffset? value)
         {
@@ -74,7 +70,10 @@ namespace AspNetCoreDashboard.Dashboard
         }
         public override void SetHeader(string key, string[] value)
         {
-            _context.Response.Headers.SetValues(key, value);
+            foreach (var item in value)
+            {
+                _context.Response.Headers.Set(key, item);
+            }
         }
         public override void Redirect(string location)
         {
