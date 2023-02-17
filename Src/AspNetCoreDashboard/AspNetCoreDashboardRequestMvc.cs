@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 # if NETSTANDARD
 using Microsoft.AspNetCore.Mvc;
 #endif
-using HttpContext = System.Web.HttpContextBase;
+using HttpContext = System.Web.HttpContext;
 
 namespace AspNetCoreDashboard.Dashboard
 {

@@ -18,7 +18,7 @@
 using AspNetCoreDashboard.Annotations;
 using System;
 
-using HttpContext = System.Web.HttpContextBase;
+using HttpContext = System.Web.HttpContext;
 
 namespace AspNetCoreDashboard.Dashboard
 {

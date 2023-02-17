@@ -20,7 +20,7 @@ using System.IO;
 using System.Threading.Tasks;
 using AspNetCoreDashboard.Annotations;
 
-using HttpContext = System.Web.HttpContextBase;
+using HttpContext = System.Web.HttpContext;
 
 namespace AspNetCoreDashboard.Dashboard
 {
