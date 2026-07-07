@@ -1,8 +1,10 @@
-﻿# AspNetCoreDashboard
+# AspNetCoreDashboard
 
 面向 NuGet 类库作者的嵌入式 Web UI 宿主 SDK。可在 ASP.NET Core 8/9 或 OWIN（.NET Framework 4.8）应用中挂载自包含的 UI + API 模块。
 
 [![Build](https://github.com/mccj/AspNetCoreDashboard/actions/workflows/build.yml/badge.svg)](https://github.com/mccj/AspNetCoreDashboard/actions/workflows/build.yml)
+[![Build status](https://ci.appveyor.com/api/projects/status/ljllh9mfd0aaleoi?svg=true)](https://ci.appveyor.com/project/mccj/aspnetcoredashboard-dashboard)
+[![MyGet](https://img.shields.io/myget/mccj/vpre/AspNetCoreDashboard.svg)](https://myget.org/feed/mccj/package/nuget/AspNetCoreDashboard)
 [![NuGet](https://img.shields.io/nuget/v/AspNetCoreDashboard.svg)](https://www.nuget.org/packages/AspNetCoreDashboard)
 
 ## .NET 支持策略

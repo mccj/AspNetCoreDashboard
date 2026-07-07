@@ -1,0 +1,42 @@
+version: 3.6.{build}
+image: Visual Studio 2022
+
+environment:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+install:
+  - ps: dotnet --list-sdks
+  - ps: |
+      $sdk10 = Get-ChildItem "$env:ProgramFiles\dotnet\sdk" -Directory -Filter "10.0*" -ErrorAction SilentlyContinue | Select-Object -First 1
+      if (-not $sdk10) {
+        Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile "$env:TEMP\dotnet-install.ps1"
+        & $env:TEMP\dotnet-install.ps1 -Architecture x64 -Channel 10.0 -InstallDir "$env:ProgramFiles\dotnet"
+      }
+
+before_build:
+  - ps: dotnet restore AspNetCoreDashboard.slnx
+
+build_script:
+  - ps: dotnet build AspNetCoreDashboard.slnx -c Release --no-restore
+  - ps: dotnet test AspNetCoreDashboard.slnx -c Release --no-build --verbosity normal
+  - ps: |
+      New-Item -ItemType Directory -Force -Path artifacts | Out-Null
+      dotnet pack Src/AspNetCoreDashboard.Abstractions/AspNetCoreDashboard.Abstractions.csproj -c Release --no-build -o artifacts
+      dotnet pack Src/AspNetCoreDashboard/AspNetCoreDashboard.csproj -c Release --no-build -o artifacts
+      dotnet pack Src/AspNetCoreDashboard.Owin/AspNetCoreDashboard.Owin.csproj -c Release --no-build -o artifacts
+      dotnet pack Src/AspNetCoreDashboard.Testing/AspNetCoreDashboard.Testing.csproj -c Release --no-build -o artifacts
+      dotnet pack Src/AspNetCoreDashboard.Analyzers/AspNetCoreDashboard.Analyzers.csproj -c Release --no-build -o artifacts
+      dotnet pack Src/AspNetCoreDashboard.Generators/AspNetCoreDashboard.Generators.csproj -c Release --no-build -o artifacts
+      dotnet pack Src/AspNetCoreDashboard.Razor/AspNetCoreDashboard.Razor.csproj -c Release --no-build -o artifacts
+      dotnet pack Src/AspNetCoreDashboard.SystemWeb/AspNetCoreDashboard.SystemWeb.csproj -c Release --no-build -o artifacts
+
+artifacts:
+  - path: 'artifacts\*.nupkg'
+    name: nupkg
+
+deploy:
+  - provider: Environment
+    name: MyGet
+  - provider: Environment
+    name: NuGet
