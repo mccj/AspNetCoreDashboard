@@ -46,7 +46,9 @@ jobs:
 
       - name: Restore
 
-        run: dotnet restore AspNetCoreDashboard.slnx
+        run: |
+          mkdir artifacts
+          dotnet restore AspNetCoreDashboard.slnx
 
 
 

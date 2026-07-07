@@ -15,6 +15,7 @@ install:
       }
 
 before_build:
+  - ps: New-Item -ItemType Directory -Force -Path artifacts | Out-Null
   - ps: dotnet restore AspNetCoreDashboard.slnx
 
 build_script:
