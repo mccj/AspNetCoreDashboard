@@ -1,61 +1,46 @@
-﻿using Microsoft.Owin.Hosting;
 using System;
+using Microsoft.Owin.Hosting;
 using Topshelf;
 
 namespace AspNetCoreDashboardOwinSamples
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            var a = HostFactory.Run(x =>
-            {
-                x.Service<WebAppService>(sc =>
-                {
-                    sc.ConstructUsing(name => new WebAppService());
-
-                    //sc.WhenStarted((s, hostControl) =>
-                    //{
-                    //    s.HostPort = 3000;
-                    //    return s.Start(hostControl);
-                    //});//开始启动
-                    sc.WhenStarted((s, hostControl) => s.Start(hostControl));//启动
-                    sc.WhenStopped((s, hostControl) => s.Stop(hostControl));//停止
-                                                                            //                                                        // optional pause/continue methods if used
-                                                                            //sc.WhenPaused(s => s.Pause());
-                                                                            //sc.WhenContinued(s => s.Continue());
-
-                    // optional, when shutdown is supported
-                    //sc.WhenShutdown(s => s.Shutdown());//关闭
-                });
-                x.RunAsLocalSystem();
-                x.OnException(ex =>
-                {
-
-                    System.Console.WriteLine("Exception thrown - " + ex.Message);
-                    //使用异常的东西
-                });
-            });           
-        }
+      HostFactory.Run(x =>
+      {
+        x.Service<WebAppService>(sc =>
+              {
+                sc.ConstructUsing(name => new WebAppService());
+                sc.WhenStarted((s, hostControl) => s.Start(hostControl));
+                sc.WhenStopped((s, hostControl) => s.Stop(hostControl));
+              });
+        x.RunAsLocalSystem();
+        x.OnException(ex =>
+              {
+                System.Console.WriteLine("发生异常 - " + ex.Message);
+              });
+      });
     }
-    class WebAppService : ServiceControl
+  }
+
+  class WebAppService : ServiceControl
+  {
+    public bool Start(HostControl hostControl)
     {
-        public bool Start(HostControl hostControl)
-        {
-            System.Console.WriteLine("http://localhost:1101/Dashboard");
-            var options = new StartOptions()
-            {
-                Port = 1101
-            };
-            WebApp.Start<Startup>(options);
-
-            return true;
-        }
-
-        public bool Stop(HostControl hostControl)
-        {
-            return true;
-        }
+      System.Console.WriteLine("http://localhost:1101/Dashboard/  (Diagnostics: /Diagnostics/api/status)");
+      var options = new StartOptions()
+      {
+        Port = 1101
+      };
+      WebApp.Start<Startup>(options);
+      return true;
     }
 
+    public bool Stop(HostControl hostControl)
+    {
+      return true;
+    }
+  }
 }

@@ -1,0 +1,31 @@
+<Project>
+  <PropertyGroup>
+    <Authors>mccj</Authors>
+    <Version>3.6.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>package-icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/mccj/AspNetCoreDashboard</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsPackable)' == 'true'">
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <PackageValidationBaselineVersion>3.5.0</PackageValidationBaselineVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)assets\package-icon.png" Pack="true" PackagePath="\" />
+    <!-- SourceLink: net8/netstandard/net48 -> 8.0.0; net9 -> 8.0.0 (NuGet 无 9.x); net10 -> 10.0.300 -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" Condition="'$(TargetFramework)' != 'net9.0' and '$(TargetFramework)' != 'net10.0'" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" VersionOverride="8.0.0" PrivateAssets="All" Condition="'$(TargetFramework)' == 'net9.0'" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" VersionOverride="10.0.300" PrivateAssets="All" Condition="'$(TargetFramework)' == 'net10.0'" />
+  </ItemGroup>
+</Project>

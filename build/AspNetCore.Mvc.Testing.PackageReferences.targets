@@ -1,0 +1,8 @@
+<Project>
+  <!-- Align Microsoft.AspNetCore.Mvc.Testing with each ASP.NET Core major TFM. -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Condition="'$(TargetFramework)' == 'net8.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" VersionOverride="9.0.17" Condition="'$(TargetFramework)' == 'net9.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" VersionOverride="10.0.9" Condition="'$(TargetFramework)' == 'net10.0'" />
+  </ItemGroup>
+</Project>

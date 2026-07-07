@@ -1,28 +1,11 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using AspNetCoreDashboardWebSamples;
 
+var builder = WebApplication.CreateBuilder(args);
+WebSampleHostConfiguration.ConfigureServices(builder);
 
-namespace AspNetCoreDashboardWebTest
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+var app = builder.Build();
+WebSampleHostConfiguration.ConfigurePipeline(app);
 
-#if netcoreapp3
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-#else
-        public static IWebHostBuilder CreateHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
-#endif
-    }
-}
+app.Run();
+
+public partial class Program { }

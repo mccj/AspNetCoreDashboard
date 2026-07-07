@@ -1,0 +1,170 @@
+name: Build
+
+
+
+on:
+
+  push:
+
+    branches: [ master, main ]
+
+  pull_request:
+
+    branches: [ master, main ]
+
+
+
+jobs:
+
+  build-test-pack-windows:
+
+    runs-on: windows-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+        with:
+
+          fetch-depth: 0
+
+
+
+      - uses: actions/setup-dotnet@v4
+
+        with:
+
+          dotnet-version: |
+
+            8.0.x
+
+            9.0.x
+
+
+
+      - name: Restore
+
+        run: dotnet restore AspNetCoreDashboard.slnx
+
+
+
+      - name: Verify formatting
+
+        run: dotnet format AspNetCoreDashboard.slnx --verify-no-changes --verbosity diagnostic
+
+
+
+      - name: Build
+
+        run: dotnet build AspNetCoreDashboard.slnx -c Release --no-restore
+
+      - name: Verify Public API baseline
+
+        run: dotnet build Src/AspNetCoreDashboard.Abstractions/AspNetCoreDashboard.Abstractions.csproj -c Release --no-restore
+
+
+
+      - name: Test
+
+        run: dotnet test AspNetCoreDashboard.slnx -c Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
+
+
+
+      - name: Pack
+
+        run: |
+
+          dotnet pack Src/AspNetCoreDashboard.Abstractions/AspNetCoreDashboard.Abstractions.csproj -c Release --no-build -o artifacts
+
+          dotnet pack Src/AspNetCoreDashboard/AspNetCoreDashboard.csproj -c Release --no-build -o artifacts
+
+          dotnet pack Src/AspNetCoreDashboard.Owin/AspNetCoreDashboard.Owin.csproj -c Release --no-build -o artifacts
+
+          dotnet pack Src/AspNetCoreDashboard.Testing/AspNetCoreDashboard.Testing.csproj -c Release --no-build -o artifacts
+
+          dotnet pack Src/AspNetCoreDashboard.Analyzers/AspNetCoreDashboard.Analyzers.csproj -c Release --no-build -o artifacts
+
+          dotnet pack Src/AspNetCoreDashboard.Generators/AspNetCoreDashboard.Generators.csproj -c Release --no-build -o artifacts
+
+          dotnet pack Src/AspNetCoreDashboard.Razor/AspNetCoreDashboard.Razor.csproj -c Release --no-build -o artifacts
+
+          dotnet pack Src/AspNetCoreDashboard.SystemWeb/AspNetCoreDashboard.SystemWeb.csproj -c Release --no-build -o artifacts
+
+
+
+      - name: Upload packages
+
+        uses: actions/upload-artifact@v4
+
+        with:
+
+          name: nuget-packages
+
+          path: artifacts/*.nupkg
+
+
+
+  test-linux:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+
+
+      - uses: actions/setup-dotnet@v4
+
+        with:
+
+          dotnet-version: 8.0.x
+
+
+
+      - name: Test ASP.NET Core (Linux)
+
+        run: |
+
+          dotnet restore Tests/AspNetCoreDashboard.Tests/AspNetCoreDashboard.Tests.csproj
+
+          dotnet test Tests/AspNetCoreDashboard.Tests/AspNetCoreDashboard.Tests.csproj -c Release --verbosity normal
+
+
+
+      - name: Test Analyzers (Linux)
+
+        run: |
+
+          dotnet restore Tests/AspNetCoreDashboard.Analyzers.Tests/AspNetCoreDashboard.Analyzers.Tests.csproj
+
+          dotnet test Tests/AspNetCoreDashboard.Analyzers.Tests/AspNetCoreDashboard.Analyzers.Tests.csproj -c Release --verbosity normal
+
+
+
+  test-net9:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+
+
+      - uses: actions/setup-dotnet@v4
+
+        with:
+
+          dotnet-version: 9.0.x
+
+
+
+      - name: Test ASP.NET Core on net9
+
+        run: |
+
+          dotnet restore Tests/AspNetCoreDashboard.Tests/AspNetCoreDashboard.Tests.csproj
+
+          dotnet test Tests/AspNetCoreDashboard.Tests/AspNetCoreDashboard.Tests.csproj -c Release -f net9.0 --verbosity normal
+

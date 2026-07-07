@@ -1,28 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;netcoreapp2.2;net461</TargetFrameworks>
-    <!--<TargetFrameworks>netcoreapp3.0</TargetFrameworks>-->
-    <!--<TargetFrameworks>netcoreapp2.2</TargetFrameworks>-->
-    <!--<TargetFrameworks>net461</TargetFrameworks>-->
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <RootNamespace>AspNetCoreDashboardWebSamples</RootNamespace>
+    <AssemblyName>AspNetCoreDashboardWebSamples</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <DefineConstants Condition="'$(TargetFramework)' == 'netcoreapp3.0'">netcoreapp3</DefineConstants>
-    <DefineConstants Condition="'$(TargetFramework)' == 'netcoreapp2.2' Or '$(TargetFramework)' == 'NET461'">netcoreapp2</DefineConstants>
-  </PropertyGroup>
-  
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Condition="'$(TargetFramework)' == 'netcoreapp2.2'" />
-
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" Condition="'$(TargetFramework)' == 'NET461'" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" Condition="'$(TargetFramework)' == 'NET461'" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" Condition="'$(TargetFramework)' == 'NET461'" />
-    <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\Src\AspNetCoreDashboard\AspNetCoreDashboard.csproj" />
     <ProjectReference Include="..\AspNetCoreDashboardLibrarySamples\AspNetCoreDashboardLibrarySamples.csproj" />
   </ItemGroup>
 

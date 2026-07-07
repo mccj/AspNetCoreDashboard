@@ -1,0 +1,40 @@
+<Project>
+  <!--
+    UI 模块作者可选的 MSBuild 目标。
+    通过 Directory.Build.targets 导入：
+      <Import Project="$(PkgAspNetCoreDashboard_Abstractions)/build/AspNetCoreDashboard.EmbeddedContent.targets" Condition="'$(PkgAspNetCoreDashboard_Abstractions)' != ''" />
+    或将此文件复制到仓库中，并按需设置 DashboardContentFolder / DashboardContentNamespace。
+  -->
+  <PropertyGroup>
+    <DashboardContentFolder Condition="'$(DashboardContentFolder)' == ''">Content</DashboardContentFolder>
+    <DashboardContentNamespace Condition="'$(DashboardContentNamespace)' == ''">$(AssemblyName).Content</DashboardContentNamespace>
+    <EnableDashboardEmbeddedContent Condition="'$(EnableDashboardEmbeddedContent)' == ''">true</EnableDashboardEmbeddedContent>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableDashboardEmbeddedContent)' == 'true'">
+    <EmbeddedResource Include="$(DashboardContentFolder)\**\*" Exclude="$(DashboardContentFolder)\**\*.md">
+      <LogicalName>$([System.String]::Copy('$(DashboardContentNamespace).%(RecursiveDir)%(Filename)%(Extension)').Replace('\','.').Replace('/','.'))</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <Target Name="GenerateDashboardEmbeddedResourceManifest"
+          BeforeTargets="CoreCompile"
+          Condition="'$(EnableDashboardEmbeddedContent)' == 'true'">
+    <WriteLinesToFile File="$(IntermediateOutputPath)$(AssemblyName).dashboard.embeddedresources"
+                      Lines="@(EmbeddedResource->'%(LogicalName)')"
+                      Overwrite="true" />
+    <ItemGroup>
+      <AdditionalFiles Include="$(IntermediateOutputPath)$(AssemblyName).dashboard.embeddedresources" Visible="false" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ValidateDashboardEmbeddedContent"
+          AfterTargets="GenerateDashboardEmbeddedResourceManifest"
+          Condition="'$(EnableDashboardEmbeddedContent)' == 'true' and '@(EmbeddedResource)' != ''">
+    <ItemGroup>
+      <_DashboardMissingLogicalNames Include="@(EmbeddedResource)" Condition="'%(EmbeddedResource.LogicalName)' == ''" />
+    </ItemGroup>
+    <Error Condition="'@(_DashboardMissingLogicalNames)' != ''"
+           Text="Dashboard 嵌入资源必须设置 LogicalName。请检查 DashboardContentNamespace（'$(DashboardContentNamespace)'）。" />
+  </Target>
+</Project>

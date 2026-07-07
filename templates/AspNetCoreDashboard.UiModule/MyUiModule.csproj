@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>MyUiModule</AssemblyName>
+    <RootNamespace>MyUiModule</RootNamespace>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Src\AspNetCoreDashboard.Abstractions\build\AspNetCoreDashboard.EmbeddedContent.targets" />
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreDashboard.Abstractions" Version="3.6.0" />
+  </ItemGroup>
+
+</Project>

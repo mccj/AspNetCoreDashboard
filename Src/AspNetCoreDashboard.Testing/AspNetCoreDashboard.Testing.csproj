@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <Description>AspNetCoreDashboard UI 模块集成测试辅助库。</Description>
+    <PackageTags>aspnetcore;dashboard;testing</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\build\AspNetCore.Mvc.Testing.PackageReferences.targets" />
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreDashboard\AspNetCoreDashboard.csproj" />
+    <ProjectReference Include="..\AspNetCoreDashboard.Abstractions\AspNetCoreDashboard.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

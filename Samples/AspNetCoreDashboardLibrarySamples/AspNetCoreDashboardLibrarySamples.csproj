@@ -2,53 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netstandard2.1;netstandard2.0;NET461;NET46</TargetFrameworks>
-	  
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>AspNetCoreDashboardLibrarySamples</AssemblyTitle>
   </PropertyGroup>
 
-  <!--<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0' Or '$(TargetFramework)'=='netstandard2.1'">
-    <DefineConstants>NETSTANDARD;</DefineConstants>
-  </PropertyGroup>-->
-  <PropertyGroup Condition="'$(TargetFramework)'=='NET461'">
-    <DefineConstants>NETSTANDARD;NETFRAMEWORK</DefineConstants>
-  </PropertyGroup>
-  <!--<PropertyGroup Condition="'$(TargetFramework)'=='NET46'">
-    <DefineConstants>NETFRAMEWORK</DefineConstants>
-  </PropertyGroup>-->
-  
-  <ItemGroup>
-    <None Remove="Content\**" />
-    <EmbeddedResource Include="Content\**" />
-  </ItemGroup>
+  <Import Project="..\..\Src\AspNetCoreDashboard.Abstractions\build\AspNetCoreDashboard.EmbeddedContent.targets" />
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-    <!--<PackageReference Include="RazorGenerator.MsBuild" Version="2.5.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>-->
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Src\AspNetCoreDashboard\AspNetCoreDashboard.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\Dashboard\Home.generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Home.cshtml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Views\Dashboard\Home.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Home.generated.cs</LastGenOutput>
-    </None>
-    <None Update="Views\_layout.cshtml">
-      <Generator></Generator>
-    </None>
+    <ProjectReference Include="..\..\Src\AspNetCoreDashboard.Abstractions\AspNetCoreDashboard.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

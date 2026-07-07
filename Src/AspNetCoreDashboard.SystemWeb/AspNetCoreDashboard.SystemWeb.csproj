@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Description>AspNetCoreDashboard 嵌入式 UI 模块的 System.Web HttpModule 适配器。</Description>
+    <PackageTags>aspnet;dashboard;system.web;httpmodule</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreDashboard.Abstractions\AspNetCoreDashboard.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

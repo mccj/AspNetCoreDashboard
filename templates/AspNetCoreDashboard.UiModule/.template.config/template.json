@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "mccj",
+  "classifications": [ "Web", "AspNetCoreDashboard" ],
+  "identity": "AspNetCoreDashboard.UiModule",
+  "name": "AspNetCoreDashboard UI 模块",
+  "shortName": "acduimodule",
+  "description": "创建可嵌入的 AspNetCoreDashboard UI 模块项目。",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "sourceName": "MyUiModule",
+  "preferNameDirectory": true
+}

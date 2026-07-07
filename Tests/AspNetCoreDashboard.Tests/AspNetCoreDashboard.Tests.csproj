@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\build\AspNetCore.Mvc.Testing.PackageReferences.targets" />
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.v3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\AspNetCoreDashboard\AspNetCoreDashboard.csproj" />
+    <ProjectReference Include="..\..\Src\AspNetCoreDashboard.Abstractions\AspNetCoreDashboard.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Samples\AspNetCoreDashboardLibrarySamples\AspNetCoreDashboardLibrarySamples.csproj" />
+    <ProjectReference Include="..\..\Samples\AspNetCoreDashboardWebSamples\AspNetCoreDashboardWebSamples.csproj" />
+  </ItemGroup>
+
+</Project>
+

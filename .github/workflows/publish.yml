@@ -1,0 +1,39 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: Build and test
+        run: |
+          dotnet build AspNetCoreDashboard.slnx -c Release
+          dotnet test AspNetCoreDashboard.slnx -c Release --no-build --verbosity normal
+
+      - name: Pack
+        run: |
+          dotnet pack Src/AspNetCoreDashboard.Abstractions/AspNetCoreDashboard.Abstractions.csproj -c Release --no-build -o artifacts
+          dotnet pack Src/AspNetCoreDashboard/AspNetCoreDashboard.csproj -c Release --no-build -o artifacts
+          dotnet pack Src/AspNetCoreDashboard.Owin/AspNetCoreDashboard.Owin.csproj -c Release --no-build -o artifacts
+          dotnet pack Src/AspNetCoreDashboard.Testing/AspNetCoreDashboard.Testing.csproj -c Release --no-build -o artifacts
+          dotnet pack Src/AspNetCoreDashboard.Analyzers/AspNetCoreDashboard.Analyzers.csproj -c Release --no-build -o artifacts
+          dotnet pack Src/AspNetCoreDashboard.Generators/AspNetCoreDashboard.Generators.csproj -c Release --no-build -o artifacts
+          dotnet pack Src/AspNetCoreDashboard.Razor/AspNetCoreDashboard.Razor.csproj -c Release --no-build -o artifacts
+          dotnet pack Src/AspNetCoreDashboard.SystemWeb/AspNetCoreDashboard.SystemWeb.csproj -c Release --no-build -o artifacts
+
+      - name: Push to NuGet
+        run: dotnet nuget push artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

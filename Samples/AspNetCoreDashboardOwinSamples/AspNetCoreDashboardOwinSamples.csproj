@@ -1,20 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net461;net46</TargetFrameworks>
-    <!--<TargetFrameworks>net46</TargetFrameworks>-->
-    <!--<TargetFrameworks>net461</TargetFrameworks>-->
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
-    <PackageReference Include="Microsoft.Owin.Host.HttpListener.zh-Hans" Version="4.2.0" />
-    <PackageReference Include="Microsoft.Owin.Hosting.zh-Hans" Version="4.2.0" />
-    <PackageReference Include="Topshelf" Version="4.3.0" />
-   </ItemGroup>
-
+    <PackageReference Include="Microsoft.Owin.Host.HttpListener" />
+    <PackageReference Include="Microsoft.Owin.Hosting" />
+    <PackageReference Include="Topshelf" />
+  </ItemGroup>
+  
   <ItemGroup>
+    <ProjectReference Include="..\..\Src\AspNetCoreDashboard.Owin\AspNetCoreDashboard.Owin.csproj" />
     <ProjectReference Include="..\AspNetCoreDashboardLibrarySamples\AspNetCoreDashboardLibrarySamples.csproj" />
   </ItemGroup>
-</Project>
+  
+</Project>

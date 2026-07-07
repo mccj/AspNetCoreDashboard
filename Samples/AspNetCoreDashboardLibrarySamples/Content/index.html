@@ -1,27 +1,131 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Test</title>
+    <title>AspNetCoreDashboard 示例</title>
+    <link rel="stylesheet" href="css/sample.css" />
 </head>
 <body>
-    <a href="FlowStatistics">FlowStatistics</a>
-    <a href="FlowStatistics?filter=eee">FlowStatistics?filter=eee</a>
-    <form action="FlowStatistics" method="post" enctype="application/x-www-form-urlencoded">
-        <input type="text" name="filter" value="aaa" />
-        <input type="text" name="orderBy" value="ssss" />
-        <input type="submit" />
-    </form>
-    <form action="FlowStatistics" method="post" enctype="multipart/form-data">
-        <input type="text" name="filter" value="aaa" />
-        <input type="text" name="orderBy" value="ssss" />
-        <input type="submit" />
-    </form>
-    <form action="FlowStatistics" method="get">
-        <input type="text" name="filter" value="aaa" />
-        <input type="text" name="orderBy" value="ssss" />
-        <input type="submit" />
-    </form>
+    <header class="hero">
+        <img src="img/logo.png" alt="示例 Logo" />
+        <div>
+            <h1>AspNetCoreDashboard 示例</h1>
+            <p id="asset-status">正在加载嵌入资源…</p>
+            <p class="subtitle">本页由 netstandard2.0 程序集中的嵌入式静态文件提供。</p>
+            <p class="subtitle-en">This page is served from embedded resources in a netstandard2.0 assembly.</p>
+        </div>
+    </header>
+
+    <nav class="tabs" aria-label="示例视图">
+        <a href="#/" data-route="/">概览</a>
+        <a href="#/about" data-route="/about">关于（SPA）</a>
+    </nav>
+
+    <main id="view-home" class="view">
+        <section class="panel">
+            <h2>模块状态</h2>
+            <div class="actions">
+                <button type="button" id="btn-dashboard-status">Dashboard /api/status</button>
+                <button type="button" id="btn-diagnostics-status">Diagnostics /api/status</button>
+                <button type="button" id="btn-health">Dashboard /health</button>
+            </div>
+            <pre id="status-output" class="output">点击按钮请求 JSON 或文本端点。</pre>
+        </section>
+
+        <section class="panel">
+            <h2>嵌入静态资源</h2>
+            <p>以下文件由 <code>MapEmbeddedUi</code> 从程序集提供：</p>
+            <ul class="asset-list">
+                <li><code>/Dashboard/css/sample.css</code></li>
+                <li><code>/Dashboard/js/site.js</code></li>
+                <li><code>/Dashboard/img/logo.png</code></li>
+                <li><code>/Dashboard/fonts/sample.woff</code>（CSS <code>@font-face</code>）</li>
+            </ul>
+        </section>
+
+        <section class="panel">
+            <h2>REST API</h2>
+            <div class="actions">
+                <button type="button" id="btn-item-get">GET item/42</button>
+                <button type="button" id="btn-item-put">PUT item/7</button>
+                <button type="button" id="btn-item-patch">PATCH item/11</button>
+                <button type="button" id="btn-item-delete">DELETE item/9</button>
+                <button type="button" id="btn-item-options">OPTIONS item/1</button>
+            </div>
+            <pre id="rest-output" class="output">—</pre>
+        </section>
+
+        <section class="panel">
+            <h2>表单与 Query</h2>
+            <div class="form-grid">
+                <label>
+                    filter
+                    <input type="text" id="flow-filter" value="alpha" />
+                </label>
+                <label>
+                    orderBy
+                    <input type="text" id="flow-order" value="created" />
+                </label>
+            </div>
+            <div class="actions">
+                <button type="button" id="btn-flow-get">GET FlowStatistics</button>
+                <button type="button" id="btn-flow-post-urlencoded">POST urlencoded</button>
+                <button type="button" id="btn-flow-post-multipart">POST multipart</button>
+            </div>
+            <pre id="flow-output" class="output">—</pre>
+        </section>
+
+        <section class="panel">
+            <h2>文件上传与下载</h2>
+            <div class="actions">
+                <input type="file" id="upload-file" />
+                <button type="button" id="btn-upload">上传</button>
+                <a class="button-link" href="api/export/sample.txt">下载 sample.txt</a>
+            </div>
+            <pre id="file-output" class="output">—</pre>
+        </section>
+
+        <section class="panel">
+            <h2>迷你任务监控</h2>
+            <p>内存中的示例任务列表，演示 JSON CRUD 与 CSV 导出。</p>
+            <div class="form-grid">
+                <label>
+                    任务名称
+                    <input type="text" id="job-name" value="sync-users" />
+                </label>
+            </div>
+            <div class="actions">
+                <button type="button" id="btn-job-refresh">刷新列表</button>
+                <button type="button" id="btn-job-create">创建任务</button>
+                <a class="button-link" href="api/jobs/export.csv">导出 CSV</a>
+            </div>
+            <table id="jobs-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>名称</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="jobs-body">
+                    <tr><td colspan="5">暂无任务</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <main id="view-about" class="view hidden">
+        <section class="panel">
+            <h2>SPA History 回退</h2>
+            <p>当前路径：<code id="spa-path">/Dashboard/</code></p>
+            <p>访问无扩展名的客户端路由（例如 <code>/Dashboard/about</code>）时，<code>MapSpaFallback</code> 会返回 <code>index.html</code>，再由前端脚本切换视图。</p>
+            <p><a href="#/">返回概览</a></p>
+        </section>
+    </main>
+
+    <script src="js/site.js"></script>
 </body>
 </html>

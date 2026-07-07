@@ -1,85 +1,107 @@
-﻿
+﻿# AspNetCoreDashboard
 
-# AspNetCoreDashboard
+面向 NuGet 类库作者的嵌入式 Web UI 宿主 SDK。可在 ASP.NET Core 8/9 或 OWIN（.NET Framework 4.8）应用中挂载自包含的 UI + API 模块。
 
-提供基于 Middleware 的仪表盘基础类库
-
-## 构建状态
-[![Build status](https://ci.appveyor.com/api/projects/status/ljllh9mfd0aaleoi?svg=true)](https://ci.appveyor.com/project/mccj/aspnetcoredashboard-dashboard)
-[![MyGet](https://img.shields.io/myget/mccj/vpre/AspNetCoreDashboard.svg)](https://myget.org/feed/mccj/package/nuget/AspNetCoreDashboard)
+[![Build](https://github.com/mccj/AspNetCoreDashboard/actions/workflows/build.yml/badge.svg)](https://github.com/mccj/AspNetCoreDashboard/actions/workflows/build.yml)
 [![NuGet](https://img.shields.io/nuget/v/AspNetCoreDashboard.svg)](https://www.nuget.org/packages/AspNetCoreDashboard)
 
-## 简单案例
-```C#
-        public static IApplicationBuilder UseDashboardTest(this IApplicationBuilder app)
-        {
-            var assembly = typeof(DashboardExtensions).GetTypeInfo().Assembly;
-            var contentFolderNamespace = GetContentFolderNamespace();
+## .NET 支持策略
 
-            //AspNetCore.StaticFiles.FileExtensionContentTypeProvider f; f.TryGetContentType()
-            app.UseMapDashboard("/Dashboard", routes=> {
-                routes.Add("", new RedirectDispatcher((uriMatch) => uriMatch.Value + "/"));
-                //routes.Add("/aaaa", new RedirectDispatcher((uriMatch) => uriMatch.Value + "/"));
+| 宿主 | TFM | 支持状态 |
+|------|-----|----------|
+| ASP.NET Core | **net8.0**、**net9.0** | 活跃维护 — 大版本发布时对齐当前 LTS |
+| OWIN / .NET Framework | **net48** | 活跃维护 — 缺陷修复，与 Abstractions API 对齐 |
+| UI 模块编写 | **netstandard2.0** | 活跃维护 — 仅引用 Abstractions |
+| System.Web | **net48** | 活跃维护 — API 路由与流式静态资源；复杂场景优先 OWIN 或 ASP.NET Core |
 
-                routes.Add("/", new EmbeddedResourceDispatcher(System.Net.Mime.MediaTypeNames.Text.Html, assembly, GetContentResourceName("index.html")));
-                //routes.Add("/", new PhysicalFileDispatcher(System.Net.Mime.MediaTypeNames.Text.Html, "Content/index.html"));
-                //routes.Add("/aaaa/", new EmbeddedResourceDispatcher(System.Net.Mime.MediaTypeNames.Text.Html, assembly, GetContentResourceName("index.html")));
-                ////app.UseStaticFiles(new StaticFileOptions { RequestPath = "/aa/bb", ServeUnknownFileTypes = true, DefaultContentType = "application/x-msdownload", FileProvider = new EmbeddedFileProvider(assembly, "AspNetCoreDashboardLibraryTest") });
-                //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.css)", "text/css", GetContentFolderNamespace());
-                //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.js)", "application/javascript", GetContentFolderNamespace());
-                //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.png)", "image/png", GetContentFolderNamespace());
-                //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.gif)", System.Net.Mime.MediaTypeNames.Image.Gif, GetContentFolderNamespace());
-                //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.jpg)", System.Net.Mime.MediaTypeNames.Image.Jpeg, GetContentFolderNamespace());
-                //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.woff2)", "font/woff2", GetContentFolderNamespace());
-                //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.woff)", "application/font-woff", GetContentFolderNamespace());
-                //routes.AddEmbeddedResource(assembly, "/(?<path>.+\\.png)", "image/png", GetContentFolderNamespace());
-                //routes.AddEmbeddedDefaultResource(assembly, GetContentFolderNamespace(),"");
+新版 SDK 大版本与 ASP.NET Core LTS 发布节奏对齐；同一主版本内的补丁发布保持向后兼容。
 
-                routes.AddCommand("/FlowStatistics", context =>
-                {
-                    try
-                    {
-                        var filter = context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("filter")?.Result?.FirstOrDefault() : context.Request.GetQuery("filter");
-                        var orderBy = context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("orderBy")?.Result?.FirstOrDefault() : context.Request.GetQuery("orderBy");
-                        //var start = (context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("start")?.Result?.FirstOrDefault() : context.Request.GetQuery("start")).AsInt32();
-                        //var length = (context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("length")?.Result?.FirstOrDefault() : context.Request.GetQuery("length")).AsInt32();
-                        //var draw = (context.Request.Method == "POST" ? context.Request.GetFormValuesAsync("draw")?.Result?.FirstOrDefault() : context.Request.GetQuery("draw"))?.AsInt32();
+## 包说明
 
-                        //var _accessInfoServices = app.ApplicationServices.GetService<AccessInfoServices>();
+| 包 | TFM | 适用场景 |
+|----|-----|----------|
+| [AspNetCoreDashboard.Abstractions](Src/AspNetCoreDashboard.Abstractions/README.md) | netstandard2.0 | 编写 UI 模块 |
+| [AspNetCoreDashboard](Src/AspNetCoreDashboard/README.md) | net8.0;net9.0 | ASP.NET Core 宿主 |
+| [AspNetCoreDashboard.Owin](Src/AspNetCoreDashboard.Owin/README.md) | net48 | OWIN / .NET Framework 宿主 |
+| [AspNetCoreDashboard.Generators](Src/AspNetCoreDashboard.Generators/README.md) | netstandard2.0 | 内容命名空间与路径前缀源生成器 |
+| [AspNetCoreDashboard.Testing](Src/AspNetCoreDashboard.Testing/README.md) | net8.0 | 集成测试辅助（可选） |
+| [AspNetCoreDashboard.Analyzers](Src/AspNetCoreDashboard.Analyzers/README.md) | netstandard2.0 | 编译期模块检查（可选） |
+| [AspNetCoreDashboard.Razor](Src/AspNetCoreDashboard.Razor/README.md) | net8.0 | Razor 预览路由（可选） |
+| [AspNetCoreDashboard.SystemWeb](Src/AspNetCoreDashboard.SystemWeb/README.md) | net48 | System.Web HttpModule 适配器 |
 
-                        //var data = _accessInfoServices.GetAccessRecord().Where(filter).OrderBy(orderBy);
+## 快速开始（ASP.NET Core 8 / 9）
 
-                        //var d = Newtonsoft.Json.JsonConvert.SerializeObject(new
-                        //{
-                        //    Data = data.Skip(start).Take(length).ToArray(),
-                        //    Total = data.Count(),
-                        //    Draw = draw,
-                        //});
-                        context.Response.WriteAsync("aaa");
-                    }
-                    catch (System.Exception ex)
-                    {
-                        //var d = Newtonsoft.Json.JsonConvert.SerializeObject(new { IsSuccess = false, ErrorMsg = ex.DetailMessage() });
-                        context.Response.WriteAsync(ex.Message);
-                    }
-                    return true;
-                });
-                routes.AddEmbeddedResource(assembly, "/(?<path>.*)", string.Empty, GetContentFolderNamespace());
-                //routes.AddEmbeddedResource("/libs/(?<path>.+\\.json)", "application/json", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));
-                //routes.AddEmbeddedResource("/libs/(?<path>.+\\.js)", "application/javascript", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));
-                //routes.AddEmbeddedResource("/libs/(?<path>.+\\.css)", "text/css", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));
-                //routes.AddEmbeddedResource("/libs/(?<path>.+\\.png)", "image/png", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));
-                //routes.AddEmbeddedResource("/libs/(?<path>.+\\.gif)", "image/gif", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.libs"));
-                //routes.AddEmbeddedResource("/themes/(?<path>.+\\.css)", "text/css", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.themes"));
-                //routes.AddEmbeddedResource("/themes/(?<path>.+\\.png)", "image/png", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.themes"));
-                //routes.AddEmbeddedResource("/src/templates/(?<path>.+\\.html)", System.Net.Mime.MediaTypeNames.Text.Html, GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.src.templates"));
-                //routes.AddEmbeddedResource("/languages/(?<path>.+\\.json)", "application/json", GetExecutingAssembly(), GetContentFolderNamespace("RichFilemanager.languages"));
-                //routes.Add("/config/filemanager.init.js", new EmbeddedResourceDispatcher("application/javascript", GetExecutingAssembly(), GetContentResourceName("RichFilemanager.config", "filemanager.init.js")));
-                //routes.Add("/config/filemanager.config.json", new EmbeddedResourceDispatcher("application/json", GetExecutingAssembly(), GetContentResourceName("RichFilemanager.config", "filemanager.config.json")));
-                //routes.Add("/config/filemanager.config.default.json", new EmbeddedResourceDispatcher("application/json", GetExecutingAssembly(), GetContentResourceName("RichFilemanager.config", "filemanager.config.default.json")));
-                //routes.AddCommand("", context=> { context.Response.r});
+```csharp
+[UiModule("/MyModule")]
+public sealed class MyUiModule : IUiModule
+{
+    public string PathPrefix => "/MyModule";
 
-            }, null);
-            return app;
-        }
+    public void Configure(IUiModuleRegistration builder)
+    {
+        builder.MapEmbeddedUi(typeof(MyUiModule).Assembly, "MyModule.Content")
+               .MapFallbackToIndex("MyModule.Content.index.html")
+               .MapGet("/api/items/{id}", ctx => ctx.WriteAsync(ctx.GetRouteValue("id")));
+    }
+}
+
+builder.Services.AddUiModuleHosting(o => o.ApplySecurityHeaders = true);
+builder.Services.AddUiModules()
+    .AddModule<MyUiModule>(builder.Services)
+    .SetAuthorization("/MyModule", new LocalRequestsOnlyAuthorizationFilter());
+app.UseUiModules();
 ```
+
+使用 `dotnet new install ./templates` 安装模板后，执行 `dotnet new acduimodule -n MyCompany.MyModule` 可脚手架生成模块。
+
+## 快速开始（OWIN / net48）
+
+```csharp
+app.AddUiModules()
+   .AddModule<MyUiModule>()
+   .SetAuthorization("/MyModule", new LocalRequestsOnlyAuthorizationFilter());
+app.UseUiModules();
+```
+
+## Docker
+
+```bash
+docker build -f docker/Dockerfile -t aspnetcoredashboard-sample .
+docker run -p 8080:8080 aspnetcoredashboard-sample
+# 打开 http://localhost:8080/Dashboard/
+```
+
+## 示例项目
+
+| 项目 | 说明 |
+|------|------|
+| `AspNetCoreDashboardLibrarySamples` | `SampleUiModule` + `DiagnosticsUiModule`（netstandard2.0） |
+| `AspNetCoreDashboardWebSamples` | ASP.NET Core 9 最小宿主 |
+| `AspNetCoreDashboardOwinSamples` | OWIN 自宿主，端口 1101 |
+
+运行 Web 示例：
+
+```bash
+dotnet run --project Samples/AspNetCoreDashboardWebSamples
+# 打开 http://localhost:5000/Dashboard/
+```
+
+详见 [Samples/README.md](Samples/README.md)。
+
+## 文档
+
+- [架构说明](docs/ARCHITECTURE.md)
+- [模块作者指南](docs/MODULE_AUTHOR_GUIDE.md)
+- [实用食谱](docs/COOKBOOK.md)
+- [故障排查](docs/TROUBLESHOOTING.md)
+- [v2 → v3 迁移指南](docs/MIGRATION_V2_V3.md)
+- [v3.3 → v3.4 迁移指南](docs/MIGRATION_V3_4.md)
+- [v3.5 → v3.6 迁移指南](docs/MIGRATION_V3_5.md)
+- [安全指南](docs/SECURITY.md)
+- [版本策略](docs/VERSIONING.md)
+- [改进建议](docs/IMPROVEMENTS.md)
+- [变更日志](CHANGELOG.md)
+
+## 许可证
+
+MIT — 详见 [LICENSE](LICENSE)。
