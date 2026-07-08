@@ -176,6 +176,12 @@ publish/
 # in these scripts will be unencrypted
 PublishScripts/
 
+# MSBuild preprocess debug output
+preprocessed.xml
+
+# Local package output from GeneratePackageOnBuild
+artifacts/
+
 # NuGet Packages
 *.nupkg
 # The packages folder can be ignored because of Package Restore

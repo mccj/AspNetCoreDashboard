@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..'))</RepoRoot>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts\packages\</PackageOutputPath>
+    <PackageIcon Condition="!Exists('$(RepoRoot)\assets\package-icon.png')"></PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(RepoRoot)\README.md" Pack="true" PackagePath="\" />
+    <None Include="$(RepoRoot)\assets\package-icon.png" Pack="true" PackagePath="\" Condition="Exists('$(RepoRoot)\assets\package-icon.png')" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" Condition="'$(TargetFramework)' != 'net9.0' and '$(TargetFramework)' != 'net10.0'" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" VersionOverride="8.0.0" PrivateAssets="All" Condition="'$(TargetFramework)' == 'net9.0'" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" VersionOverride="10.0.300" PrivateAssets="All" Condition="'$(TargetFramework)' == 'net10.0'" />
+  </ItemGroup>
+</Project>

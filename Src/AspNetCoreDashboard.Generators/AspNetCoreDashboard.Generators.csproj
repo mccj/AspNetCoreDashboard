@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
   </ItemGroup>
 
-  <Target Name="AddGeneratorToPackage" AfterTargets="Build" Condition="'$(IsPackable)' == 'true'">
+  <Target Name="AddGeneratorToPackage" AfterTargets="Build" BeforeTargets="GenerateNuspec" Condition="'$(IsPackable)' == 'true'">
     <ItemGroup>
       <None Include="$(OutputPath)$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>

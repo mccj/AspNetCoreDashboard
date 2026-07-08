@@ -59,11 +59,3 @@ builder.MapEmbeddedUi(assembly, "MyModule.Content")
 ## HEAD 请求
 
 `HEAD` 会自动复用匹配的 `GET` 处理器，且不写入响应体。
-
-## Docker 示例
-
-```bash
-docker compose -f docker/docker-compose.yml up --build
-```
-
-打开 http://localhost:8080/Dashboard/

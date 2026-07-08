@@ -65,14 +65,6 @@ app.AddUiModules()
 app.UseUiModules();
 ```
 
-## Docker
-
-```bash
-docker build -f docker/Dockerfile -t aspnetcoredashboard-sample .
-docker run -p 8080:8080 aspnetcoredashboard-sample
-# 打开 http://localhost:8080/Dashboard/
-```
-
 ## 示例项目
 
 | 项目 | 说明 |

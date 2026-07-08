@@ -28,13 +28,6 @@ dotnet run --project Samples/AspNetCoreDashboardOwinSamples
 
 打开 <http://localhost:1101/Dashboard/>（根路径 `/` 会重定向到仪表板）。
 
-## Docker
-
-```bash
-docker build -f docker/Dockerfile -t aspnetcoredashboard-sample .
-docker run -p 8080:8080 aspnetcoredashboard-sample
-```
-
 ## 示例页面功能
 
 `/Dashboard/` 提供交互式演示：
