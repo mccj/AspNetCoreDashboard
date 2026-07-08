@@ -136,7 +136,7 @@ namespace AspNetCoreDashboard.Analyzers
       }
     }
 
-    private static string? GetUiModuleAttributePathPrefix(
+    private static string GetUiModuleAttributePathPrefix(
         INamedTypeSymbol typeSymbol,
         TypeDeclarationSyntax typeDeclaration,
         SemanticModel semanticModel)
@@ -179,7 +179,7 @@ namespace AspNetCoreDashboard.Analyzers
       var routeKeys = new HashSet<string>(System.StringComparer.OrdinalIgnoreCase);
       var hasEmbeddedUi = false;
       var hasSpaFallback = false;
-      InvocationExpressionSyntax? spaFallbackInvocation = null;
+      InvocationExpressionSyntax spaFallbackInvocation = null;
 
       foreach (var invocation in methodDeclaration.DescendantNodes().OfType<InvocationExpressionSyntax>())
       {
@@ -338,10 +338,11 @@ namespace AspNetCoreDashboard.Analyzers
         SemanticModel semanticModel,
         int argumentIndex = 0)
     {
-      if (invocation.ArgumentList?.Arguments.Count <= argumentIndex)
+      var argumentList = invocation.ArgumentList;
+      if (argumentList == null || argumentList.Arguments.Count <= argumentIndex)
         return null;
 
-      var argument = invocation.ArgumentList.Arguments[argumentIndex];
+      var argument = argumentList.Arguments[argumentIndex];
       var constant = semanticModel.GetConstantValue(argument.Expression);
       return constant.HasValue ? constant.Value as string : null;
     }

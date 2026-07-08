@@ -4,7 +4,7 @@ namespace AspNetCoreDashboard.Abstractions
   public static class UiSecurityHeaders
   {
     /// <summary>为嵌入式管理 UI 应用推荐的基础安全响应头。</summary>
-    public static void ApplyBaseline(IUiContext context, string? contentSecurityPolicy = null)
+    public static void ApplyBaseline(IUiContext context, string contentSecurityPolicy = null)
     {
       if (context == null) throw new System.ArgumentNullException(nameof(context));
 

@@ -73,9 +73,14 @@ namespace AspNetCoreDashboard.SystemWeb
         if (TryServeStatic(context, module, relative))
           return true;
 
-        if (SpaFallbackHelper.ShouldFallback(relative, module.FallbackIndexResource, module.SpaFallbackExcludedExtensions))
+        if (SpaFallbackHelper.ShouldFallback(relative, module.FallbackIndexResource, module.SpaFallbackExcludedExtensions) &&
+            module.EmbeddedAssembly != null)
         {
-          WriteResource(context, module.EmbeddedAssembly, module.FallbackIndexResource, "text/html");
+          var fallbackResource = module.FallbackIndexResource;
+          if (string.IsNullOrEmpty(fallbackResource))
+            return false;
+
+          WriteResource(context, module.EmbeddedAssembly, fallbackResource!, "text/html");
           context.Response.End();
           return true;
         }
@@ -113,8 +118,13 @@ namespace AspNetCoreDashboard.SystemWeb
       if (string.IsNullOrEmpty(relativePath))
         relativePath = "index.html";
 
-      var resourceName = EmbeddedResourcePathHelper.ToResourceName(module.EmbeddedBaseNamespace, relativePath);
-      using (var stream = EmbeddedResourceCache.OpenReadStream(module.EmbeddedAssembly, resourceName))
+      var assembly = module.EmbeddedAssembly;
+      var baseNamespace = module.EmbeddedBaseNamespace;
+      if (assembly == null || string.IsNullOrEmpty(baseNamespace))
+        return false;
+
+      var resourceName = EmbeddedResourcePathHelper.ToResourceName(baseNamespace!, relativePath);
+      using (var stream = EmbeddedResourceCache.OpenReadStream(assembly, resourceName))
       {
         if (stream == null)
           return false;
@@ -166,7 +176,7 @@ namespace AspNetCoreDashboard.SystemWeb
 
   internal static class SpaFallbackHelper
   {
-    public static bool ShouldFallback(string path, string? fallbackResource, IList<string> excludedExtensions)
+    public static bool ShouldFallback(string path, string fallbackResource, IList<string> excludedExtensions)
     {
       if (string.IsNullOrEmpty(fallbackResource))
         return false;
@@ -194,13 +204,13 @@ namespace AspNetCoreDashboard.SystemWeb
   internal sealed class SystemWebUiModuleDescriptor
   {
     public string PathPrefix { get; set; } = "/";
-    public Assembly? EmbeddedAssembly { get; set; }
-    public string? EmbeddedBaseNamespace { get; set; }
-    public string? FallbackIndexResource { get; set; }
+    public Assembly EmbeddedAssembly { get; set; }
+    public string EmbeddedBaseNamespace { get; set; }
+    public string FallbackIndexResource { get; set; }
     public IList<string> SpaFallbackExcludedExtensions { get; } = new List<string>();
     public IList<IUiAuthorizationFilter> AuthorizationFilters { get; } = new List<IUiAuthorizationFilter>();
     public IList<SystemWebRouteEntry> Routes { get; } = new List<SystemWebRouteEntry>();
-    public UiRouteTable? RouteTable { get; set; }
+    public UiRouteTable RouteTable { get; set; }
     public bool HasEmbeddedUi => EmbeddedAssembly != null && !string.IsNullOrEmpty(EmbeddedBaseNamespace);
   }
 

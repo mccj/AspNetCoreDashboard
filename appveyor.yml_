@@ -8,36 +8,38 @@ environment:
 install:
   - ps: dotnet --list-sdks
   - ps: |
-      $sdk10 = Get-ChildItem "$env:ProgramFiles\dotnet\sdk" -Directory -Filter "10.0*" -ErrorAction SilentlyContinue | Select-Object -First 1
-      if (-not $sdk10) {
-        Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile "$env:TEMP\dotnet-install.ps1"
-        & $env:TEMP\dotnet-install.ps1 -Architecture x64 -Channel 10.0 -InstallDir "$env:ProgramFiles\dotnet"
+      $installScript = "$env:TEMP\dotnet-install.ps1"
+      Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile $installScript
+      foreach ($channel in @('8.0', '9.0', '10.0')) {
+        $installed = Get-ChildItem "$env:ProgramFiles\dotnet\sdk" -Directory -Filter "$channel*" -ErrorAction SilentlyContinue | Select-Object -First 1
+        if (-not $installed) {
+          & $installScript -Architecture x64 -Channel $channel -InstallDir "$env:ProgramFiles\dotnet"
+        }
       }
 
 before_build:
-  - ps: New-Item -ItemType Directory -Force -Path artifacts | Out-Null
   - ps: dotnet restore AspNetCoreDashboard.slnx
 
 build_script:
+  - ps: dotnet format AspNetCoreDashboard.slnx --verify-no-changes
   - ps: dotnet build AspNetCoreDashboard.slnx -c Release --no-restore
   - ps: dotnet test AspNetCoreDashboard.slnx -c Release --no-build --verbosity normal
   - ps: |
-      New-Item -ItemType Directory -Force -Path artifacts | Out-Null
-      dotnet pack Src/AspNetCoreDashboard.Abstractions/AspNetCoreDashboard.Abstractions.csproj -c Release --no-build -o artifacts
-      dotnet pack Src/AspNetCoreDashboard/AspNetCoreDashboard.csproj -c Release --no-build -o artifacts
-      dotnet pack Src/AspNetCoreDashboard.Owin/AspNetCoreDashboard.Owin.csproj -c Release --no-build -o artifacts
-      dotnet pack Src/AspNetCoreDashboard.Testing/AspNetCoreDashboard.Testing.csproj -c Release --no-build -o artifacts
-      dotnet pack Src/AspNetCoreDashboard.Analyzers/AspNetCoreDashboard.Analyzers.csproj -c Release --no-build -o artifacts
-      dotnet pack Src/AspNetCoreDashboard.Generators/AspNetCoreDashboard.Generators.csproj -c Release --no-build -o artifacts
-      dotnet pack Src/AspNetCoreDashboard.Razor/AspNetCoreDashboard.Razor.csproj -c Release --no-build -o artifacts
-      dotnet pack Src/AspNetCoreDashboard.SystemWeb/AspNetCoreDashboard.SystemWeb.csproj -c Release --no-build -o artifacts
+      $out = Join-Path $env:APPVEYOR_BUILD_FOLDER 'package'
+      New-Item -ItemType Directory -Force -Path $out | Out-Null
+      dotnet pack Src/AspNetCoreDashboard.Abstractions/AspNetCoreDashboard.Abstractions.csproj -c Release --no-build -o $out
+      dotnet pack Src/AspNetCoreDashboard/AspNetCoreDashboard.csproj -c Release --no-build -o $out
+      dotnet pack Src/AspNetCoreDashboard.Owin/AspNetCoreDashboard.Owin.csproj -c Release --no-build -o $out
+      dotnet pack Src/AspNetCoreDashboard.Testing/AspNetCoreDashboard.Testing.csproj -c Release --no-build -o $out
+      dotnet pack Src/AspNetCoreDashboard.Analyzers/AspNetCoreDashboard.Analyzers.csproj -c Release -o $out
+      dotnet pack Src/AspNetCoreDashboard.Generators/AspNetCoreDashboard.Generators.csproj -c Release -o $out
+      dotnet pack Src/AspNetCoreDashboard.Razor/AspNetCoreDashboard.Razor.csproj -c Release --no-build -o $out
+      dotnet pack Src/AspNetCoreDashboard.SystemWeb/AspNetCoreDashboard.SystemWeb.csproj -c Release --no-build -o $out
 
 artifacts:
-  - path: 'artifacts\*.nupkg'
+  - path: package\*.nupkg
     name: nupkg
 
 deploy:
-  - provider: Environment
-    name: MyGet
   - provider: Environment
     name: NuGet

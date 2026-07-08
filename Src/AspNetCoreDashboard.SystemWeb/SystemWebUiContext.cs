@@ -20,14 +20,14 @@ namespace AspNetCoreDashboard.SystemWeb
       _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public IServiceProvider? Services => null;
+    public IServiceProvider Services => null;
     public string Method => _context.Request.HttpMethod;
     public string Path => GetRelativePath();
-    public Match? RouteMatch { get; set; }
+    public Match RouteMatch { get; set; }
     public CancellationToken RequestAborted => CancellationToken.None;
-    public ClaimsPrincipal? User => _context.User as ClaimsPrincipal;
-    public string? LocalIpAddress => _context.Request.ServerVariables["LOCAL_ADDR"];
-    public string? RemoteIpAddress => _context.Request.UserHostAddress;
+    public ClaimsPrincipal User => _context.User as ClaimsPrincipal;
+    public string LocalIpAddress => _context.Request.ServerVariables["LOCAL_ADDR"];
+    public string RemoteIpAddress => _context.Request.UserHostAddress;
 
     public int StatusCode
     {
@@ -35,23 +35,23 @@ namespace AspNetCoreDashboard.SystemWeb
       set => _context.Response.StatusCode = value;
     }
 
-    public Task<string?> GetQueryAsync(string name)
+    public Task<string> GetQueryAsync(string name)
     {
-      return Task.FromResult<string?>(_context.Request.QueryString[name]);
+      return Task.FromResult(_context.Request.QueryString[name]);
     }
 
-    public Task<string?> GetFormValueAsync(string name)
+    public Task<string> GetFormValueAsync(string name)
     {
-      return Task.FromResult<string?>(_context.Request.Form[name]);
+      return Task.FromResult(_context.Request.Form[name]);
     }
 
-    public Task<IUiFormFile?> GetFormFileAsync(string name)
+    public Task<IUiFormFile> GetFormFileAsync(string name)
     {
       var file = _context.Request.Files[name];
       if (file == null || file.ContentLength <= 0)
-        return Task.FromResult<IUiFormFile?>(null);
+        return Task.FromResult<IUiFormFile>(null);
 
-      return Task.FromResult<IUiFormFile?>(new SystemWebFormFile(file));
+      return Task.FromResult<IUiFormFile>(new SystemWebFormFile(file));
     }
 
     public Task<string> ReadBodyAsStringAsync()
@@ -67,7 +67,7 @@ namespace AspNetCoreDashboard.SystemWeb
       return Task.FromResult<Stream>(_context.Request.InputStream);
     }
 
-    public async Task<T?> ReadJsonAsync<T>()
+    public async Task<T> ReadJsonAsync<T>()
     {
       var json = await ReadBodyAsStringAsync();
       if (string.IsNullOrWhiteSpace(json))
@@ -76,12 +76,12 @@ namespace AspNetCoreDashboard.SystemWeb
       return JsonSerializer.Deserialize<T>(json);
     }
 
-    public string? GetRequestHeader(string name)
+    public string GetRequestHeader(string name)
     {
       return string.IsNullOrEmpty(name) ? null : _context.Request.Headers[name];
     }
 
-    public string? GetRequestCookie(string name)
+    public string GetRequestCookie(string name)
     {
       return string.IsNullOrEmpty(name) ? null : _context.Request.Cookies[name]?.Value;
     }
@@ -96,7 +96,7 @@ namespace AspNetCoreDashboard.SystemWeb
         string name,
         string value,
         DateTimeOffset? expires = null,
-        string? path = null,
+        string path = null,
         bool httpOnly = false,
         bool secure = false,
         UiCookieSameSite sameSite = UiCookieSameSite.Unspecified)
@@ -131,7 +131,7 @@ namespace AspNetCoreDashboard.SystemWeb
       return Task.CompletedTask;
     }
 
-    public Task WriteStreamAsync(Stream stream, string contentType, string? downloadFileName = null)
+    public Task WriteStreamAsync(Stream stream, string contentType, string downloadFileName = null)
     {
       if (stream == null) throw new ArgumentNullException(nameof(stream));
 

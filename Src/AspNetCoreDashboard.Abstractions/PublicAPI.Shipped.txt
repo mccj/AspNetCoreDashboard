@@ -1,143 +1,137 @@
 ﻿AspNetCoreDashboard.Abstractions.EmbeddedResourceCache
-AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.static GetBytes(System.Reflection.Assembly, System.String) -> System.Byte[]
-AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.static OpenMemoryStream(System.Reflection.Assembly, System.String) -> System.IO.MemoryStream
-AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.static Clear()
-AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.MaxEntries.get -> System.Int32
-AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.MaxEntries.set -> void
-AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.MaxBytes.get -> System.Int64
-AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.MaxBytes.set -> void
 AspNetCoreDashboard.Abstractions.EmbeddedResourceEtag
-AspNetCoreDashboard.Abstractions.EmbeddedResourceEtag.static Compute(System.Byte[]) -> System.String
-AspNetCoreDashboard.Abstractions.EmbeddedResourceEtag.static IsNotModified(AspNetCoreDashboard.Abstractions.IUiContext, System.String) -> System.Boolean
 AspNetCoreDashboard.Abstractions.EmbeddedResourcePathHelper
-AspNetCoreDashboard.Abstractions.EmbeddedResourcePathHelper.static ToResourceName(System.String, System.String) -> System.String
 AspNetCoreDashboard.Abstractions.IUiAuthorizationFilter
-AspNetCoreDashboard.Abstractions.IUiAuthorizationFilter.Authorize(AspNetCoreDashboard.Abstractions.IUiContext) -> System.Boolean
 AspNetCoreDashboard.Abstractions.IUiContext
-AspNetCoreDashboard.Abstractions.IUiContext.GetQueryAsync(System.String) -> System.Threading.Tasks.Task`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
-AspNetCoreDashboard.Abstractions.IUiContext.GetFormValueAsync(System.String) -> System.Threading.Tasks.Task`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
-AspNetCoreDashboard.Abstractions.IUiContext.GetFormFileAsync(System.String) -> System.Threading.Tasks.Task`1[[AspNetCoreDashboard.Abstractions.IUiFormFile, AspNetCoreDashboard.Abstractions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null]]
-AspNetCoreDashboard.Abstractions.IUiContext.ReadBodyAsStringAsync() -> System.Threading.Tasks.Task`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
-AspNetCoreDashboard.Abstractions.IUiContext.OpenRequestBodyAsync() -> System.Threading.Tasks.Task`1[[System.IO.Stream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
-AspNetCoreDashboard.Abstractions.IUiContext.GetRequestHeader(System.String) -> System.String
-AspNetCoreDashboard.Abstractions.IUiContext.GetRequestCookie(System.String) -> System.String
-AspNetCoreDashboard.Abstractions.IUiContext.SetResponseHeader(System.String, System.String)
-AspNetCoreDashboard.Abstractions.IUiContext.SetCookie(System.String, System.String, System.Nullable`1[[System.DateTimeOffset, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], System.String, System.Boolean, System.Boolean, AspNetCoreDashboard.Abstractions.UiCookieSameSite)
-AspNetCoreDashboard.Abstractions.IUiContext.WriteAsync(System.String, System.String) -> System.Threading.Tasks.Task
-AspNetCoreDashboard.Abstractions.IUiContext.WriteJsonAsync(System.Object) -> System.Threading.Tasks.Task
-AspNetCoreDashboard.Abstractions.IUiContext.WriteStreamAsync(System.IO.Stream, System.String, System.String) -> System.Threading.Tasks.Task
-AspNetCoreDashboard.Abstractions.IUiContext.RedirectAsync(System.String, System.Boolean) -> System.Threading.Tasks.Task
-AspNetCoreDashboard.Abstractions.IUiContext.Services.get -> System.IServiceProvider
-AspNetCoreDashboard.Abstractions.IUiContext.Method.get -> System.String
-AspNetCoreDashboard.Abstractions.IUiContext.Path.get -> System.String
+AspNetCoreDashboard.Abstractions.IUiContext.RequestAborted.get -> System.Threading.CancellationToken
 AspNetCoreDashboard.Abstractions.IUiContext.RouteMatch.get -> System.Text.RegularExpressions.Match
 AspNetCoreDashboard.Abstractions.IUiContext.RouteMatch.set -> void
-AspNetCoreDashboard.Abstractions.IUiContext.RequestAborted.get -> System.Threading.CancellationToken
-AspNetCoreDashboard.Abstractions.IUiContext.User.get -> System.Security.Claims.ClaimsPrincipal
-AspNetCoreDashboard.Abstractions.IUiContext.StatusCode.get -> System.Int32
+AspNetCoreDashboard.Abstractions.IUiContext.Services.get -> System.IServiceProvider
 AspNetCoreDashboard.Abstractions.IUiContext.StatusCode.set -> void
-AspNetCoreDashboard.Abstractions.IUiContext.LocalIpAddress.get -> System.String
-AspNetCoreDashboard.Abstractions.IUiContext.RemoteIpAddress.get -> System.String
+AspNetCoreDashboard.Abstractions.IUiContext.User.get -> System.Security.Claims.ClaimsPrincipal
 AspNetCoreDashboard.Abstractions.IUiFormFile
-AspNetCoreDashboard.Abstractions.IUiFormFile.OpenReadStreamAsync() -> System.Threading.Tasks.Task`1[[System.IO.Stream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
-AspNetCoreDashboard.Abstractions.IUiFormFile.FileName.get -> System.String
-AspNetCoreDashboard.Abstractions.IUiFormFile.ContentType.get -> System.String
 AspNetCoreDashboard.Abstractions.IUiModule
-AspNetCoreDashboard.Abstractions.IUiModule.Configure(AspNetCoreDashboard.Abstractions.IUiModuleRegistration)
-AspNetCoreDashboard.Abstractions.IUiModule.PathPrefix.get -> System.String
 AspNetCoreDashboard.Abstractions.IUiModuleMountTracker
-AspNetCoreDashboard.Abstractions.IUiModuleMountTracker.Register(System.String)
-AspNetCoreDashboard.Abstractions.IUiModuleMountTracker.Reset()
 AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapEmbeddedUi(System.Reflection.Assembly, System.String) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapGet(System.String, AspNetCoreDashboard.Abstractions.UiHandler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapHead(System.String, AspNetCoreDashboard.Abstractions.UiHandler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapPost(System.String, AspNetCoreDashboard.Abstractions.UiHandler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapPut(System.String, AspNetCoreDashboard.Abstractions.UiHandler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapDelete(System.String, AspNetCoreDashboard.Abstractions.UiHandler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapPatch(System.String, AspNetCoreDashboard.Abstractions.UiHandler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapOptions(System.String, AspNetCoreDashboard.Abstractions.UiHandler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapFallbackToIndex(System.String) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapSpaFallback(System.String) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.ExcludeSpaFallbackExtensions(System.String[]) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.WithStaticCache(System.Int32) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
 AspNetCoreDashboard.Abstractions.LocalRequestsOnlyAuthorizationFilter
-AspNetCoreDashboard.Abstractions.LocalRequestsOnlyAuthorizationFilter..ctor()
-AspNetCoreDashboard.Abstractions.LocalRequestsOnlyAuthorizationFilter.Authorize(AspNetCoreDashboard.Abstractions.IUiContext) -> System.Boolean
 AspNetCoreDashboard.Abstractions.RequireRoleAuthorizationFilter
-AspNetCoreDashboard.Abstractions.RequireRoleAuthorizationFilter..ctor(System.String[])
-AspNetCoreDashboard.Abstractions.RequireRoleAuthorizationFilter.Authorize(AspNetCoreDashboard.Abstractions.IUiContext) -> System.Boolean
 AspNetCoreDashboard.Abstractions.TrustedForwardedHeadersAuthorizationFilter
-AspNetCoreDashboard.Abstractions.TrustedForwardedHeadersAuthorizationFilter..ctor(System.String[])
-AspNetCoreDashboard.Abstractions.TrustedForwardedHeadersAuthorizationFilter.Authorize(AspNetCoreDashboard.Abstractions.IUiContext) -> System.Boolean
 AspNetCoreDashboard.Abstractions.UiContextRouteExtensions
-AspNetCoreDashboard.Abstractions.UiContextRouteExtensions.static GetRouteValue(AspNetCoreDashboard.Abstractions.IUiContext, System.String) -> System.String
-AspNetCoreDashboard.Abstractions.UiContextRouteExtensions.static GetRouteValues(AspNetCoreDashboard.Abstractions.IUiContext) -> System.Collections.Generic.IReadOnlyDictionary`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
-AspNetCoreDashboard.Abstractions.UiHandler
-AspNetCoreDashboard.Abstractions.UiHandler..ctor(System.Object, System.IntPtr)
-AspNetCoreDashboard.Abstractions.UiHandler.Invoke(AspNetCoreDashboard.Abstractions.IUiContext) -> System.Threading.Tasks.Task
-AspNetCoreDashboard.Abstractions.UiHandler.BeginInvoke(AspNetCoreDashboard.Abstractions.IUiContext, System.AsyncCallback, System.Object) -> System.IAsyncResult
-AspNetCoreDashboard.Abstractions.UiHandler.EndInvoke(System.IAsyncResult) -> System.Threading.Tasks.Task
-AspNetCoreDashboard.Abstractions.UiHttpMethod
-AspNetCoreDashboard.Abstractions.UiHttpMethod.value__ -> System.Int32
-AspNetCoreDashboard.Abstractions.UiHttpMethod.Get -> AspNetCoreDashboard.Abstractions.UiHttpMethod
-AspNetCoreDashboard.Abstractions.UiHttpMethod.Head -> AspNetCoreDashboard.Abstractions.UiHttpMethod
-AspNetCoreDashboard.Abstractions.UiHttpMethod.Post -> AspNetCoreDashboard.Abstractions.UiHttpMethod
-AspNetCoreDashboard.Abstractions.UiHttpMethod.Put -> AspNetCoreDashboard.Abstractions.UiHttpMethod
-AspNetCoreDashboard.Abstractions.UiHttpMethod.Patch -> AspNetCoreDashboard.Abstractions.UiHttpMethod
-AspNetCoreDashboard.Abstractions.UiHttpMethod.Delete -> AspNetCoreDashboard.Abstractions.UiHttpMethod
-AspNetCoreDashboard.Abstractions.UiHttpMethod.Options -> AspNetCoreDashboard.Abstractions.UiHttpMethod
-AspNetCoreDashboard.Abstractions.UiModuleAssemblyExtensions
-AspNetCoreDashboard.Abstractions.UiModuleAssemblyExtensions.static GetUiModuleTypes(System.Reflection.Assembly) -> System.Type[]
-AspNetCoreDashboard.Abstractions.UiModuleMountTracker
-AspNetCoreDashboard.Abstractions.UiModuleMountTracker..ctor()
-AspNetCoreDashboard.Abstractions.UiModuleMountTracker.Register(System.String)
-AspNetCoreDashboard.Abstractions.UiModuleMountTracker.Reset()
-AspNetCoreDashboard.Abstractions.UiModuleMountTracker.OwinPropertyKey -> System.String
-AspNetCoreDashboard.Abstractions.UiModuleRegistry
-AspNetCoreDashboard.Abstractions.UiModuleRegistry..ctor()
-AspNetCoreDashboard.Abstractions.UiModuleRegistry.AddModule(AspNetCoreDashboard.Abstractions.IUiModule) -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
-AspNetCoreDashboard.Abstractions.UiModuleRegistry.AddModule<TModule>() -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
-AspNetCoreDashboard.Abstractions.UiModuleRegistry.AddModulesFromAssembly(System.Reflection.Assembly) -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
-AspNetCoreDashboard.Abstractions.UiModuleRegistry.SetAuthorization(System.String, AspNetCoreDashboard.Abstractions.IUiAuthorizationFilter[]) -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
-AspNetCoreDashboard.Abstractions.UiModuleRegistry.SetAuthorizationPolicy(System.String, System.String) -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
-AspNetCoreDashboard.Abstractions.UiModuleRegistry.GetAuthorization(System.String) -> AspNetCoreDashboard.Abstractions.IUiAuthorizationFilter[]
-AspNetCoreDashboard.Abstractions.UiModuleRegistry.GetAuthorizationPolicy(System.String) -> System.String
-AspNetCoreDashboard.Abstractions.UiModuleRegistry.Modules.get -> System.Collections.Generic.IReadOnlyList`1[[AspNetCoreDashboard.Abstractions.IUiModule, AspNetCoreDashboard.Abstractions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null]]
-AspNetCoreDashboard.Abstractions.UiRoutePattern
-AspNetCoreDashboard.Abstractions.UiRoutePattern.static ToRegexPattern(System.String) -> System.String
-AspNetCoreDashboard.Abstractions.UiRouteTable
-AspNetCoreDashboard.Abstractions.UiRouteTable..ctor()
-AspNetCoreDashboard.Abstractions.UiRouteTable.Add(AspNetCoreDashboard.Abstractions.UiHttpMethod, System.String, AspNetCoreDashboard.Abstractions.UiHandler)
-AspNetCoreDashboard.Abstractions.UiRouteTable.TryMatch(System.String, System.String, System.Text.RegularExpressions.Match&, AspNetCoreDashboard.Abstractions.UiHandler&) -> System.Boolean
-AspNetCoreDashboard.Abstractions.UiSecurityHeaders
-AspNetCoreDashboard.Abstractions.UiSecurityHeaders.static ApplyBaseline(AspNetCoreDashboard.Abstractions.IUiContext, System.String)
-AspNetCoreDashboard.Abstractions.IUiContext.ReadJsonAsync<T>() -> System.Threading.Tasks.Task`1[[T, {T}, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
-AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.static OpenReadStream(System.Reflection.Assembly, System.String) -> System.IO.Stream
 AspNetCoreDashboard.Abstractions.UiCookieSameSite
-AspNetCoreDashboard.Abstractions.UiCookieSameSite.value__ -> System.Int32
-AspNetCoreDashboard.Abstractions.UiCookieSameSite.Unspecified -> AspNetCoreDashboard.Abstractions.UiCookieSameSite
-AspNetCoreDashboard.Abstractions.UiCookieSameSite.Lax -> AspNetCoreDashboard.Abstractions.UiCookieSameSite
-AspNetCoreDashboard.Abstractions.UiCookieSameSite.Strict -> AspNetCoreDashboard.Abstractions.UiCookieSameSite
-AspNetCoreDashboard.Abstractions.UiCookieSameSite.None -> AspNetCoreDashboard.Abstractions.UiCookieSameSite
-AspNetCoreDashboard.Abstractions.UiModuleAttribute
-AspNetCoreDashboard.Abstractions.UiModuleAttribute..ctor(System.String)
-AspNetCoreDashboard.Abstractions.UiModuleAttribute.PathPrefix.get -> System.String
-AspNetCoreDashboard.Abstractions.UiModuleAttribute.ContentNamespace.get -> System.String
-AspNetCoreDashboard.Abstractions.UiModuleAttribute.ContentNamespace.set -> void
-AspNetCoreDashboard.Abstractions.UiModuleStartupValidator
-AspNetCoreDashboard.Abstractions.UiModuleStartupValidator.static Validate(System.Collections.Generic.IReadOnlyList`1[[AspNetCoreDashboard.Abstractions.IUiModule, AspNetCoreDashboard.Abstractions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null]])
-AspNetCoreDashboard.Abstractions.UiModuleDiagnostics
-AspNetCoreDashboard.Abstractions.UiModuleDiagnostics.static GetSummary(AspNetCoreDashboard.Abstractions.IUiModule) -> AspNetCoreDashboard.Abstractions.UiModuleSummary
-AspNetCoreDashboard.Abstractions.UiModuleSummary
-AspNetCoreDashboard.Abstractions.UiModuleSummary..ctor()
-AspNetCoreDashboard.Abstractions.UiModuleSummary.PathPrefix.get -> System.String
-AspNetCoreDashboard.Abstractions.UiModuleSummary.ModuleType.get -> System.String
-AspNetCoreDashboard.Abstractions.UiModuleSummary.RouteCount.get -> System.Int32
-AspNetCoreDashboard.Abstractions.UiModuleSummary.HasEmbeddedUi.get -> System.Boolean
-AspNetCoreDashboard.Abstractions.UiModuleSummary.FallbackIndexResource.get -> System.String
+AspNetCoreDashboard.Abstractions.UiHandler
+AspNetCoreDashboard.Abstractions.UiHttpMethod
 AspNetCoreDashboard.Abstractions.UiModuleActivitySource
-AspNetCoreDashboard.Abstractions.UiModuleActivitySource.static Instance.get -> System.Diagnostics.ActivitySource
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.WithContentSecurityPolicy(System.String) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.IUiModuleRegistration.WithMaxUploadBytes(System.Int64) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
-AspNetCoreDashboard.Abstractions.EmbeddedResourceEtag.static Compute(System.IO.Stream) -> System.String
+AspNetCoreDashboard.Abstractions.UiModuleAssemblyExtensions
+AspNetCoreDashboard.Abstractions.UiModuleAttribute
+AspNetCoreDashboard.Abstractions.UiModuleAttribute.ContentNamespace.set -> void
+AspNetCoreDashboard.Abstractions.UiModuleDiagnostics
+AspNetCoreDashboard.Abstractions.UiModuleMountTracker
+AspNetCoreDashboard.Abstractions.UiModuleRegistry
+AspNetCoreDashboard.Abstractions.UiModuleRegistry.AddModule<TModule>() -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
+AspNetCoreDashboard.Abstractions.UiModuleStartupValidator
+AspNetCoreDashboard.Abstractions.UiModuleSummary
+AspNetCoreDashboard.Abstractions.UiRoutePattern
+AspNetCoreDashboard.Abstractions.UiRouteTable
+AspNetCoreDashboard.Abstractions.UiSecurityHeaders
+AspNetCoreDashboard.Abstractions.IUiAuthorizationFilter.Authorize(AspNetCoreDashboard.Abstractions.IUiContext context) -> bool
+AspNetCoreDashboard.Abstractions.IUiContext.GetFormFileAsync(string name) -> System.Threading.Tasks.Task<AspNetCoreDashboard.Abstractions.IUiFormFile>
+AspNetCoreDashboard.Abstractions.IUiContext.GetFormValueAsync(string name) -> System.Threading.Tasks.Task<string>
+AspNetCoreDashboard.Abstractions.IUiContext.GetQueryAsync(string name) -> System.Threading.Tasks.Task<string>
+AspNetCoreDashboard.Abstractions.IUiContext.GetRequestCookie(string name) -> string
+AspNetCoreDashboard.Abstractions.IUiContext.GetRequestHeader(string name) -> string
+AspNetCoreDashboard.Abstractions.IUiContext.LocalIpAddress.get -> string
+AspNetCoreDashboard.Abstractions.IUiContext.Method.get -> string
+AspNetCoreDashboard.Abstractions.IUiContext.OpenRequestBodyAsync() -> System.Threading.Tasks.Task<System.IO.Stream>
+AspNetCoreDashboard.Abstractions.IUiContext.Path.get -> string
+AspNetCoreDashboard.Abstractions.IUiContext.ReadBodyAsStringAsync() -> System.Threading.Tasks.Task<string>
+AspNetCoreDashboard.Abstractions.IUiContext.ReadJsonAsync<T>() -> System.Threading.Tasks.Task<T>
+AspNetCoreDashboard.Abstractions.IUiContext.RedirectAsync(string location, bool permanent = false) -> System.Threading.Tasks.Task
+AspNetCoreDashboard.Abstractions.IUiContext.RemoteIpAddress.get -> string
+AspNetCoreDashboard.Abstractions.IUiContext.SetCookie(string name, string value, System.DateTimeOffset? expires = null, string path = null, bool httpOnly = false, bool secure = false, AspNetCoreDashboard.Abstractions.UiCookieSameSite sameSite = AspNetCoreDashboard.Abstractions.UiCookieSameSite.Unspecified) -> void
+AspNetCoreDashboard.Abstractions.IUiContext.SetResponseHeader(string name, string value) -> void
+AspNetCoreDashboard.Abstractions.IUiContext.StatusCode.get -> int
+AspNetCoreDashboard.Abstractions.IUiContext.WriteAsync(string content, string contentType = "text/plain") -> System.Threading.Tasks.Task
+AspNetCoreDashboard.Abstractions.IUiContext.WriteJsonAsync(object value) -> System.Threading.Tasks.Task
+AspNetCoreDashboard.Abstractions.IUiContext.WriteStreamAsync(System.IO.Stream stream, string contentType, string downloadFileName = null) -> System.Threading.Tasks.Task
+AspNetCoreDashboard.Abstractions.IUiFormFile.ContentType.get -> string
+AspNetCoreDashboard.Abstractions.IUiFormFile.FileName.get -> string
+AspNetCoreDashboard.Abstractions.IUiFormFile.OpenReadStreamAsync() -> System.Threading.Tasks.Task<System.IO.Stream>
+AspNetCoreDashboard.Abstractions.IUiModule.Configure(AspNetCoreDashboard.Abstractions.IUiModuleRegistration builder) -> void
+AspNetCoreDashboard.Abstractions.IUiModule.PathPrefix.get -> string
+AspNetCoreDashboard.Abstractions.IUiModuleMountTracker.Register(string pathPrefix) -> void
+AspNetCoreDashboard.Abstractions.IUiModuleMountTracker.Reset() -> void
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.ExcludeSpaFallbackExtensions(params string[] extensions) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapDelete(string pattern, AspNetCoreDashboard.Abstractions.UiHandler handler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapEmbeddedUi(System.Reflection.Assembly assembly, string baseNamespace) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapFallbackToIndex(string indexResourceName) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapGet(string pattern, AspNetCoreDashboard.Abstractions.UiHandler handler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapHead(string pattern, AspNetCoreDashboard.Abstractions.UiHandler handler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapOptions(string pattern, AspNetCoreDashboard.Abstractions.UiHandler handler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapPatch(string pattern, AspNetCoreDashboard.Abstractions.UiHandler handler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapPost(string pattern, AspNetCoreDashboard.Abstractions.UiHandler handler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapPut(string pattern, AspNetCoreDashboard.Abstractions.UiHandler handler) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.MapSpaFallback(string indexResourceName) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.WithContentSecurityPolicy(string contentSecurityPolicy) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.WithMaxUploadBytes(long maxBytes) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.IUiModuleRegistration.WithStaticCache(int maxAgeSeconds = 31536000) -> AspNetCoreDashboard.Abstractions.IUiModuleRegistration
+AspNetCoreDashboard.Abstractions.LocalRequestsOnlyAuthorizationFilter.Authorize(AspNetCoreDashboard.Abstractions.IUiContext context) -> bool
+AspNetCoreDashboard.Abstractions.LocalRequestsOnlyAuthorizationFilter.LocalRequestsOnlyAuthorizationFilter() -> void
+AspNetCoreDashboard.Abstractions.RequireRoleAuthorizationFilter.Authorize(AspNetCoreDashboard.Abstractions.IUiContext context) -> bool
+AspNetCoreDashboard.Abstractions.RequireRoleAuthorizationFilter.RequireRoleAuthorizationFilter(params string[] roles) -> void
+AspNetCoreDashboard.Abstractions.TrustedForwardedHeadersAuthorizationFilter.Authorize(AspNetCoreDashboard.Abstractions.IUiContext context) -> bool
+AspNetCoreDashboard.Abstractions.TrustedForwardedHeadersAuthorizationFilter.TrustedForwardedHeadersAuthorizationFilter(params string[] trustedProxyAddresses) -> void
+AspNetCoreDashboard.Abstractions.UiCookieSameSite.Lax = 1 -> AspNetCoreDashboard.Abstractions.UiCookieSameSite
+AspNetCoreDashboard.Abstractions.UiCookieSameSite.None = 3 -> AspNetCoreDashboard.Abstractions.UiCookieSameSite
+AspNetCoreDashboard.Abstractions.UiCookieSameSite.Strict = 2 -> AspNetCoreDashboard.Abstractions.UiCookieSameSite
+AspNetCoreDashboard.Abstractions.UiCookieSameSite.Unspecified = 0 -> AspNetCoreDashboard.Abstractions.UiCookieSameSite
+AspNetCoreDashboard.Abstractions.UiHttpMethod.Delete = 5 -> AspNetCoreDashboard.Abstractions.UiHttpMethod
+AspNetCoreDashboard.Abstractions.UiHttpMethod.Get = 0 -> AspNetCoreDashboard.Abstractions.UiHttpMethod
+AspNetCoreDashboard.Abstractions.UiHttpMethod.Head = 1 -> AspNetCoreDashboard.Abstractions.UiHttpMethod
+AspNetCoreDashboard.Abstractions.UiHttpMethod.Options = 6 -> AspNetCoreDashboard.Abstractions.UiHttpMethod
+AspNetCoreDashboard.Abstractions.UiHttpMethod.Patch = 4 -> AspNetCoreDashboard.Abstractions.UiHttpMethod
+AspNetCoreDashboard.Abstractions.UiHttpMethod.Post = 2 -> AspNetCoreDashboard.Abstractions.UiHttpMethod
+AspNetCoreDashboard.Abstractions.UiHttpMethod.Put = 3 -> AspNetCoreDashboard.Abstractions.UiHttpMethod
+AspNetCoreDashboard.Abstractions.UiModuleAttribute.ContentNamespace.get -> string
+AspNetCoreDashboard.Abstractions.UiModuleAttribute.PathPrefix.get -> string
+AspNetCoreDashboard.Abstractions.UiModuleAttribute.UiModuleAttribute(string pathPrefix) -> void
+AspNetCoreDashboard.Abstractions.UiModuleMountTracker.Register(string pathPrefix) -> void
+AspNetCoreDashboard.Abstractions.UiModuleMountTracker.Reset() -> void
+AspNetCoreDashboard.Abstractions.UiModuleMountTracker.UiModuleMountTracker() -> void
+AspNetCoreDashboard.Abstractions.UiModuleRegistry.AddModule(AspNetCoreDashboard.Abstractions.IUiModule module) -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
+AspNetCoreDashboard.Abstractions.UiModuleRegistry.AddModulesFromAssembly(System.Reflection.Assembly assembly) -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
+AspNetCoreDashboard.Abstractions.UiModuleRegistry.GetAuthorization(string pathPrefix) -> AspNetCoreDashboard.Abstractions.IUiAuthorizationFilter[]
+AspNetCoreDashboard.Abstractions.UiModuleRegistry.GetAuthorizationPolicy(string pathPrefix) -> string
+AspNetCoreDashboard.Abstractions.UiModuleRegistry.Modules.get -> System.Collections.Generic.IReadOnlyList<AspNetCoreDashboard.Abstractions.IUiModule>
+AspNetCoreDashboard.Abstractions.UiModuleRegistry.SetAuthorization(string pathPrefix, params AspNetCoreDashboard.Abstractions.IUiAuthorizationFilter[] filters) -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
+AspNetCoreDashboard.Abstractions.UiModuleRegistry.SetAuthorizationPolicy(string pathPrefix, string policyName) -> AspNetCoreDashboard.Abstractions.UiModuleRegistry
+AspNetCoreDashboard.Abstractions.UiModuleRegistry.UiModuleRegistry() -> void
+AspNetCoreDashboard.Abstractions.UiModuleSummary.FallbackIndexResource.get -> string
+AspNetCoreDashboard.Abstractions.UiModuleSummary.HasEmbeddedUi.get -> bool
+AspNetCoreDashboard.Abstractions.UiModuleSummary.ModuleType.get -> string
+AspNetCoreDashboard.Abstractions.UiModuleSummary.PathPrefix.get -> string
+AspNetCoreDashboard.Abstractions.UiModuleSummary.RouteCount.get -> int
+AspNetCoreDashboard.Abstractions.UiModuleSummary.UiModuleSummary() -> void
+AspNetCoreDashboard.Abstractions.UiRouteTable.Add(AspNetCoreDashboard.Abstractions.UiHttpMethod method, string pattern, AspNetCoreDashboard.Abstractions.UiHandler handler) -> void
+AspNetCoreDashboard.Abstractions.UiRouteTable.TryMatch(string method, string path, out System.Text.RegularExpressions.Match match, out AspNetCoreDashboard.Abstractions.UiHandler handler) -> bool
+AspNetCoreDashboard.Abstractions.UiRouteTable.UiRouteTable() -> void
+const AspNetCoreDashboard.Abstractions.UiModuleMountTracker.OwinPropertyKey = "AspNetCoreDashboard.UiModuleMountTracker" -> string
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.Clear() -> void
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.GetBytes(System.Reflection.Assembly assembly, string resourceName) -> byte[]
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.MaxBytes.get -> long
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.MaxBytes.set -> void
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.MaxEntries.get -> int
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.MaxEntries.set -> void
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.OpenMemoryStream(System.Reflection.Assembly assembly, string resourceName) -> System.IO.MemoryStream
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceCache.OpenReadStream(System.Reflection.Assembly assembly, string resourceName) -> System.IO.Stream
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceEtag.Compute(byte[] bytes) -> string
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceEtag.Compute(System.IO.Stream stream) -> string
+static AspNetCoreDashboard.Abstractions.EmbeddedResourceEtag.IsNotModified(AspNetCoreDashboard.Abstractions.IUiContext context, string etag) -> bool
+static AspNetCoreDashboard.Abstractions.EmbeddedResourcePathHelper.ToResourceName(string baseNamespace, string path) -> string
+static AspNetCoreDashboard.Abstractions.UiContextRouteExtensions.GetRouteValue(this AspNetCoreDashboard.Abstractions.IUiContext context, string name) -> string
+static AspNetCoreDashboard.Abstractions.UiContextRouteExtensions.GetRouteValues(this AspNetCoreDashboard.Abstractions.IUiContext context) -> System.Collections.Generic.IReadOnlyDictionary<string, string>
+static AspNetCoreDashboard.Abstractions.UiModuleActivitySource.Instance.get -> System.Diagnostics.ActivitySource
+static AspNetCoreDashboard.Abstractions.UiModuleAssemblyExtensions.GetUiModuleTypes(this System.Reflection.Assembly assembly) -> System.Type[]
+static AspNetCoreDashboard.Abstractions.UiModuleDiagnostics.GetSummary(AspNetCoreDashboard.Abstractions.IUiModule module) -> AspNetCoreDashboard.Abstractions.UiModuleSummary
+static AspNetCoreDashboard.Abstractions.UiModuleStartupValidator.Validate(System.Collections.Generic.IReadOnlyList<AspNetCoreDashboard.Abstractions.IUiModule> modules) -> void
+static AspNetCoreDashboard.Abstractions.UiRoutePattern.ToRegexPattern(string pattern) -> string
+static AspNetCoreDashboard.Abstractions.UiSecurityHeaders.ApplyBaseline(AspNetCoreDashboard.Abstractions.IUiContext context, string contentSecurityPolicy = null) -> void

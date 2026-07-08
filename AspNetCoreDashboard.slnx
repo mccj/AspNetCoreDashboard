@@ -1,84 +1,40 @@
 <Solution>
-
   <Folder Name="/Samples/">
-
     <Project Path="Samples/AspNetCoreDashboardLibrarySamples/AspNetCoreDashboardLibrarySamples.csproj" />
-
     <Project Path="Samples/AspNetCoreDashboardOwinSamples/AspNetCoreDashboardOwinSamples.csproj" />
-
     <Project Path="Samples/AspNetCoreDashboardWebSamples/AspNetCoreDashboardWebSamples.csproj" />
-
   </Folder>
-
   <Folder Name="/Solution Items/">
-
     <File Path="CHANGELOG.md" />
-
     <File Path="docs/ARCHITECTURE.md" />
-
     <File Path="docs/COOKBOOK.md" />
-
-    <File Path="docs/IMPROVEMENTS.md" />
-
-    <File Path="docs/MIGRATION_V3_4.md" />
-
-    <File Path="docs/MIGRATION_V2_V3.md" />
-
+    <File Path="docs/MIGRATION.md" />
     <File Path="docs/MODULE_AUTHOR_GUIDE.md" />
-
     <File Path="docs/SECURITY.md" />
-
     <File Path="docs/TROUBLESHOOTING.md" />
-
     <File Path="docs/VERSIONING.md" />
-
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
     <File Path="Directory.Packages.props" />
-    <File Path="global.json" />
-    <File Path="nuget.config" />
-
     <File Path="LICENSE" />
-
     <File Path="README.md" />
-
     <File Path="THIRD-PARTY-NOTICES.md" />
-
   </Folder>
-
   <Folder Name="/Src/">
-
     <Project Path="Src/AspNetCoreDashboard.Abstractions/AspNetCoreDashboard.Abstractions.csproj" />
-
     <Project Path="Src/AspNetCoreDashboard.Analyzers/AspNetCoreDashboard.Analyzers.csproj" />
-
     <Project Path="Src/AspNetCoreDashboard.Generators/AspNetCoreDashboard.Generators.csproj" />
-
     <Project Path="Src/AspNetCoreDashboard/AspNetCoreDashboard.csproj" />
-
     <Project Path="Src/AspNetCoreDashboard.Owin/AspNetCoreDashboard.Owin.csproj" />
-
     <Project Path="Src/AspNetCoreDashboard.Razor/AspNetCoreDashboard.Razor.csproj" />
-
     <Project Path="Src/AspNetCoreDashboard.SystemWeb/AspNetCoreDashboard.SystemWeb.csproj" />
-
     <Project Path="Src/AspNetCoreDashboard.Testing/AspNetCoreDashboard.Testing.csproj" />
-
   </Folder>
-
   <Folder Name="/Tests/">
-
     <Project Path="Tests/AspNetCoreDashboard.Analyzers.Tests/AspNetCoreDashboard.Analyzers.Tests.csproj" />
-
     <Project Path="Tests/AspNetCoreDashboard.Tests/AspNetCoreDashboard.Tests.csproj" />
-
     <Project Path="Tests/AspNetCoreDashboard.Owin.Tests/AspNetCoreDashboard.Owin.Tests.csproj" />
-
     <Project Path="Tests/AspNetCoreDashboard.Generators.Tests/AspNetCoreDashboard.Generators.Tests.csproj" />
-
     <Project Path="Tests/AspNetCoreDashboard.SystemWeb.Tests/AspNetCoreDashboard.SystemWeb.Tests.csproj" />
-
   </Folder>
-
 </Solution>
-

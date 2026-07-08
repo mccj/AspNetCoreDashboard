@@ -7,7 +7,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
 {
   internal static class OwinMultipartFormReader
   {
-    public static IUiFormFile? TryGetFile(string contentType, byte[] body, string fieldName)
+    public static IUiFormFile TryGetFile(string contentType, byte[] body, string fieldName)
     {
       if (body == null || body.Length == 0 || string.IsNullOrEmpty(fieldName))
         return null;
@@ -69,7 +69,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
       return null;
     }
 
-    private static string? GetBoundary(string contentType)
+    private static string GetBoundary(string contentType)
     {
       const string marker = "boundary=";
       var index = contentType.IndexOf(marker, StringComparison.OrdinalIgnoreCase);
@@ -87,7 +87,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
       return boundary;
     }
 
-    private static bool TryGetContentDisposition(string headers, out string? name, out string? fileName)
+    private static bool TryGetContentDisposition(string headers, out string name, out string fileName)
     {
       name = null;
       fileName = null;
@@ -105,7 +105,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
       return false;
     }
 
-    private static string? GetDispositionValue(string value, string key)
+    private static string GetDispositionValue(string value, string key)
     {
       var marker = key + "=\"";
       var index = value.IndexOf(marker, StringComparison.OrdinalIgnoreCase);
@@ -117,7 +117,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
       return end > start ? value.Substring(start, end - start) : null;
     }
 
-    private static string? GetHeaderValue(string headers, string headerName)
+    private static string GetHeaderValue(string headers, string headerName)
     {
       foreach (var line in headers.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
       {

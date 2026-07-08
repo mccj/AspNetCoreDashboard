@@ -7,7 +7,7 @@ namespace AspNetCoreDashboard.Abstractions
   public static class UiContextRouteExtensions
   {
     /// <summary>从当前路由匹配结果中获取具名路由值。</summary>
-    public static string? GetRouteValue(this IUiContext context, string name)
+    public static string GetRouteValue(this IUiContext context, string name)
     {
       if (context == null || string.IsNullOrEmpty(name))
         return null;
@@ -60,7 +60,7 @@ namespace AspNetCoreDashboard.Abstractions
       }
     }
 
-    private static Regex? GetRegex(Match match)
+    private static Regex GetRegex(Match match)
     {
       var regexProperty = typeof(Match).GetProperty("Regex", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
       if (regexProperty?.GetValue(match) is Regex regexFromProperty)

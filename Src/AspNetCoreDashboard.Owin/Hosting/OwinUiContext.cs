@@ -22,14 +22,14 @@ namespace AspNetCoreDashboard.Owin.Hosting
       _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public IServiceProvider? Services => null;
+    public IServiceProvider Services => null;
     public string Method => _context.Request.Method;
     public string Path => _context.Request.Path.Value ?? string.Empty;
-    public Match? RouteMatch { get; set; }
+    public Match RouteMatch { get; set; }
     public CancellationToken RequestAborted => _context.Request.CallCancelled;
-    public ClaimsPrincipal? User => _context.Request.User as ClaimsPrincipal;
-    public string? LocalIpAddress => _context.Request.LocalIpAddress;
-    public string? RemoteIpAddress => _context.Request.RemoteIpAddress;
+    public ClaimsPrincipal User => _context.Request.User as ClaimsPrincipal;
+    public string LocalIpAddress => _context.Request.LocalIpAddress;
+    public string RemoteIpAddress => _context.Request.RemoteIpAddress;
 
     public int StatusCode
     {
@@ -37,18 +37,18 @@ namespace AspNetCoreDashboard.Owin.Hosting
       set => _context.Response.StatusCode = value;
     }
 
-    public Task<string?> GetQueryAsync(string name)
+    public Task<string> GetQueryAsync(string name)
     {
-      return Task.FromResult<string?>(_context.Request.Query.Get(name));
+      return Task.FromResult(_context.Request.Query.Get(name));
     }
 
-    public async Task<string?> GetFormValueAsync(string name)
+    public async Task<string> GetFormValueAsync(string name)
     {
       var form = await _context.Request.ReadFormAsync();
       return form.Get(name);
     }
 
-    public async Task<IUiFormFile?> GetFormFileAsync(string name)
+    public async Task<IUiFormFile> GetFormFileAsync(string name)
     {
       var contentType = _context.Request.ContentType ?? GetRequestHeader("Content-Type");
       if (string.IsNullOrEmpty(contentType) ||
@@ -87,7 +87,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
       return Task.FromResult<Stream>(_context.Request.Body);
     }
 
-    public async Task<T?> ReadJsonAsync<T>()
+    public async Task<T> ReadJsonAsync<T>()
     {
       var json = await ReadBodyAsStringAsync();
       if (string.IsNullOrWhiteSpace(json))
@@ -96,7 +96,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
       return JsonSerializer.Deserialize<T>(json);
     }
 
-    public string? GetRequestHeader(string name)
+    public string GetRequestHeader(string name)
     {
       if (string.IsNullOrEmpty(name))
         return null;
@@ -106,7 +106,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
       return header.Value != null && header.Value.Length > 0 ? header.Value[0] : null;
     }
 
-    public string? GetRequestCookie(string name)
+    public string GetRequestCookie(string name)
     {
       if (string.IsNullOrEmpty(name))
         return null;
@@ -144,7 +144,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
         string name,
         string value,
         DateTimeOffset? expires = null,
-        string? path = null,
+        string path = null,
         bool httpOnly = false,
         bool secure = false,
         UiCookieSameSite sameSite = UiCookieSameSite.Unspecified)
@@ -182,7 +182,7 @@ namespace AspNetCoreDashboard.Owin.Hosting
       return _context.Response.WriteAsync(JsonSerializer.Serialize(value));
     }
 
-    public async Task WriteStreamAsync(Stream stream, string contentType, string? downloadFileName = null)
+    public async Task WriteStreamAsync(Stream stream, string contentType, string downloadFileName = null)
     {
       if (stream == null) throw new ArgumentNullException(nameof(stream));
 

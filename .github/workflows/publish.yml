@@ -22,20 +22,18 @@ jobs:
 
       - name: Build and test
         run: |
-          mkdir artifacts
           dotnet build AspNetCoreDashboard.slnx -c Release
           dotnet test AspNetCoreDashboard.slnx -c Release --no-build --verbosity normal
 
-      - name: Pack
+      - name: Pack and push to NuGet
         run: |
-          dotnet pack Src/AspNetCoreDashboard.Abstractions/AspNetCoreDashboard.Abstractions.csproj -c Release --no-build -o artifacts
-          dotnet pack Src/AspNetCoreDashboard/AspNetCoreDashboard.csproj -c Release --no-build -o artifacts
-          dotnet pack Src/AspNetCoreDashboard.Owin/AspNetCoreDashboard.Owin.csproj -c Release --no-build -o artifacts
-          dotnet pack Src/AspNetCoreDashboard.Testing/AspNetCoreDashboard.Testing.csproj -c Release --no-build -o artifacts
-          dotnet pack Src/AspNetCoreDashboard.Analyzers/AspNetCoreDashboard.Analyzers.csproj -c Release --no-build -o artifacts
-          dotnet pack Src/AspNetCoreDashboard.Generators/AspNetCoreDashboard.Generators.csproj -c Release --no-build -o artifacts
-          dotnet pack Src/AspNetCoreDashboard.Razor/AspNetCoreDashboard.Razor.csproj -c Release --no-build -o artifacts
-          dotnet pack Src/AspNetCoreDashboard.SystemWeb/AspNetCoreDashboard.SystemWeb.csproj -c Release --no-build -o artifacts
-
-      - name: Push to NuGet
-        run: dotnet nuget push artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+          $out = $env:RUNNER_TEMP
+          dotnet pack Src/AspNetCoreDashboard.Abstractions/AspNetCoreDashboard.Abstractions.csproj -c Release --no-build -o $out
+          dotnet pack Src/AspNetCoreDashboard/AspNetCoreDashboard.csproj -c Release --no-build -o $out
+          dotnet pack Src/AspNetCoreDashboard.Owin/AspNetCoreDashboard.Owin.csproj -c Release --no-build -o $out
+          dotnet pack Src/AspNetCoreDashboard.Testing/AspNetCoreDashboard.Testing.csproj -c Release --no-build -o $out
+          dotnet pack Src/AspNetCoreDashboard.Analyzers/AspNetCoreDashboard.Analyzers.csproj -c Release -o $out
+          dotnet pack Src/AspNetCoreDashboard.Generators/AspNetCoreDashboard.Generators.csproj -c Release -o $out
+          dotnet pack Src/AspNetCoreDashboard.Razor/AspNetCoreDashboard.Razor.csproj -c Release --no-build -o $out
+          dotnet pack Src/AspNetCoreDashboard.SystemWeb/AspNetCoreDashboard.SystemWeb.csproj -c Release --no-build -o $out
+          dotnet nuget push "$out/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

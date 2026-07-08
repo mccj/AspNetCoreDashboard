@@ -5,7 +5,7 @@
 | 属性 | 值 |
 |------|-----|
 | NuGet | `AspNetCoreDashboard.Razor` |
-| TFM | `net8.0` |
+| TFM | `net8.0`、`net9.0`、`net10.0` |
 | 依赖 | `AspNetCoreDashboard`、`AspNetCoreDashboard.Abstractions` |
 | 状态 | 预览 |
 
@@ -58,12 +58,7 @@ GET /{PathPrefix}/home
 
 ## 注意事项
 
-- **非完整 Razor**：不支持 `.cshtml` 编译、`@model`、布局或 Tag Helper；仅为嵌入 HTML 模板服务。
-- 完整 Razor 编译 hosting 列为后续迭代（见 [改进建议](../../docs/IMPROVEMENTS.md)）。
+- **非完整 Razor**：不支持 `.cshtml` 编译、`@model`、布局或 Tag Helper；仅为嵌入 HTML 模板服务。完整 Razor 编译 hosting 列为后续迭代。
 - 仅适用于 **ASP.NET Core** 宿主；OWIN 请自行 `MapGet` 返回 HTML。
 - 页面类型仅用作名称标记，无需实现接口或创建实例。
 - 生产环境 SPA 场景通常使用 `MapEmbeddedUi` + `MapSpaFallback` 即可。
-
-## 相关文档
-
-- [改进建议](../../docs/IMPROVEMENTS.md)（Razor 完整实现路线）

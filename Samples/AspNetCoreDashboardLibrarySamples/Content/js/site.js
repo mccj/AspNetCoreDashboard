@@ -184,11 +184,11 @@
             for (var i = 0; i < jobs.length; i++) {
                 var job = jobs[i];
                 html += "<tr>" +
-                    "<td>" + escapeHtml(String(job.id)) + "</td>" +
-                    "<td>" + escapeHtml(job.name) + "</td>" +
-                    "<td>" + escapeHtml(job.status) + "</td>" +
-                    "<td>" + escapeHtml(job.createdAt) + "</td>" +
-                    "<td><button type=\"button\" data-job-id=\"" + escapeHtml(String(job.id)) + "\">删除</button></td>" +
+                    "<td>" + escapeHtml(String(job.Id)) + "</td>" +
+                    "<td>" + escapeHtml(job.Name) + "</td>" +
+                    "<td>" + escapeHtml(job.Status) + "</td>" +
+                    "<td>" + escapeHtml(job.CreatedAt) + "</td>" +
+                    "<td><button type=\"button\" data-job-id=\"" + escapeHtml(String(job.Id)) + "\">删除</button></td>" +
                     "</tr>";
             }
             body.innerHTML = html;

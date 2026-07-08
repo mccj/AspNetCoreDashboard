@@ -5,7 +5,7 @@
 | 项目 | 说明 |
 |------|------|
 | `AspNetCoreDashboardLibrarySamples` | netstandard2.0 UI 模块（`SampleUiModule` + `DiagnosticsUiModule`） |
-| `AspNetCoreDashboardWebSamples` | ASP.NET Core 9 最小宿主 |
+| `AspNetCoreDashboardWebSamples` | ASP.NET Core 最小宿主（net8/9/10） |
 | `AspNetCoreDashboardOwinSamples` | OWIN 自宿主（.NET Framework 4.8），端口 1101 |
 
 ## 运行 Web 示例

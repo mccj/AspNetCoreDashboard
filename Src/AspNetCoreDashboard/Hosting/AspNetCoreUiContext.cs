@@ -20,14 +20,14 @@ namespace AspNetCoreDashboard.Hosting
       _httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
     }
 
-    public IServiceProvider? Services => _httpContext.RequestServices;
+    public IServiceProvider Services => _httpContext.RequestServices;
     public string Method => _httpContext.Request.Method;
     public string Path => _httpContext.Request.Path.Value ?? string.Empty;
-    public Match? RouteMatch { get; set; }
+    public Match RouteMatch { get; set; }
     public CancellationToken RequestAborted => _httpContext.RequestAborted;
-    public ClaimsPrincipal? User => _httpContext.User;
-    public string? LocalIpAddress => _httpContext.Connection.LocalIpAddress?.ToString();
-    public string? RemoteIpAddress => _httpContext.Connection.RemoteIpAddress?.ToString();
+    public ClaimsPrincipal User => _httpContext.User;
+    public string LocalIpAddress => _httpContext.Connection.LocalIpAddress?.ToString();
+    public string RemoteIpAddress => _httpContext.Connection.RemoteIpAddress?.ToString();
 
     public int StatusCode
     {
@@ -35,12 +35,12 @@ namespace AspNetCoreDashboard.Hosting
       set => _httpContext.Response.StatusCode = value;
     }
 
-    public Task<string?> GetQueryAsync(string name)
+    public Task<string> GetQueryAsync(string name)
     {
-      return Task.FromResult<string?>(_httpContext.Request.Query[name].ToString());
+      return Task.FromResult(_httpContext.Request.Query[name].ToString());
     }
 
-    public async Task<string?> GetFormValueAsync(string name)
+    public async Task<string> GetFormValueAsync(string name)
     {
       if (!_httpContext.Request.HasFormContentType)
         return null;
@@ -49,7 +49,7 @@ namespace AspNetCoreDashboard.Hosting
       return form[name].ToString();
     }
 
-    public async Task<IUiFormFile?> GetFormFileAsync(string name)
+    public async Task<IUiFormFile> GetFormFileAsync(string name)
     {
       if (!_httpContext.Request.HasFormContentType)
         return null;
@@ -79,7 +79,7 @@ namespace AspNetCoreDashboard.Hosting
       return Task.FromResult<Stream>(_httpContext.Request.Body);
     }
 
-    public async Task<T?> ReadJsonAsync<T>()
+    public async Task<T> ReadJsonAsync<T>()
     {
       var json = await ReadBodyAsStringAsync();
       if (string.IsNullOrWhiteSpace(json))
@@ -88,7 +88,7 @@ namespace AspNetCoreDashboard.Hosting
       return JsonSerializer.Deserialize<T>(json);
     }
 
-    public string? GetRequestHeader(string name)
+    public string GetRequestHeader(string name)
     {
       if (string.IsNullOrEmpty(name))
         return null;
@@ -96,7 +96,7 @@ namespace AspNetCoreDashboard.Hosting
       return _httpContext.Request.Headers[name].ToString();
     }
 
-    public string? GetRequestCookie(string name)
+    public string GetRequestCookie(string name)
     {
       if (string.IsNullOrEmpty(name))
         return null;
@@ -116,7 +116,7 @@ namespace AspNetCoreDashboard.Hosting
         string name,
         string value,
         DateTimeOffset? expires = null,
-        string? path = null,
+        string path = null,
         bool httpOnly = false,
         bool secure = false,
         UiCookieSameSite sameSite = UiCookieSameSite.Unspecified)
@@ -159,7 +159,7 @@ namespace AspNetCoreDashboard.Hosting
       return _httpContext.Response.WriteAsync(json);
     }
 
-    public async Task WriteStreamAsync(Stream stream, string contentType, string? downloadFileName = null)
+    public async Task WriteStreamAsync(Stream stream, string contentType, string downloadFileName = null)
     {
       if (stream == null) throw new ArgumentNullException(nameof(stream));
 

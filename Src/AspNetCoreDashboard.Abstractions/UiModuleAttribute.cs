@@ -19,6 +19,6 @@ namespace AspNetCoreDashboard.Abstractions
     public string PathPrefix { get; }
 
     /// <summary>嵌入式内容根命名空间。省略时默认为 <c>{ClassName}.Content</c>。</summary>
-    public string? ContentNamespace { get; set; }
+    public string ContentNamespace { get; set; }
   }
 }

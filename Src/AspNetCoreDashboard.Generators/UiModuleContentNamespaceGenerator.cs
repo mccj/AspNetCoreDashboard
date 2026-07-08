@@ -25,7 +25,7 @@ namespace AspNetCoreDashboard.Generators
       });
     }
 
-    private static ModuleInfo? GetModuleInfo(GeneratorSyntaxContext context)
+    private static ModuleInfo GetModuleInfo(GeneratorSyntaxContext context)
     {
       var classDeclaration = (ClassDeclarationSyntax)context.Node;
       var symbol = context.SemanticModel.GetDeclaredSymbol(classDeclaration) as INamedTypeSymbol;

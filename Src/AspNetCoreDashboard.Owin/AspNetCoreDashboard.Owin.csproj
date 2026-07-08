@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <Nullable>enable</Nullable>
     <Description>OWIN / .NET Framework 4.8 应用的嵌入式 Web UI 宿主。</Description>
     <PackageTags>owin;dashboard;embedded;netframework</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

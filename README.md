@@ -1,6 +1,6 @@
 # AspNetCoreDashboard
 
-面向 NuGet 类库作者的嵌入式 Web UI 宿主 SDK。可在 ASP.NET Core 8/9 或 OWIN（.NET Framework 4.8）应用中挂载自包含的 UI + API 模块。
+面向 NuGet 类库作者的嵌入式 Web UI 宿主 SDK。可在 ASP.NET Core 8/9/10 或 OWIN（.NET Framework 4.8）应用中挂载自包含的 UI + API 模块。
 
 [![Build](https://github.com/mccj/AspNetCoreDashboard/actions/workflows/build.yml/badge.svg)](https://github.com/mccj/AspNetCoreDashboard/actions/workflows/build.yml)
 [![Build status](https://ci.appveyor.com/api/projects/status/ljllh9mfd0aaleoi?svg=true)](https://ci.appveyor.com/project/mccj/aspnetcoredashboard-dashboard)
@@ -11,7 +11,7 @@
 
 | 宿主 | TFM | 支持状态 |
 |------|-----|----------|
-| ASP.NET Core | **net8.0**、**net9.0** | 活跃维护 — 大版本发布时对齐当前 LTS |
+| ASP.NET Core | **net8.0**、**net9.0**、**net10.0** | 活跃维护 — 大版本发布时对齐当前 LTS / 当前版本 |
 | OWIN / .NET Framework | **net48** | 活跃维护 — 缺陷修复，与 Abstractions API 对齐 |
 | UI 模块编写 | **netstandard2.0** | 活跃维护 — 仅引用 Abstractions |
 | System.Web | **net48** | 活跃维护 — API 路由与流式静态资源；复杂场景优先 OWIN 或 ASP.NET Core |
@@ -23,15 +23,15 @@
 | 包 | TFM | 适用场景 |
 |----|-----|----------|
 | [AspNetCoreDashboard.Abstractions](Src/AspNetCoreDashboard.Abstractions/README.md) | netstandard2.0 | 编写 UI 模块 |
-| [AspNetCoreDashboard](Src/AspNetCoreDashboard/README.md) | net8.0;net9.0 | ASP.NET Core 宿主 |
+| [AspNetCoreDashboard](Src/AspNetCoreDashboard/README.md) | net8.0;net9.0;net10.0 | ASP.NET Core 宿主 |
 | [AspNetCoreDashboard.Owin](Src/AspNetCoreDashboard.Owin/README.md) | net48 | OWIN / .NET Framework 宿主 |
 | [AspNetCoreDashboard.Generators](Src/AspNetCoreDashboard.Generators/README.md) | netstandard2.0 | 内容命名空间与路径前缀源生成器 |
-| [AspNetCoreDashboard.Testing](Src/AspNetCoreDashboard.Testing/README.md) | net8.0 | 集成测试辅助（可选） |
+| [AspNetCoreDashboard.Testing](Src/AspNetCoreDashboard.Testing/README.md) | net8.0;net9.0;net10.0 | 集成测试辅助（可选） |
 | [AspNetCoreDashboard.Analyzers](Src/AspNetCoreDashboard.Analyzers/README.md) | netstandard2.0 | 编译期模块检查（可选） |
-| [AspNetCoreDashboard.Razor](Src/AspNetCoreDashboard.Razor/README.md) | net8.0 | Razor 预览路由（可选） |
+| [AspNetCoreDashboard.Razor](Src/AspNetCoreDashboard.Razor/README.md) | net8.0;net9.0;net10.0 | Razor 预览路由（可选） |
 | [AspNetCoreDashboard.SystemWeb](Src/AspNetCoreDashboard.SystemWeb/README.md) | net48 | System.Web HttpModule 适配器 |
 
-## 快速开始（ASP.NET Core 8 / 9）
+## 快速开始（ASP.NET Core 8 / 9 / 10）
 
 ```csharp
 [UiModule("/MyModule")]
@@ -78,7 +78,7 @@ docker run -p 8080:8080 aspnetcoredashboard-sample
 | 项目 | 说明 |
 |------|------|
 | `AspNetCoreDashboardLibrarySamples` | `SampleUiModule` + `DiagnosticsUiModule`（netstandard2.0） |
-| `AspNetCoreDashboardWebSamples` | ASP.NET Core 9 最小宿主 |
+| `AspNetCoreDashboardWebSamples` | ASP.NET Core 最小宿主（net8/9/10） |
 | `AspNetCoreDashboardOwinSamples` | OWIN 自宿主，端口 1101 |
 
 运行 Web 示例：
@@ -96,12 +96,9 @@ dotnet run --project Samples/AspNetCoreDashboardWebSamples
 - [模块作者指南](docs/MODULE_AUTHOR_GUIDE.md)
 - [实用食谱](docs/COOKBOOK.md)
 - [故障排查](docs/TROUBLESHOOTING.md)
-- [v2 → v3 迁移指南](docs/MIGRATION_V2_V3.md)
-- [v3.3 → v3.4 迁移指南](docs/MIGRATION_V3_4.md)
-- [v3.5 → v3.6 迁移指南](docs/MIGRATION_V3_5.md)
+- [1.0.0-beta-19 → beta-20 迁移指南](docs/MIGRATION.md)
 - [安全指南](docs/SECURITY.md)
 - [版本策略](docs/VERSIONING.md)
-- [改进建议](docs/IMPROVEMENTS.md)
 - [变更日志](CHANGELOG.md)
 
 ## 许可证

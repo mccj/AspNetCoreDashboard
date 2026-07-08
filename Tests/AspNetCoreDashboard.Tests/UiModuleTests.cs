@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -89,28 +88,28 @@ namespace AspNetCoreDashboard.Tests
   internal sealed class TestUiContext : IUiContext
   {
     public Dictionary<string, string> RequestHeaders { get; set; } = new Dictionary<string, string>();
-    public IServiceProvider? Services => null;
+    public IServiceProvider Services => null;
     public string Method => "GET";
     public string Path => "/";
-    public Match? RouteMatch { get; set; }
-    public ClaimsPrincipal? User { get; set; }
+    public Match RouteMatch { get; set; }
+    public ClaimsPrincipal User { get; set; }
     public System.Threading.CancellationToken RequestAborted => System.Threading.CancellationToken.None;
-    public string? LocalIpAddress { get; set; }
-    public string? RemoteIpAddress { get; set; }
+    public string LocalIpAddress { get; set; }
+    public string RemoteIpAddress { get; set; }
     public int StatusCode { get; set; }
-    public Task<string?> GetQueryAsync(string name) => Task.FromResult<string?>(null);
-    public Task<string?> GetFormValueAsync(string name) => Task.FromResult<string?>(null);
-    public Task<IUiFormFile?> GetFormFileAsync(string name) => Task.FromResult<IUiFormFile?>(null);
+    public Task<string> GetQueryAsync(string name) => Task.FromResult<string>(null);
+    public Task<string> GetFormValueAsync(string name) => Task.FromResult<string>(null);
+    public Task<IUiFormFile> GetFormFileAsync(string name) => Task.FromResult<IUiFormFile>(null);
     public Task<string> ReadBodyAsStringAsync() => Task.FromResult(string.Empty);
     public Task<System.IO.Stream> OpenRequestBodyAsync() => Task.FromResult<System.IO.Stream>(System.IO.Stream.Null);
-    public Task<T?> ReadJsonAsync<T>() => Task.FromResult(default(T));
-    public string? GetRequestHeader(string name) => RequestHeaders.TryGetValue(name, out var value) ? value : null;
-    public string? GetRequestCookie(string name) => null;
+    public Task<T> ReadJsonAsync<T>() => Task.FromResult(default(T));
+    public string GetRequestHeader(string name) => RequestHeaders.TryGetValue(name, out var value) ? value : null;
+    public string GetRequestCookie(string name) => null;
     public void SetResponseHeader(string name, string value) { }
-    public void SetCookie(string name, string value, DateTimeOffset? expires = null, string? path = null, bool httpOnly = false, bool secure = false, UiCookieSameSite sameSite = UiCookieSameSite.Unspecified) { }
+    public void SetCookie(string name, string value, DateTimeOffset? expires = null, string path = null, bool httpOnly = false, bool secure = false, UiCookieSameSite sameSite = UiCookieSameSite.Unspecified) { }
     public Task WriteAsync(string content, string contentType = "text/plain") => Task.CompletedTask;
     public Task WriteJsonAsync(object value) => Task.CompletedTask;
-    public Task WriteStreamAsync(System.IO.Stream stream, string contentType, string? downloadFileName = null) => Task.CompletedTask;
+    public Task WriteStreamAsync(System.IO.Stream stream, string contentType, string downloadFileName = null) => Task.CompletedTask;
     public Task RedirectAsync(string location, bool permanent = false) => Task.CompletedTask;
   }
 

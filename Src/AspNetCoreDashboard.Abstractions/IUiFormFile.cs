@@ -10,7 +10,7 @@ namespace AspNetCoreDashboard.Abstractions
     string FileName { get; }
 
     /// <summary>声明的内容类型；未知时为 null。</summary>
-    string? ContentType { get; }
+    string ContentType { get; }
 
     /// <summary>打开上传流以供读取。</summary>
     Task<Stream> OpenReadStreamAsync();

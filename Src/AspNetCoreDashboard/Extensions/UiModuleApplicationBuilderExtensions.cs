@@ -36,10 +36,11 @@ namespace Microsoft.AspNetCore.Builder
       return app;
     }
 
+    /// <summary>挂载单个 UI 模块，可选 ASP.NET Core 授权策略。</summary>
     public static IApplicationBuilder UseUiModule(
         this IApplicationBuilder app,
         IUiModule module,
-        string? authorizationPolicy,
+        string authorizationPolicy,
         params IUiAuthorizationFilter[] authorizationFilters)
     {
       if (app == null) throw new ArgumentNullException(nameof(app));

@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace AspNetCoreDashboard.Abstractions
 {
-  /// <summary>嵌入式清单资源的内存缓存。</summary>
+  /// <summary>?????????????</summary>
   public static class EmbeddedResourceCache
   {
     private const int DefaultMaxEntries = 256;
@@ -21,22 +21,22 @@ namespace AspNetCoreDashboard.Abstractions
     private static long _maxBytes = DefaultMaxBytes;
     private static long _currentBytes;
 
-    /// <summary>缓存资源的最大条目数。默认值为 256。</summary>
+    /// <summary>??????????????? 256?</summary>
     public static int MaxEntries
     {
       get => _maxEntries;
       set => _maxEntries = value > 0 ? value : DefaultMaxEntries;
     }
 
-    /// <summary>缓存占用的最大总字节数。默认值为 32 MB。</summary>
+    /// <summary>???????????????? 32 MB?</summary>
     public static long MaxBytes
     {
       get => _maxBytes;
       set => _maxBytes = value > 0 ? value : DefaultMaxBytes;
     }
 
-    /// <summary>获取清单资源的缓存字节；资源不存在时返回 null。</summary>
-    public static byte[]? GetBytes(Assembly assembly, string resourceName)
+    /// <summary>???????????????????? null?</summary>
+    public static byte[] GetBytes(Assembly assembly, string resourceName)
     {
       if (assembly == null) throw new ArgumentNullException(nameof(assembly));
       if (string.IsNullOrEmpty(resourceName)) throw new ArgumentNullException(nameof(resourceName));
@@ -62,15 +62,15 @@ namespace AspNetCoreDashboard.Abstractions
       return bytes;
     }
 
-    /// <summary>为缓存资源打开内存流。</summary>
-    public static MemoryStream? OpenMemoryStream(Assembly assembly, string resourceName)
+    /// <summary>???????????</summary>
+    public static MemoryStream OpenMemoryStream(Assembly assembly, string resourceName)
     {
       var bytes = GetBytes(assembly, resourceName);
       return bytes == null ? null : new MemoryStream(bytes, writable: false);
     }
 
-    /// <summary>打开清单资源的读取流；大文件不进入缓存。</summary>
-    public static Stream? OpenReadStream(Assembly assembly, string resourceName)
+    /// <summary>????????????????????</summary>
+    public static Stream OpenReadStream(Assembly assembly, string resourceName)
     {
       if (assembly == null) throw new ArgumentNullException(nameof(assembly));
       if (string.IsNullOrEmpty(resourceName)) throw new ArgumentNullException(nameof(resourceName));
@@ -96,7 +96,7 @@ namespace AspNetCoreDashboard.Abstractions
       return stream;
     }
 
-    /// <summary>清空缓存。供测试使用。</summary>
+    /// <summary>???????????</summary>
     public static void Clear()
     {
       Cache.Clear();
@@ -116,7 +116,7 @@ namespace AspNetCoreDashboard.Abstractions
       }
     }
 
-    private static byte[]? ReadResourceBytes(Assembly assembly, string resourceName)
+    private static byte[] ReadResourceBytes(Assembly assembly, string resourceName)
     {
       var actualName = assembly.GetManifestResourceNames()
           .FirstOrDefault(name => name.Equals(resourceName, StringComparison.OrdinalIgnoreCase));

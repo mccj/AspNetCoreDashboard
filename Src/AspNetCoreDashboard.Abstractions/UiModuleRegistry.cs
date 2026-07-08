@@ -84,7 +84,7 @@ namespace AspNetCoreDashboard.Abstractions
     }
 
     /// <summary>获取为模块路径前缀配置的授权策略。</summary>
-    public string? GetAuthorizationPolicy(string pathPrefix)
+    public string GetAuthorizationPolicy(string pathPrefix)
     {
       var key = pathPrefix.TrimEnd('/');
       return _authorizationPolicyByPath.TryGetValue(key, out var policy) ? policy : null;

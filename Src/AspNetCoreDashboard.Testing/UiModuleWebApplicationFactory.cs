@@ -25,6 +25,7 @@ namespace AspNetCoreDashboard.Testing
       _configureModules = configureModules;
     }
 
+    /// <inheritdoc />
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
       if (_configureModules == null)

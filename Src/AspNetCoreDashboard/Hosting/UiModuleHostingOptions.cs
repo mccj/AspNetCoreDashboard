@@ -7,7 +7,7 @@ namespace AspNetCoreDashboard.Hosting
     public bool ApplySecurityHeaders { get; set; }
 
     /// <summary>启用安全响应头时可选的 Content-Security-Policy 值。</summary>
-    public string? ContentSecurityPolicy { get; set; }
+    public string ContentSecurityPolicy { get; set; }
 
     /// <summary>为模块流量写入简洁的请求日志。</summary>
     public bool EnableRequestLogging { get; set; }

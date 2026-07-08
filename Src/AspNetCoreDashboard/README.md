@@ -1,11 +1,11 @@
 # AspNetCoreDashboard
 
-ASP.NET Core **宿主包**，在 `net8.0` / `net9.0` 应用中挂载 `IUiModule`：嵌入静态文件、API 路由、SPA 回退、授权与健康检查。
+ASP.NET Core **宿主包**，在 `net8.0` / `net9.0` / `net10.0` 应用中挂载 `IUiModule`：嵌入静态文件、API 路由、SPA 回退、授权与健康检查。
 
 | 属性 | 值 |
 |------|-----|
 | NuGet | `AspNetCoreDashboard` |
-| TFM | `net8.0`、`net9.0` |
+| TFM | `net8.0`、`net9.0`、`net10.0` |
 | 依赖 | `AspNetCoreDashboard.Abstractions` |
 
 ## 功能概览

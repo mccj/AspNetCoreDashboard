@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Nullable>disable</Nullable>
     <Description>AspNetCoreDashboard 嵌入式 UI 模块的共享契约。</Description>
     <WarningsAsErrors>RS0026</WarningsAsErrors>
     <PackageProjectUrl>https://github.com/mccj/AspNetCoreDashboard</PackageProjectUrl>
@@ -11,8 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
-    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
     <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="all" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" />
     <PackageReference Include="System.Text.Json" />

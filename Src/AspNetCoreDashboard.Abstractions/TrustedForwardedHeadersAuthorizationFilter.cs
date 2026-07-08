@@ -49,7 +49,7 @@ namespace AspNetCoreDashboard.Abstractions
       return false;
     }
 
-    private string? ResolveClientIp(IUiContext context)
+    private string ResolveClientIp(IUiContext context)
     {
       var forwardedFor = context.GetRequestHeader("X-Forwarded-For");
       if (!string.IsNullOrEmpty(forwardedFor))
