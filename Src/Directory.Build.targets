@@ -1,4 +1,6 @@
 <Project>
+  <Import Project="$(MSBuildThisFileDirectory)..\Directory.Build.targets" Condition="Exists('$(MSBuildThisFileDirectory)..\Directory.Build.targets')" />
+
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

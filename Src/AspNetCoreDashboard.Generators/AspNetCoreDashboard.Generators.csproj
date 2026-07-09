@@ -4,6 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>AspNetCoreDashboard UI 模块作者的源生成器。</Description>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <DevelopmentDependency>true</DevelopmentDependency>
   </PropertyGroup>
@@ -13,9 +15,9 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
   </ItemGroup>
 
-  <Target Name="AddGeneratorToPackage" AfterTargets="Build" BeforeTargets="GenerateNuspec" Condition="'$(IsPackable)' == 'true'">
+  <Target Name="AddGeneratorToPackage" AfterTargets="Build" BeforeTargets="_GetPackageFiles">
     <ItemGroup>
-      <None Include="$(OutputPath)$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+      <None Include="$(TargetPath)" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
   </Target>
 

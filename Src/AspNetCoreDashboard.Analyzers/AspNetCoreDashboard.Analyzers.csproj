@@ -5,6 +5,8 @@
     <Description>AspNetCoreDashboard UI 模块作者的 Roslyn 分析器。</Description>
     <PackageTags>aspnetcore;dashboard;analyzer</PackageTags>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <DevelopmentDependency>true</DevelopmentDependency>
   </PropertyGroup>
@@ -20,9 +22,9 @@
     <AdditionalFiles Include="AnalyzerReleases.Shipped.md" />
   </ItemGroup>
 
-  <Target Name="AddAnalyzerToPackage" AfterTargets="Build" BeforeTargets="GenerateNuspec" Condition="'$(IsPackable)' == 'true'">
+  <Target Name="AddAnalyzerToPackage" AfterTargets="Build" BeforeTargets="_GetPackageFiles">
     <ItemGroup>
-      <None Include="$(OutputPath)$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+      <None Include="$(TargetPath)" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
   </Target>
 
