@@ -18,7 +18,7 @@
     <PackageVersion Include="Microsoft.Owin.Host.HttpListener" Version="4.2.3" />
     <PackageVersion Include="Microsoft.Owin.Hosting" Version="4.2.3" />
     <!-- Default for net8 / netstandard / net48. net9 -> 8.0.0 (no 9.x). net10 -> 10.0.300 in Directory.Build.props -->
-    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.301" />
     <PackageVersion Include="Owin" Version="1.0.0" />
     <PackageVersion Include="System.Composition" Version="8.0.0" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
