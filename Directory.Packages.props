@@ -20,7 +20,7 @@
     <!-- Default for net8 / netstandard / net48. net9 -> 8.0.0 (no 9.x). net10 -> 10.0.300 in Directory.Build.props -->
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <PackageVersion Include="Owin" Version="1.0.0" />
-    <PackageVersion Include="System.Composition" Version="8.0.0" />
+    <PackageVersion Include="System.Composition" Version="10.0.10" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
     <PackageVersion Include="System.Text.Json" Version="8.0.6" />
     <PackageVersion Include="Topshelf" Version="4.3.0" />
